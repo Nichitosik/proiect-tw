@@ -148,6 +148,7 @@
     <Content Include="assets\images\women-02.jpg" />
     <Content Include="assets\images\women-03.jpg" />
     <Content Include="assets\js\accordions.js" />
+    <Content Include="assets\js\addedscript.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\custom.js" />
     <Content Include="assets\js\datepicker.js" />
@@ -260,6 +261,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
