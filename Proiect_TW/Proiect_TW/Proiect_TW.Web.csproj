@@ -264,6 +264,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -310,7 +312,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Login\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Proiect_TW.BussinesLogic\Proiect_TW.BusinessLogic.csproj">
+      <Project>{0487d730-d806-424f-9584-441c4f5ec4e3}</Project>
+      <Name>Proiect_TW.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Proiect_TW.Domain\Proiect_TW.Domain.csproj">
+      <Project>{9ae04eeb-b502-40bf-8336-7252c09b94fa}</Project>
+      <Name>Proiect_TW.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

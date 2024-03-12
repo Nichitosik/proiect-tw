@@ -1,0 +1,6 @@
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Proiect_TW.Helpers.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Proiect_TW.Helpers.pdb
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\obj\Debug\Proiect_TW.Helpers.csproj.AssemblyReference.cache
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\obj\Debug\Proiect_TW.Helpers.csproj.CoreCompileInputs.cache
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\obj\Debug\Proiect_TW.Helpers.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\obj\Debug\Proiect_TW.Helpers.pdb
