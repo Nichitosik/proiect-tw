@@ -13,5 +13,21 @@ namespace Proiect_TW.Controllers
         {
             return View();
         }
+        public ActionResult About()
+        {
+            return View();
+        }
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult Products()
+        {
+            return View();
+        }
+        public ActionResult SingleProduct()
+        {
+            return View();
+        }
     }
 }

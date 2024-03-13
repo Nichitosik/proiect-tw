@@ -18,7 +18,8 @@ namespace Proiect_TW
                       "~/assets/css/font-awesome.css",
                       "~/assets/css/templatemo-hexashop.css",
                       "~/assets/css/owl-carousel.css",
-                      "~/assets/css/lightbox.css"));
+                      "~/assets/css/lightbox.css",
+                      "~/assets/css/about-page.css"));
 
             bundles.Add(new ScriptBundle("~/assets/js").Include(
               "~/assets/js/jquery-2.1.0.min.js",
