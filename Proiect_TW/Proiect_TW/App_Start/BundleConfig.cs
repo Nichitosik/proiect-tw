@@ -21,6 +21,9 @@ namespace Proiect_TW
                       "~/assets/css/lightbox.css",
                       "~/assets/css/about-page.css"));
 
+            bundles.Add(new StyleBundle("~/assets/css/_Layout_Blank")
+                .Include("~/assets/css/loginstyle.css"));
+
             bundles.Add(new ScriptBundle("~/assets/js").Include(
               "~/assets/js/jquery-2.1.0.min.js",
               "~/assets/js/popper.js",
