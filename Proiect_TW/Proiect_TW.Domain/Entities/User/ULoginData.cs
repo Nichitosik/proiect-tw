@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect_TW.BussinesLogic.Entities.User
+namespace Proiect_TW.BusinessLogic.Entities.User
 {
     public class ULoginData
     {

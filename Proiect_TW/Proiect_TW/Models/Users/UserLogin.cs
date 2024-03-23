@@ -1,4 +1,4 @@
-﻿namespace Proiect_TW.Controllers
+﻿namespace Proiect_TW.Web.Models.Users
 {
     public class UserLogin
     {

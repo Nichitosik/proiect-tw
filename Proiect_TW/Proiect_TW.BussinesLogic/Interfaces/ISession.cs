@@ -1,4 +1,4 @@
-﻿using Proiect_TW.BussinesLogic.Entities.User;
+﻿using Proiect_TW.BusinessLogic.Entities.User;
 using Proiect_TW.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 
-namespace Proiect_TW.BussinesLogic.Interfaces
+namespace Proiect_TW.BusinessLogic.Interfaces
 {
     public interface ISession
     {

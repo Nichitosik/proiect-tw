@@ -1,8 +1,14 @@
 ﻿@using System.Web.Optimization
 
 <head>
+    @Styles.Render("~/assets/images/_Layout_Blank")
+
     @Styles.Render("~/assets/css/_Layout_Blank")
 
     @RenderBody()
 </head>
+<body>
+        @Scripts.Render("~/assets/js/_Layout_Blank")
+
+</body>
 

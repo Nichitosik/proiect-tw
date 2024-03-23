@@ -193,9 +193,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\app.min.css" />
     <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\bootstrap2.min.css" />
     <Content Include="assets\css\flex-slider.css" />
     <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\icons.min.css" />
     <Content Include="assets\css\lightbox.css" />
     <Content Include="assets\css\loginstyle.css" />
     <Content Include="assets\css\owl-carousel.css" />
@@ -212,6 +215,7 @@
     <Content Include="assets\images\close.png" />
     <Content Include="assets\images\explore-image-01.jpg" />
     <Content Include="assets\images\explore-image-02.jpg" />
+    <Content Include="assets\images\favicon.ico" />
     <Content Include="assets\images\instagram-01.jpg" />
     <Content Include="assets\images\instagram-02.jpg" />
     <Content Include="assets\images\instagram-03.jpg" />
@@ -223,6 +227,7 @@
     <Content Include="assets\images\kid-03.jpg" />
     <Content Include="assets\images\left-banner-image.jpg" />
     <Content Include="assets\images\loading.gif" />
+    <Content Include="assets\images\logo-light.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\men-01.jpg" />
     <Content Include="assets\images\men-02.jpg" />
@@ -244,6 +249,7 @@
     <Content Include="assets\images\women-03.jpg" />
     <Content Include="assets\js\accordions.js" />
     <Content Include="assets\js\addedscript.js" />
+    <Content Include="assets\js\app.min.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\custom.js" />
     <Content Include="assets\js\datepicker.js" />
@@ -257,6 +263,7 @@
     <Content Include="assets\js\quantity.js" />
     <Content Include="assets\js\scrollreveal.min.js" />
     <Content Include="assets\js\slick.js" />
+    <Content Include="assets\js\vendor.min.js" />
     <Content Include="assets\js\waypoints.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -318,7 +325,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Controllers\fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -360,7 +367,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -384,11 +391,11 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Controllers\fonts\FontAwesome.otf" />
+    <Content Include="Controllers\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Controllers\fonts\fontawesome-webfont.woff" />
+    <Content Include="Controllers\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Controllers\fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
@@ -402,7 +409,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
     <Content Include="Views\Home\SingleProduct.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\LoginIndex.cshtml" />
     <Content Include="Views\Shared\_Layout_Blank.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -413,6 +420,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Enums\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Proiect_TW.BussinesLogic\Proiect_TW.BusinessLogic.csproj">

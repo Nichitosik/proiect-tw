@@ -22,7 +22,17 @@ namespace Proiect_TW
                       "~/assets/css/about-page.css"));
 
             bundles.Add(new StyleBundle("~/assets/css/_Layout_Blank")
-                .Include("~/assets/css/loginstyle.css"));
+                .Include("~/assets/css/bootstrap2.min.css",
+                         "~/assets/css/icons.min.css",
+                         "~/assets/css/app.min.css"));
+
+
+            bundles.Add(new StyleBundle("~/assets/js/_Layout_Blank")
+                .Include("~/assets/js/vendor.min.css",
+                         "~/assets/js/app.min.js"));
+
+            bundles.Add(new StyleBundle("~/assets/images/_Layout_Blank")
+                .Include("~/assets/images/favicon.ico"));
 
             bundles.Add(new ScriptBundle("~/assets/js").Include(
               "~/assets/js/jquery-2.1.0.min.js",

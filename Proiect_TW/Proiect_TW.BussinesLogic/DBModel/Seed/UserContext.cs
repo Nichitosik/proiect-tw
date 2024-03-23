@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect_TW.BusinessLogic.Core
+namespace Proiect_TW.BussinesLogic.DBModel.Seed
 {
-    public class UserAPI
-    {
-    }
+
+
 }

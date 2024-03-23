@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect_TW.Domain.Entities.User
+namespace Proiect_TW.Domain.Entities.User.DBModel
 {
-    public class UDbTable
+    internal class User
     {
         //Aceste 3 randuri sunt la fel pentru fiecare model
         [Key]
