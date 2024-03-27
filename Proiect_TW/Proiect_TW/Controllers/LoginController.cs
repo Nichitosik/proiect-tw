@@ -9,6 +9,9 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using AutoMapper;
+
 
 namespace Proiect_TW.Controllers
 {
@@ -22,38 +25,34 @@ namespace Proiect_TW.Controllers
             var bl = new BusinesLogic();
             _session = bl.GetSessionBL();
         }
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         // GET : Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserLogin data)
+        public ActionResult Login(UserLogin login)
         {
             if (ModelState.IsValid)
             {
-                ULoginData uData = new ULoginData
-                {
-                    Credential = data.Credential,
-                    Password = data.Password,
-                    LoginIp = Request.UserHostAddress,
-                    LoginDateTime = DateTime.Now
-                };
-                //ULoginResp resp = _session.UserLogin(uData);
+                var data = Mapper.Map<ULoginData>(login);
 
-                //if (resp.Status)
-                //{
-                //    //ADD COOKIE
+                data.LoginIp = Request.UserHostAddress;
+                data.LoginDateTime = DateTime.Now;
 
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", resp.StatusMsg);
-                //    return View();
-                //}
+               var userLogin = _session.UserLogin(data);
 
-                if (uData.Credential == "username" && uData.Password == "password")
+                if (userLogin.Status)
                 {
                     return RedirectToAction("Index", "Home");
 
+                }
+                else
+                {
+                    ModelState.AddModelError("", userLogin.StatusMsg);
+                    return View();
                 }
             }
             return View();
@@ -61,10 +60,7 @@ namespace Proiect_TW.Controllers
 
         // GET: Login
 
-        public ActionResult LoginIndex()
-        {
-            return View();
-        }
+
         //O sa adaug mai tarziu
         //public ActionResult LoginError()
         //{

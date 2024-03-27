@@ -14,7 +14,7 @@ namespace Proiect_TW.BusinessLogic
     {
         public ULoginResp UserLogin(ULoginData data)
         {
-            throw new NotImplementedException();
+            return UserLoginAction(data);
         }
     }
 }

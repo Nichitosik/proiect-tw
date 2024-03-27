@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Proiect_TW.Domain.Enums;
 
 namespace Proiect_TW.Domain.Entities.User
 {
@@ -37,6 +38,6 @@ namespace Proiect_TW.Domain.Entities.User
         [StringLength(30)]
         public string LasIp { get; set; }
 
-        //public URole Level { get; set; }
+        public URole Level { get; set; }
     }
 }

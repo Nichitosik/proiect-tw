@@ -22,14 +22,14 @@
                             <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p>
                         </div>
                     @Html.ValidationSummary(true)
-                    @using (Html.BeginForm("LoginIndex", "Login", FormMethod.Post, new { @id = "LoginForm" }))
+                    @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @id = "LoginForm" }))
                     {
                         @Html.AntiForgeryToken()
-                        <form action="/" id="loginForm" novalidate>
+                        <form action="/" id="loginForm" novalidate method="post">
 
                             <div class="form-group mb-3">
-                                @Html.LabelFor(m => m.Credential, new { @class = "control-label"})
-                                @Html.TextBoxFor(m => m.Credential, new
+                                @Html.LabelFor(m => m.Email, new { @class = "control-label"})
+                                @Html.TextBoxFor(m => m.Email, new
                            {
                                placeholder = "example@gmail.com",
                                title = "Please enter your username",
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="form-group mb-0 text-center">
-                                <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                                <button class="btn btn-primary btn-block" href="/Home/Index" type="submit"> Log In </button>
                             </div>
 
                         </form>

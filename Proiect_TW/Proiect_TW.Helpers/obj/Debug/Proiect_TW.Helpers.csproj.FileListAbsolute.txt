@@ -51,3 +51,5 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.Text.Json.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.ValueTuple.xml
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\AutoMapper.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\AutoMapper.xml

@@ -108,3 +108,5 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Text.E
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Text.Json.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.ValueTuple.xml
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\AutoMapper.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\AutoMapper.xml
