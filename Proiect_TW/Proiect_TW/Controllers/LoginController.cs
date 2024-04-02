@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
+using System.Web.Helpers;
 
 
 namespace Proiect_TW.Controllers
@@ -37,21 +38,27 @@ namespace Proiect_TW.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = Mapper.Map<ULoginData>(login);
+                ULoginData uData = new ULoginData
+                {
+                    Email = login.Email,
+                    Password = login.Password,
+                    LoginIp = Request.UserHostAddress,
+                    LoginDateTime = DateTime.Now
 
-                data.LoginIp = Request.UserHostAddress;
-                data.LoginDateTime = DateTime.Now;
+                };
 
-               var userLogin = _session.UserLogin(data);
 
-                if (userLogin.Status)
+
+               ULoginResp loginResp = _session.UserLogin(uData);
+
+                if (loginResp.Status)
                 {
                     return RedirectToAction("Index", "Home");
 
                 }
                 else
                 {
-                    ModelState.AddModelError("", userLogin.StatusMsg);
+                    ModelState.AddModelError("", loginResp.StatusMsg);
                     return View();
                 }
             }
