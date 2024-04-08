@@ -13,6 +13,7 @@ namespace Proiect_TW.BusinessLogic.Interfaces
     public interface ISession
     {
         ULoginResp UserLogin(ULoginData data);
+        URegisterResp UserRegister(URegisterData data);
 
         //HttpCookie GenCookie(string loginCredential);
         //UserMinimal GetUserByCookie(AspNetHostingPermission apiCookieValue);

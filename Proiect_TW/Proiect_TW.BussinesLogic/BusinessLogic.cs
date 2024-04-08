@@ -12,5 +12,4 @@ namespace Proiect_TW.BusinessLogic
             return new SessionBL();
         }
     }
-
 }

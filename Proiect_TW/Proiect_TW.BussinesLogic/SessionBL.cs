@@ -16,5 +16,9 @@ namespace Proiect_TW.BusinessLogic
         {
             return UserLoginAction(data);
         }
+        public URegisterResp UserRegister(URegisterData data)
+        {
+            return UserRegisterAction(data);
+        }
     }
 }
