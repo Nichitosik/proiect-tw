@@ -1,3 +1,5 @@
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.Web.csproj.AssemblyReference.cache
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.Web.csproj.CoreCompileInputs.cache
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.dll.config
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.pdb
@@ -41,6 +43,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Cod
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Extensions.Primitives.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Owin.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Web.XmlTransform.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Newtonsoft.Json.dll
@@ -57,6 +60,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\NuGet.Project
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\NuGet.Protocol.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\NuGet.Resolver.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\NuGet.Versioning.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Owin.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.BussinesLogic.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.Domain.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Buffers.dll
@@ -75,6 +79,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.We
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.WebPages.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.WebPages.Razor.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\WebGrease.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.Helpers.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.BussinesLogic.pdb
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.BussinesLogic.dll.config
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.Domain.pdb
@@ -88,6 +93,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Cod
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Extensions.FileSystemGlobbing.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Extensions.Primitives.xml
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Owin.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Microsoft.Web.XmlTransform.pdb
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Newtonsoft.Json.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Buffers.xml
@@ -105,8 +111,8 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.Ra
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.WebPages.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\System.Web.WebPages.Razor.xml
-C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.Web.csproj.AssemblyReference.cache
-C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.Web.csproj.CoreCompileInputs.cache
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.Helpers.pdb
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\bin\Proiect_TW.Helpers.dll.config
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.Web.csproj.CopyComplete
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW\obj\Debug\Proiect_TW.pdb

@@ -10,6 +10,7 @@ using System.Web.Optimization;
 using AutoMapper;
 using Proiect_TW.Web.Models.Users;
 using Proiect_TW.BusinessLogic.Entities.User;
+using Proiect_TW.Domain.Entities.User;
 
 namespace Proiect_TW
 {
@@ -29,9 +30,11 @@ namespace Proiect_TW
         protected static void InitializeAutoMapper()
         {
             Mapper.Initialize(cfg =>
-
-                cfg.CreateMap<UserLogin, ULoginData>()
-            );
+            {
+                cfg.CreateMap<UserLogin, ULoginData>();
+                cfg.CreateMap<UserRegister, URegisterData>();
+                cfg.CreateMap<UDbTable, UserMinimal>();
+            });
         }
     }
 }

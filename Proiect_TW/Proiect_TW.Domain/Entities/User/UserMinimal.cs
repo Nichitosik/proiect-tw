@@ -7,7 +7,7 @@ using Proiect_TW.Domain.Enums;
 
 namespace Proiect_TW.Domain.Entities.User
 {
-    internal class UserMinimal
+    public class UserMinimal
     {
         public int Id { get; set; }
         public string Username { get; set; }

@@ -15,7 +15,7 @@ namespace Proiect_TW.BusinessLogic.Interfaces
         ULoginResp UserLogin(ULoginData data);
         URegisterResp UserRegister(URegisterData data);
 
-        //HttpCookie GenCookie(string loginCredential);
-        //UserMinimal GetUserByCookie(AspNetHostingPermission apiCookieValue);
+        HttpCookie GenCookie(string loginEmail);
+        UserMinimal GetUserByCookie(string apiCookieValue);
     }
 }

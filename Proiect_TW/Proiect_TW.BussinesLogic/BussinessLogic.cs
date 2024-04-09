@@ -4,7 +4,7 @@ using Proiect_TW.BusinessLogic;
 
 namespace Proiect_TW.BusinessLogic
 {
-    public class BusinesLogic
+    public class BussinessLogic
     {
 
         public ISession GetSessionBL()

@@ -22,7 +22,7 @@ namespace Proiect_TW.Web.Controllers
         // GET: Register
         public RegisterController()
         {
-            var bl = new BusinesLogic();
+            var bl = new BussinessLogic();
             _session = bl.GetSessionBL();
         }
         public ActionResult Register()

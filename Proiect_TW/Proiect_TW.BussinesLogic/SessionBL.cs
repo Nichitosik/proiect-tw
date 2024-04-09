@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Proiect_TW.Domain.Entities.User;
 using Proiect_TW.BusinessLogic.Entities.User;
+using System.Web;
 
 namespace Proiect_TW.BusinessLogic
 {
@@ -19,6 +20,15 @@ namespace Proiect_TW.BusinessLogic
         public URegisterResp UserRegister(URegisterData data)
         {
             return UserRegisterAction(data);
+        }
+        public HttpCookie GenCookie(string loginEmail)
+        {
+            return Cookie(loginEmail);
+        }
+
+        public UserMinimal GetUserByCookie(string apiCookieValue)
+        {
+            return UserCookie(apiCookieValue);
         }
     }
 }

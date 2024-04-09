@@ -23,7 +23,7 @@ namespace Proiect_TW.Controllers
         // GET: Register
         public LoginController()
         {
-            var bl = new BusinesLogic();
+            var bl = new BussinessLogic();
             _session = bl.GetSessionBL();
         }
         public ActionResult Login()
@@ -53,6 +53,8 @@ namespace Proiect_TW.Controllers
 
                 if (loginResp.Status)
                 {
+                    HttpCookie cookie = _session.GenCookie(login.Email);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
                     return RedirectToAction("Index", "Home");
 
                 }
@@ -65,14 +67,7 @@ namespace Proiect_TW.Controllers
             return View();
         }
 
-        // GET: Login
 
-
-        //O sa adaug mai tarziu
-        //public ActionResult LoginError()
-        //{
-        //    return View();
-        //}
 
     }
 }

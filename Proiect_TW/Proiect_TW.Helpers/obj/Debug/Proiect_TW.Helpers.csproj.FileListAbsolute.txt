@@ -8,6 +8,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Extensions.FileProviders.Abstractions.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Owin.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Web.XmlTransform.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\NuGet.Commands.dll
@@ -23,6 +24,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\NuGet.Protocol.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\NuGet.Resolver.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\NuGet.Versioning.dll
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Owin.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.Buffers.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.Memory.dll
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.Numerics.Vectors.dll
@@ -38,6 +40,7 @@ C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Extensions.FileProviders.Abstractions.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Extensions.FileSystemGlobbing.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Owin.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Microsoft.Web.XmlTransform.pdb
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Cristian\Desktop\Proiect_TW_GIT\Proiect_TW\Proiect_TW.Helpers\bin\Debug\System.Buffers.xml

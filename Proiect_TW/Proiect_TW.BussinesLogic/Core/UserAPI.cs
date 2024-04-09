@@ -9,6 +9,10 @@ using System.ComponentModel.DataAnnotations;
 using Proiect_TW.BussinesLogic.DBModel.Seed;
 using Proiect_TW.Domain.Enums;
 using System.Data.Entity.Validation;
+using System.Data.Entity;
+using System.Web;
+using AutoMapper;
+using Proiect_TW.Helpers;
 
 namespace Proiect_TW.BusinessLogic.Core
 {
@@ -46,6 +50,7 @@ namespace Proiect_TW.BusinessLogic.Core
             var validate = new EmailAddressAttribute();
             if (validate.IsValid(data.Email))
             {
+                var pass = LoginHelper.HashGen(data.Password);
                 using (var db = new UserContext())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == data.Email);
@@ -59,70 +64,97 @@ namespace Proiect_TW.BusinessLogic.Core
                     Email = data.Email,
                     Username = data.Username,
                     Password = data.Password,
-                    LastIp = "0.0.0.1",
+                    LastIp = "194.1.20",
                     LastLogin = DateTime.Now,
                     Level = 0
                 };
-                //try
-                //{
-                    using (var todo = new UserContext())
+                using (var todo = new UserContext())
                     {
-                        todo.Users.Add(newUser);
-                        todo.SaveChanges();
-                    }
-                    return new URegisterResp { Status = true };
-                //}
-                //catch (DbEntityValidationException ex)
-                //{
-                //    foreach (var validationErrors in ex.EntityValidationErrors)
-                //    {
-                //        foreach (var validationError in validationErrors.ValidationErrors)
-                //        {
-                //            Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
-                //        }
-                //    }
-                //    // Handle the validation errors appropriately
-                //    return new URegisterResp { Status = false, StatusMsg = "Validation failed for one or more entities" };
-                //}
+                    todo.Users.Add(newUser);
+                    todo.SaveChanges();
+                }
+                return new URegisterResp { Status = true };
+                
             }
             else
             {
                 return new URegisterResp { Status = false, StatusMsg = "Email is not valid" };
             }
         }
+        internal HttpCookie Cookie(string loginEmail)
+        {
+            var apiCookie = new HttpCookie("X-KEY")
+            {
+                Value = CookieGenerator.Create(loginEmail)
+            };
 
-    //    internal URegisterResp UserRegisterAction(URegisterData data)
-    //    {
-    //        UDbTable user;
-    //        var validate = new EmailAddressAttribute();
-    //        if (validate.IsValid(data.Email))
-    //        {
-    //            using (var db = new UserContext())
-    //            {
-    //                user = db.Users.FirstOrDefault(u => u.Email == data.Email);
-    //            }
-    //            if (user != null)
-    //            {
-    //                return new URegisterResp { Status = false, StatusMsg = "This user already exists" };
-    //            }
-    //            var newUser = new UDbTable()
-    //            {
-    //                Email = data.Email,
-    //                Username = data.Username,
-    //                Password = data.Password,
-    //                LastIp = data.LoginIp,
-    //                LastLogin = data.LoginDateTime,
-    //            };
-    //            using (var todo = new UserContext())
-    //            {
-    //                todo.Users.Add(newUser);
-    //                todo.SaveChanges();
-    //            }
-    //            return new URegisterResp { Status = true };
+            using (var db = new SessionContext())
+            {
+                Session curent;
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(loginEmail))
+                {
+                    curent = (from e in db.Sessions where e.Username == loginEmail select e).FirstOrDefault();
+                }
+                else
+                {
+                    curent = (from e in db.Sessions where e.Username == loginEmail select e).FirstOrDefault();
+                }
 
-    //        }
-    //        else
-    //            return new URegisterResp { Status = false, StatusMsg = "Email is not valid" };
-    //    }
+                if (curent != null)
+                {
+                    curent.CookieString = apiCookie.Value;
+                    curent.ExpireTime = DateTime.Now.AddMinutes(1);
+                    using (var todo = new SessionContext())
+                    {
+                        todo.Entry(curent).State = EntityState.Modified;
+                        todo.SaveChanges();
+                    }
+                }
+                else
+                {
+                    db.Sessions.Add(new Session
+                    {
+                        Username = loginEmail,
+                        CookieString = apiCookie.Value,
+                        ExpireTime = DateTime.Now.AddMinutes(1)
+                    });
+                    db.SaveChanges();
+                }
+            }
+
+            return apiCookie;
+        }
+        public UserMinimal UserCookie(string cookie)
+        {
+            Session session;
+            UDbTable curentUser;
+
+            using (var db = new SessionContext())
+            {
+                session = db.Sessions.FirstOrDefault(s => s.CookieString == cookie && s.ExpireTime > DateTime.Now);
+            }
+
+            if (session == null) return null;
+            using (var db = new UserContext())
+            {
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(session.Username))
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.Username);
+                }
+                else
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Username == session.Username);
+                }
+            }
+
+            if (curentUser == null) return null;
+            //Mapper.Initialize(cfg => cfg.CreateMap<UDbTable, UserMinimal>());
+            var userminimal = Mapper.Map<UserMinimal>(curentUser);
+
+            return userminimal;
+        }
+
     }
 }
