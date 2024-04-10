@@ -40,7 +40,8 @@ namespace Proiect_TW.Web.Controllers
                 {
                     Username = register.Username,
                     Password = register.Password,
-                    Email = register.Email
+                    Email = register.Email,
+                    Age = register.Age
                 };
 
 

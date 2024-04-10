@@ -50,6 +50,10 @@ namespace Proiect_TW.BusinessLogic.Core
             var validate = new EmailAddressAttribute();
             if (validate.IsValid(data.Email))
             {
+                if (data.Age < 0 || data.Age > 120)
+                {
+                    return new URegisterResp { Status = false, StatusMsg = "The age is not valid" };
+                }
                 var pass = LoginHelper.HashGen(data.Password);
                 using (var db = new UserContext())
                 {
@@ -64,6 +68,7 @@ namespace Proiect_TW.BusinessLogic.Core
                     Email = data.Email,
                     Username = data.Username,
                     Password = data.Password,
+                    Age = data.Age,
                     LastIp = "194.1.20",
                     LastLogin = DateTime.Now,
                     Level = 0
@@ -104,7 +109,7 @@ namespace Proiect_TW.BusinessLogic.Core
                 if (curent != null)
                 {
                     curent.CookieString = apiCookie.Value;
-                    curent.ExpireTime = DateTime.Now.AddMinutes(1);
+                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
                     using (var todo = new SessionContext())
                     {
                         todo.Entry(curent).State = EntityState.Modified;
@@ -117,7 +122,7 @@ namespace Proiect_TW.BusinessLogic.Core
                     {
                         Username = loginEmail,
                         CookieString = apiCookie.Value,
-                        ExpireTime = DateTime.Now.AddMinutes(1)
+                        ExpireTime = DateTime.Now.AddMinutes(60)
                     });
                     db.SaveChanges();
                 }

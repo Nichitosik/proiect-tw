@@ -11,6 +11,8 @@ using AutoMapper;
 using Proiect_TW.Web.Models.Users;
 using Proiect_TW.BusinessLogic.Entities.User;
 using Proiect_TW.Domain.Entities.User;
+using System.Data.Entity;
+using Proiect_TW.BussinesLogic.DBModel.Seed;
 
 namespace Proiect_TW
 {
@@ -25,6 +27,7 @@ namespace Proiect_TW
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             InitializeAutoMapper();
+
 
         }
         protected static void InitializeAutoMapper()

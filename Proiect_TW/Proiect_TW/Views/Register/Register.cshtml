@@ -56,9 +56,20 @@
                                     @Html.TextBoxFor(m => m.Password, new
                                {
                                    placeholder = "Password",
-                                   title = "Please enter your username",
+                                   title = "Please enter your password",
                                    value = "",
                                    name = "password",
+                                   @class = "form-control"
+                               })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Age, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.Age, new
+                               {
+                                   placeholder = "Age",
+                                   title = "Please enter your age",
+                                   value = "",
+                                   name = "Age",
                                    @class = "form-control"
                                })
                                 </div>
@@ -98,7 +109,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12 text-center">
-                        <p class="text-muted">Already have account?  <a href="pages-login.html" class="text-muted font-weight-medium ml-1">Sign In</a></p>
+                        <p class="text-muted">Already have account?  <a href="/Login/Login" class="text-muted font-weight-medium ml-1">Sign In</a></p>
                     </div> <!-- end col -->
                 </div>
                 <!-- end row -->

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Proiect_TW.Domain.Enums;
 
 namespace Proiect_TW.Domain.Entities.User.DBModel
 {
@@ -30,6 +31,10 @@ namespace Proiect_TW.Domain.Entities.User.DBModel
         [StringLength(30)]
         public string Email { get; set; }
 
+        [Required]
+        [Display(Name = "Age")]
+        public int Age { get; set; }
+
         [DataType(DataType.Date)]
 
         public DateTime LastLogin { get; set; }
@@ -37,6 +42,6 @@ namespace Proiect_TW.Domain.Entities.User.DBModel
         [StringLength(30)]
         public string LasIp { get; set; }
 
-        //public URole Level { get; set; }
+        public URole Level { get; set; }
     }
 }

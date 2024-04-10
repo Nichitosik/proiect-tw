@@ -31,6 +31,10 @@ namespace Proiect_TW.Domain.Entities.User
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Password cannot be shorter than 8 characters.")]
         public string Password { get; set; }
 
+        [Required]
+        [Display(Name = "Age")]
+        public int Age { get; set; }
+
         [DataType(DataType.Date)]
 
         public DateTime LastLogin { get; set; }
