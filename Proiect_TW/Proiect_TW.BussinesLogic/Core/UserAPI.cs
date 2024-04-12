@@ -14,6 +14,7 @@ using System.Web;
 using AutoMapper;
 using Proiect_TW.Helpers;
 
+
 namespace Proiect_TW.BusinessLogic.Core
 {
     public class UserAPI
@@ -38,7 +39,7 @@ namespace Proiect_TW.BusinessLogic.Core
                     result.LastLogin = data.LoginDateTime;
                     todo.SaveChanges();
                 }
-                return new ULoginResp { Status = true };
+                return new ULoginResp { User = result, Status = true };
 
             }
             else
@@ -71,7 +72,7 @@ namespace Proiect_TW.BusinessLogic.Core
                     Age = data.Age,
                     LastIp = "194.1.20",
                     LastLogin = DateTime.Now,
-                    Level = 0
+                    Level = URole.User
                 };
                 using (var todo = new UserContext())
                     {

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Proiect_TW.Web.Controllers;
+using Proiect_TW.BussinesLogic.DBModel.Seed;
+using Proiect_TW.Domain.Entities.User;
+using System.Linq;
 
 namespace Proiect_TW.Controllers
 {
@@ -15,6 +18,10 @@ namespace Proiect_TW.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
+
+            //string userStatus = (string)System.Web.HttpContext.Current.Session["LoginStatus"];
+            //string email = (string)System.Web.HttpContext.Current.Session["Email"];
+
             return View();
         }
         public ActionResult About()

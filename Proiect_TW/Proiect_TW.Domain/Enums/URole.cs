@@ -8,8 +8,8 @@ namespace Proiect_TW.Domain.Enums
 {
     public enum URole
     {
-        User = 0,
-        Moderator = 1,
+        Guest = 0,
+        User = 1,
         Admin = 2
     }
 }

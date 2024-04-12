@@ -12,11 +12,13 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
 using System.Web.Helpers;
+using Proiect_TW.Web.Controllers;
+using Proiect_TW.Domain.Enums;
 
 
 namespace Proiect_TW.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
 
         private readonly ISession _session;
@@ -55,8 +57,19 @@ namespace Proiect_TW.Controllers
                 {
                     HttpCookie cookie = _session.GenCookie(login.Email);
                     ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                    if(loginResp.User == null)
+                    {
+                        TempData["UserLevel"] = null;
+                    }
+                    else if (loginResp.User.Level == URole.User)
+                    {
+                        TempData["UserLevel"] = "User";
+                    }
+                    else if (loginResp.User.Level == URole.Admin)
+                    {
+                        TempData["UserLevel"] = "Admin";
+                    }
                     return RedirectToAction("Index", "Home");
-
                 }
                 else
                 {

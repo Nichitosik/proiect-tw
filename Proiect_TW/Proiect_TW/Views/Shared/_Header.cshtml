@@ -1,6 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "_Header";
+    var userLevel = TempData["UserLevel"] as string;
 }
 
 <!-- ***** Preloader Start ***** -->
@@ -19,7 +19,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="@Url.Action("Index/", "Home")" class="logo">
+                    <a href="@Url.Action("Index", "Home")" class="logo">
                         <img src="/assets/images/logo.png" height="70">
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -48,9 +48,22 @@
                             </ul>
                         </li>
                         <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#explore">Explore</a></li>
-                        <li><a href="@Url.Action("Login", "Login")"> Login </a></li>
-                        <li><a href="@Url.Action("AddProduct", "Admin")"> AddProduct </a></li>
+                        @{
+                            if (userLevel == null)
+                            {
+                                <li><a href="@Url.Action("Login", "Login")"> Login </a></li>
+                            }
+                            else if (userLevel == "User")
+                            {
+                                <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
+                            }
+                            else if (userLevel == "Admin")
+                            {
+                                <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
+                                <li><a href="@Url.Action("AddProduct", "Admin")"> AddProduct </a></li>
 
+                            }
+                        }
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
