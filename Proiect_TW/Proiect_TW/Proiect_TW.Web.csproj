@@ -218,6 +218,10 @@
     <Content Include="assets\fonts\slick.svg" />
     <Content Include="assets\images\about-left-image.jpg" />
     <Content Include="assets\images\about-us-page-heading.jpg" />
+    <Content Include="assets\images\accessories-02.jpg" />
+    <Content Include="assets\images\accessories-03.jpg" />
+    <Content Include="assets\images\accessories-01.jpg" />
+    <Content Include="assets\images\accessories-04.jpg" />
     <Content Include="assets\images\baner-right-image-01.jpg" />
     <Content Include="assets\images\baner-right-image-02.jpg" />
     <Content Include="assets\images\baner-right-image-03.jpg" />

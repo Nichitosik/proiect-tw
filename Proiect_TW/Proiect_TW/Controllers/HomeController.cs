@@ -5,21 +5,25 @@ using Proiect_TW.Web.Controllers;
 using Proiect_TW.BussinesLogic.DBModel.Seed;
 using Proiect_TW.Domain.Entities.User;
 using System.Linq;
+using Proiect_TW.BusinessLogic;
+using Proiect_TW.BusinessLogic.Interfaces;
+
 
 namespace Proiect_TW.Controllers
 {
     public class HomeController : BaseController
     {
+
         // GET: Home
         public ActionResult Index()
         {
             SessionStatus();
-            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            
+            string userStatus = (string)System.Web.HttpContext.Current.Session["LoginStatus"];
+            if (userStatus != "login")
             {
-                return RedirectToAction("Login", "Login");
+                TempData["UserLevel"] = null;
             }
-
-            //string userStatus = (string)System.Web.HttpContext.Current.Session["LoginStatus"];
             //string email = (string)System.Web.HttpContext.Current.Session["Email"];
 
             return View();
