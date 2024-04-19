@@ -1810,12 +1810,12 @@ Products Page
   overflow: hidden;
 }
 
-#products .item .down-content {
-  padding-top: 20px;
-  position: relative;
-  z-index: 3;
-  background-color: #fff;
-}
+    #products .item .down-content {
+        padding-top: 20px;
+        position: relative;
+        z-index: 3;
+        background-color: #e3d5bb;
+    }
 
 #products .item .down-content h4 {
   font-size: 22px;

@@ -153,7 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\User\DBModel\PImagesTable.cs" />
     <Compile Include="Entities\User\DBModel\User.cs" />
+    <Compile Include="Entities\User\URecoverPasswordResp.cs" />
+    <Compile Include="Entities\User\URecoverPasswordData.cs" />
     <Compile Include="Entities\User\Session.cs" />
     <Compile Include="Entities\User\UDbTable.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />

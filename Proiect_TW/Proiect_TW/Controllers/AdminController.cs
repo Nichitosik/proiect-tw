@@ -15,7 +15,7 @@ namespace Proiect_TW.Controllers
         {
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Login");
             }
             return View();
         }

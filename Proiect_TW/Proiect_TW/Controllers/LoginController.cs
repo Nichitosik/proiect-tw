@@ -14,9 +14,11 @@ using AutoMapper;
 using System.Web.Helpers;
 using Proiect_TW.Web.Controllers;
 using Proiect_TW.Domain.Enums;
+using Proiect_TW.BussinesLogic.DBModel.Seed;
+using System.ComponentModel.DataAnnotations;
 
 
-namespace Proiect_TW.Controllers
+namespace Proiect_TW.Web.Controllers
 {
     public class LoginController : BaseController
     {
@@ -29,6 +31,14 @@ namespace Proiect_TW.Controllers
             _session = bl.GetSessionBL();
         }
         public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult Register()
+        {
+            return View();
+        }
+        public ActionResult RecoverPassword()
         {
             return View();
         }
@@ -49,31 +59,81 @@ namespace Proiect_TW.Controllers
 
                 };
 
-
-
-               ULoginResp loginResp = _session.UserLogin(uData);
+                
+                    ULoginResp loginResp = _session.UserLogin(uData);
 
                 if (loginResp.Status)
                 {
                     HttpCookie cookie = _session.GenCookie(login.Email);
                     ControllerContext.HttpContext.Response.Cookies.Add(cookie);
-                    if(loginResp.User == null)
-                    {
-                        TempData["UserLevel"] = null;
-                    }
-                    else if (loginResp.User.Level == URole.User)
-                    {
-                        TempData["UserLevel"] = "User";
-                    }
-                    else if (loginResp.User.Level == URole.Admin)
-                    {
-                        TempData["UserLevel"] = "Admin";
-                    }
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", loginResp.StatusMsg);
+                    return View();
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(UserRegister register)
+        {
+            if (ModelState.IsValid)
+            {
+                URegisterData uData = new URegisterData
+                {
+                    Username = register.Username,
+                    Password = register.Password,
+                    Email = register.Email,
+                    Age = register.Age
+                };
+
+
+
+                URegisterResp registerResp = _session.UserRegister(uData);
+
+                if (registerResp.Status)
+                {
+                    return RedirectToAction("Login", "Login");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", registerResp.StatusMsg);
+                    return View();
+                }
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RecoverPassword(UserRecoverPassword data)
+        {
+            if (ModelState.IsValid)
+            {
+                URecoverPasswordData uData = new URecoverPasswordData
+                {
+                    Email = data.Email,
+                    Username = data.Username,
+                    Password = data.Password,
+                    RepeatPassword = data.RepeatPassword,
+                    RecoverPasswordIp = "192.23.4",
+                    RecoverDateTime = DateTime.Now
+                };
+                URecoverPasswordResp recoverPasswordResp = _session.UserRecoverPassword(uData);
+                if (recoverPasswordResp.Status)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", recoverPasswordResp.StatusMsg);
                     return View();
                 }
             }

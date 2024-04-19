@@ -20,6 +20,7 @@ namespace Proiect_TW.Web.Controllers
         }
         public void SessionStatus()
         {
+
             var apiCookie = Request.Cookies["X-KEY"];
             if (apiCookie != null)
             {

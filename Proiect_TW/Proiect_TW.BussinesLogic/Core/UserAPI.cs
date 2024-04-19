@@ -25,9 +25,10 @@ namespace Proiect_TW.BusinessLogic.Core
             var validate = new EmailAddressAttribute();
             if(validate.IsValid(data.Email))
             {
+                var pass = LoginHelper.HashGen(data.Password);
                 using (var db = new UserContext())
                 {
-                    result = db.Users.FirstOrDefault(u => u.Email == data.Email && u.Password == data.Password);
+                    result = db.Users.FirstOrDefault(u => u.Email == data.Email && u.Password == pass);
                 }
                 if (result == null)
                 {
@@ -39,7 +40,7 @@ namespace Proiect_TW.BusinessLogic.Core
                     result.LastLogin = data.LoginDateTime;
                     todo.SaveChanges();
                 }
-                return new ULoginResp { User = result, Status = true };
+                return new ULoginResp { Status = true };
 
             }
             else
@@ -68,7 +69,7 @@ namespace Proiect_TW.BusinessLogic.Core
                 {
                     Email = data.Email,
                     Username = data.Username,
-                    Password = data.Password,
+                    Password = pass,
                     Age = data.Age,
                     LastIp = "194.1.20",
                     LastLogin = DateTime.Now,
@@ -87,6 +88,52 @@ namespace Proiect_TW.BusinessLogic.Core
                 return new URegisterResp { Status = false, StatusMsg = "Email is not valid" };
             }
         }
+        internal URecoverPasswordResp UserRecoverPasswordAction(URecoverPasswordData data)
+        {
+            UDbTable user;
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.Email))
+            {
+                var pass = LoginHelper.HashGen(data.Password);
+                using (var db = new UserContext())
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            user = db.Users.FirstOrDefault(u => (u.Email == data.Email) && (u.Username == data.Username));
+
+                            if (user == null)
+                            {
+                                return new URecoverPasswordResp { Status = false, StatusMsg = "Invalid Email or Username" };
+                            }
+
+                            if (data.Password == data.RepeatPassword)
+                            {
+                                user.Password = pass;
+                                user.LastIp = data.RecoverPasswordIp;
+                                user.LastLogin = data.RecoverDateTime;
+                                db.SaveChanges();
+                            }
+                            transaction.Commit();
+
+                            return new URecoverPasswordResp { Status = true };
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+
+                            return new URecoverPasswordResp { Status = false, StatusMsg = "An error occurred while updating the password." };
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return new URecoverPasswordResp { Status = false, StatusMsg = "Email is not valid" };
+            }
+        }
+
         internal HttpCookie Cookie(string loginEmail)
         {
             var apiCookie = new HttpCookie("X-KEY")
@@ -156,7 +203,6 @@ namespace Proiect_TW.BusinessLogic.Core
             }
 
             if (curentUser == null) return null;
-            //Mapper.Initialize(cfg => cfg.CreateMap<UDbTable, UserMinimal>());
             var userminimal = Mapper.Map<UserMinimal>(curentUser);
 
             return userminimal;

@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "_Header";
-    var userLevel = TempData["UserLevel"] as string;
+    var user = ViewBag.User;
 }
 
 <!-- ***** Preloader Start ***** -->
@@ -25,32 +25,39 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Navigation Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#top" class="active">Home</a></li>
-                        <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#men">Men's</a></li>
-                        <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#women">Women's</a></li>
-                        <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#kids">Kid's</a></li>
-                        <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#accessories">Accessories</a></li>
-
                         <li class="submenu">
-                            <a href="javascript:;">Pages</a>
+                            <a href="@Url.Action("Index", "Home")#top">Home</a>
                             <ul>
-                                <li><a href="@Url.Action("About", "Home")">About Us</a></li>
-                                <li><a href="@Url.Action("Products", "Home")">Products</a></li>
-                                <li><a href="@Url.Action("SingleProduct", "Home")">Single Product</a></li>
-                                <li><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#men">Men's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#women">Women's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#kids">Kid's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#accessories">Accessories</a></li>
                             </ul>
                         </li>
+
+                        <li class="submenu">
+                            <a href="@Url.Action("Products", "Products")">Products</a>
+                            <ul>
+                                <li><a href="@Url.Action("Men", "Products")">Men's</a></li>
+                                <li><a href="@Url.Action("Women", "Products")">Women's</a></li>
+                                <li><a href="@Url.Action("Kids", "Products")">Kid's</a></li>
+                                <li><a href="@Url.Action("Accessories", "Products")">Accessories</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                        <li><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
+
                         <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#explore">Explore</a></li>
                         @{
-                            if (userLevel == null)
+                            if (user == null)
                             {
                                 <li><a href="@Url.Action("Login", "Login")"> Login </a></li>
                             }
-                            else if (userLevel == "User")
+                            else if ((int)user.Level == 1)
                             {
                                 <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
                             }
-                            else if (userLevel == "Admin")
+                            else if ((int)user.Level == 2)
                             {
                                 <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
                                 <li><a href="@Url.Action("AddProduct", "Admin")"> AddProduct </a></li>

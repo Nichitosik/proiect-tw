@@ -21,6 +21,10 @@ namespace Proiect_TW.BusinessLogic
         {
             return UserRegisterAction(data);
         }
+        public URecoverPasswordResp UserRecoverPassword(URecoverPasswordData data)
+        {
+            return UserRecoverPasswordAction(data);
+        }
         public HttpCookie GenCookie(string loginEmail)
         {
             return Cookie(loginEmail);

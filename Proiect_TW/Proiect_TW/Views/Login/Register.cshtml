@@ -22,12 +22,12 @@
                             <p class="text-muted mb-4 mt-3">Don't have an account? Create your own account, it takes less than a minute</p>
                         </div>
                         @Html.ValidationSummary(true)
-                        @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { @id = "RegisterForm" }))
+                        @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @id = "RegisterForm" }))
                         {
                             @Html.AntiForgeryToken()
 
 
-                            <form action="#">
+                            <form  action="/" id="RegisterForm" novalidate method="post">
 
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Email, new { @class = "control-label" })
@@ -109,7 +109,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12 text-center">
-                        <p class="text-muted">Already have account?  <a href="/Login/Login" class="text-muted font-weight-medium ml-1">Sign In</a></p>
+                        <p class="text-muted">Already have account?  <a href="@Url.Action("Login", "Login")" class="text-muted font-weight-medium ml-1">Sign In</a></p>
                     </div> <!-- end col -->
                 </div>
                 <!-- end row -->

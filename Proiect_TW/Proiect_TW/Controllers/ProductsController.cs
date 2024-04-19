@@ -1,21 +1,16 @@
-﻿using Proiect_TW.Extension;
+﻿using Proiect_TW.BusinessLogic;
+using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using Proiect_TW.Web.Controllers;
-using Proiect_TW.BussinesLogic.DBModel.Seed;
-using Proiect_TW.Domain.Entities.User;
 using System.Linq;
-using Proiect_TW.BusinessLogic;
 using Proiect_TW.BusinessLogic.Interfaces;
-using Proiect_TW.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
-
+using System.Web;
+using System.Web.Mvc;
 namespace Proiect_TW.Web.Controllers
 {
-    public class HomeController : BaseController
+    public class ProductsController : BaseController
     {
         private readonly ISession _session;
-        public HomeController()
+        public ProductsController()
         {
             var bl = new BussinessLogic();
             _session = bl.GetSessionBL();
@@ -36,32 +31,31 @@ namespace Proiect_TW.Web.Controllers
                 ViewBag.User = null;
             }
         }
-        // GET: Home
-        public ActionResult Index()
-        {
-            GetUser();
-            return View();
-        }
-        public ActionResult About()
-        {
-            GetUser();
-            return View();
-        }
-        public ActionResult Contact()
-        {
-            GetUser();
-            return View();
-        }
+        // GET: Products
         public ActionResult Products()
         {
             GetUser();
             return View();
         }
-        public ActionResult SingleProduct()
+        public ActionResult Men()
         {
             GetUser();
             return View();
         }
-
+        public ActionResult Women()
+        {
+            GetUser();
+            return View();
+        }
+        public ActionResult Kids()
+        {
+            GetUser();
+            return View();
+        }
+        public ActionResult Accessories()
+        {
+            GetUser();
+            return View();
+        }
     }
 }

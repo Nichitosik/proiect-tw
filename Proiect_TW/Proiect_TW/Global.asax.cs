@@ -36,6 +36,7 @@ namespace Proiect_TW
             {
                 cfg.CreateMap<UserLogin, ULoginData>();
                 cfg.CreateMap<UserRegister, URegisterData>();
+                cfg.CreateMap<UserRecoverPassword, URecoverPasswordData>();
                 cfg.CreateMap<UDbTable, UserMinimal>();
             });
         }
