@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "_Header_Admin";
+}
+<header id="topnav">
+        <div class="container-fluid">
+            <div id="navigation">
+                <!-- Navigation Menu-->
+                <ul class="navigation-menu">
+
+                    <li class="has-submenu">
+                        <a href="#">
+                            Admin<div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="@Url.Action("AddProduct", "Admin")">Add Product</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Statistics", "Admin")">Statistics</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Users", "Admin")">Users</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Products", "Admin")">Products</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="@Url.Action("Index", "Home")">
+                            Home <div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="@Url.Action("Index", "Home")#men">Men's</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")#women">Women's</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")#kids">Kid's</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")#accessories">Accessories</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")#explore">Explore</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#">
+                            Products<div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="@Url.Action("Products", "Products")">Men's</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Products", "Products")">Women's</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Products", "Products")">Kid's</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Products", "Products")">Accesories</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#">
+                            Pages<div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="@Url.Action("About", "Home")">About Us</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#">
+                            Account<div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="@Url.Action("Login", "Login")">Login</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Register", "Login")">Register</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("RecoverPassword", "Login")">Recover Password</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- End navigation menu -->
+
+                <div class="clearfix"></div>
+            </div>
+            <!-- end #navigation -->
+        </div>
+        <!-- end container -->
+
+</header>
+<!-- End Navigation Bar-->

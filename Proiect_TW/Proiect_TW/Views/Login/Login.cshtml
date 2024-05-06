@@ -1,7 +1,7 @@
 ﻿@using System.Web.Optimization;
 ﻿@{
     Layout = "~/Views/Shared/_Layout_Blank.cshtml";
-    ViewBag.Title = "LoginIndex";
+    ViewBag.Title = "Login";
 
 }
 
@@ -16,10 +16,9 @@
                     <div class="card-body p-4">
 
                         <div class="text-center w-75 m-auto">
-                            <a href="index.html">
-                                <span><img src="/assets/images/logo-light.png" alt="" height="22"></span>
+                            <a href="@Url.Action("Index", "Home")">
+                                <span><img src="/assets/images/logo-light.png" height="22"></span>
                             </a>
-                            <a href="~/Views/Login/Login.cshtml">~/Views/Login/Login.cshtml</a>
                             <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p>
                         </div>
                     @Html.ValidationSummary(true)

@@ -36,12 +36,12 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="@Url.Action("Products", "Products")">Products</a>
+                            <a>Products</a>
                             <ul>
-                                <li><a href="@Url.Action("Men", "Products")">Men's</a></li>
-                                <li><a href="@Url.Action("Women", "Products")">Women's</a></li>
-                                <li><a href="@Url.Action("Kids", "Products")">Kid's</a></li>
-                                <li><a href="@Url.Action("Accessories", "Products")">Accessories</a></li>
+                                <li><a href="@Url.Action("Products", "Products")">Men's</a></li>
+                                <li><a href="@Url.Action("Products", "Products")">Women's</a></li>
+                                <li><a href="@Url.Action("Products", "Products")">Kid's</a></li>
+                                <li><a href="@Url.Action("Products", "Products")">Accessories</a></li>
                             </ul>
                         </li>
                         <li><a href="@Url.Action("About", "Home")">About Us</a></li>
@@ -60,7 +60,15 @@
                             else if ((int)user.Level == 2)
                             {
                                 <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
-                                <li><a href="@Url.Action("AddProduct", "Admin")"> AddProduct </a></li>
+                                <li class="submenu">
+                                    <a>Admin</a>
+                                    <ul>
+                                        <li><a href="@Url.Action("AddProduct", "Admin")">Add Product</a></li>
+                                        <li><a href="@Url.Action("Statistics", "Admin")">Statistics</a></li>
+                                        <li><a href="@Url.Action("Users", "Admin")">Users</a></li>
+                                        <li><a href="@Url.Action("Products", "Admin")">Products</a></li>
+                                    </ul>
+                                </li>
 
                             }
                         }

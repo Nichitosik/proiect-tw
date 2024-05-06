@@ -1,0 +1,82 @@
+﻿body {
+    margin-top: 90px;
+    background: #191E21;
+}
+
+.card {
+    margin-top: 20px;
+    margin-left: 170px;
+    margin-right: 170px;
+    background-color: #191E21;
+}
+
+.card-header {
+    background-color: #e3d5bb;
+    border-bottom: 0;
+    border: 1px solid #e3d5bb;
+}
+.card-body {
+    background-color: #191E21;
+    border: 2px solid #e3d5bb;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e3d5bb !important;
+}
+
+.form-control {
+    border-radius: 0;
+    background-color: #2a2a2a;
+    border: 1px solid #e3d5bb;
+}
+
+.btn-outline-secondary {
+    border-radius: 0;
+}
+.custom-control-label{
+    color: #fff;
+}
+.custom-control-label::before,
+.custom-control-label::after {
+    top: .1rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #e3d5bb;
+}
+
+.custom-file-label::after {
+    background-color: #e3d5bb;
+
+}
+
+.form-inline > * {
+    margin: 5px 3px;
+}
+
+.variant-block {
+    background-color: #e3d5bb;
+    border: 1px solid #e3d5bb;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.image-preview {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .image-preview img {
+        width: 104px;
+        height: 104px;
+        object-fit: cover;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }

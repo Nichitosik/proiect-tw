@@ -1,24 +1,46 @@
 ﻿@using System.Web.Optimization;
 <!DOCTYPE html>
-<html>
+<html dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
     <title>Hexashop Ecommerce HTML CSS Template</title>
 
-    @Styles.Render("~/assets/css")
+    @Styles.Render("~/assets/css/template1")
     @Html.Partial("_Header")
     @RenderBody()
     @Html.Partial("_Footer")
 </head>
 <body>
 
+    @Scripts.Render("~/assets/js/template1")
     @Scripts.Render("~/assets/js")
 
+    <script>
+        const fileInput = document.getElementById('images');
+        const imagePreview = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function () {
+            imagePreview.innerHTML = '';
+            const files = Array.from(this.files);
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = reader.result;
+                    imgElement.className = 'uploaded-image';
+                    imagePreview.appendChild(imgElement);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 
 </body>
 </html>

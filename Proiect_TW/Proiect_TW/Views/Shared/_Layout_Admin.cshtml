@@ -1,4 +1,4 @@
-﻿@using System.Web.Optimization
+﻿@using System.Web.Optimization;
 <!DOCTYPE html>
 <html dir="ltr">
 <head>
@@ -8,15 +8,18 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
-    @*@Styles.Render("~/assets/images")*@
-
-    @Styles.Render("~/assets/css/login")
-
+    @Styles.Render("~/assets/css/template2")
+    @Html.Partial("_Header_Admin")
     @RenderBody()
+    @Html.Partial("_Footer_Admin")
+
 </head>
-<body>
-    @Scripts.Render("~/assets/js/login")
+<body >
+    @Scripts.Render("~/assets/js/template2")
+
 </body>
 </html>

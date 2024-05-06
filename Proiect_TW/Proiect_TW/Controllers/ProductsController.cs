@@ -37,25 +37,5 @@ namespace Proiect_TW.Web.Controllers
             GetUser();
             return View();
         }
-        public ActionResult Men()
-        {
-            GetUser();
-            return View();
-        }
-        public ActionResult Women()
-        {
-            GetUser();
-            return View();
-        }
-        public ActionResult Kids()
-        {
-            GetUser();
-            return View();
-        }
-        public ActionResult Accessories()
-        {
-            GetUser();
-            return View();
-        }
     }
 }
