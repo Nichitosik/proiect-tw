@@ -15,7 +15,6 @@ namespace Proiect_TW.BusinessLogic.Interfaces
         ULoginResp UserLogin(ULoginData data);
         URegisterResp UserRegister(URegisterData data);
         URecoverPasswordResp UserRecoverPassword(URecoverPasswordData data);
-
         HttpCookie GenCookie(string loginEmail);
         UserMinimal GetUserByCookie(string apiCookieValue);
     }
