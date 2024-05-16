@@ -14,7 +14,7 @@ namespace Proiect_TW.Domain.Entities.User
         public string Email { get; set; }
         public DateTime LastLogin { get; set; }
         public string LasIp { get; set; }
-        public URole Level { get; set;}
-        
+        public URole Level { get; set; }
+
     }
 }

@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.Build.Evaluation;
 using Proiect_TW.BussinesLogic.DBModel.Seed;
 using Proiect_TW.Domain.Entities.User;
-
-
 using Proiect_TW.Helpers;
 using System;
 using System.Collections.Generic;
@@ -13,13 +12,79 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
+
 namespace Proiect_TW.BussinesLogic.Core
 {
     public class AdminAPI
     {
-        internal ProductResp AddProductAction(ProductData data) 
+
+        internal ProductResp AddProductAction(ProductData data)
         {
-            return new ProductResp { Status = false, StatusMsg = "Invalid data" };
+            Product product;
+            if (data.Title != null && data.Description != null && data.Style != null && data.Type != null && data.Sizes != null)
+            {
+                List<bool> sizesList = new List<bool>(6) { false, false, false, false, false, false };
+
+                foreach (string size in data.Sizes)
+                {
+                    switch (size)
+                    {
+                        case "XS":
+                            sizesList[0] = true;
+                            break;
+                        case "S":
+                            sizesList[1] = true;
+                            break;
+                        case "M":
+                            sizesList[2] = true;
+                            break;
+                        case "L":
+                            sizesList[3] = true;
+                            break;
+                        case "XL":
+                            sizesList[4] = true;
+                            break;
+                        case "XXL":
+                            sizesList[5] = true;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                using (var db = new ProductContext())
+                {
+                    product = db.Products.FirstOrDefault(u => u.Title == data.Description);
+                }
+                if (product != null)
+                {
+                    return new ProductResp { Status = false, StatusMsg = "This product already exists" };
+                }
+                var newProduct = new Product()
+                {
+                    Title = data.Title,
+                    Description = data.Description,
+                    Type = data.Type,
+                    Style = data.Style,
+                    XS = sizesList[0],
+                    S = sizesList[1],
+                    M = sizesList[2],
+                    L = sizesList[3],
+                    XL = sizesList[4],
+                    XXL = sizesList[5],
+                    PublishTime = DateTime.Now,
+                    Ip = data.Ip
+                };
+                using (var todo = new ProductContext())
+                {
+                    todo.Products.Add(newProduct);
+                    todo.SaveChanges();
+                }
+                return new ProductResp { Status = true };
+
+            }
+            else
+                return new ProductResp { Status = false, StatusMsg = "Please enter all information" };
         }
         internal HttpCookie Cookie(string loginEmail)
         {
@@ -96,3 +161,4 @@ namespace Proiect_TW.BussinesLogic.Core
         }
     }
 }
+

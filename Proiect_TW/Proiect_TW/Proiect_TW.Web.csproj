@@ -407,6 +407,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Extension\HttpContextExtension.cs" />
+    <Compile Include="Models\Users\AddProduct.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

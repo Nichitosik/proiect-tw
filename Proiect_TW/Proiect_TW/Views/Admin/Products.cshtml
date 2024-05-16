@@ -28,21 +28,22 @@
                 <div class="card-box">
                     <div class="row">
                         <div class="col-lg-8">
-                            <form class="form-inline">
+                            <form class="form-inline" action="@Url.Action("Admin", "AdminController")" method="get">
                                 <div class="form-group">
                                     <label for="inputPassword2" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" id="inputPassword2" placeholder="Search...">
+                                    <input type="search" class="form-control" id="inputPassword2" name="searchTerm" placeholder="Search...">
                                 </div>
                                 <div class="form-group mx-sm-3">
                                     <label for="status-select" class="mr-2">Sort By</label>
-                                    <select class="custom-select" id="status-select">
-                                        <option selected="">All</option>
-                                        <option value="1">Date</option>
-                                        <option value="2">Name</option>
-                                        <option value="3">Revenue</option>
-                                        <option value="4">Employees</option>
+                                    <select class="custom-select" id="status-select" name="sortBy">
+                                        <option value="all" selected>All</option>
+                                        <option value="date">Date</option>
+                                        <option value="name">Name</option>
+                                        <option value="revenue">Revenue</option>
+                                        <option value="employees">Employees</option>
                                     </select>
                                 </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </form>
                         </div>
                         <div class="col-lg-4">
@@ -65,8 +66,8 @@
                         <div class="card-box">
                             <div class="text-center">
                                 <img src="/assets/images/accessories-02.jpg" alt="logo" class="avatar-xl rounded-circle mb-3">
-                                <h4 class="mb-1">Product name</h4>
-                                <p class="text-muted">Type, Style</p>
+                                <h4 class="mb-1">@($"Product name: {i}")</h4>
+                                <p class="text-muted">@($"Type: {i}, Style: {i}")</p>
                             </div>
 
                             <p class="font-14 text-center text-muted">

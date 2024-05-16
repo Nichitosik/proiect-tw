@@ -1,4 +1,5 @@
-﻿using Proiect_TW.Domain.Entities.User;
+﻿using Microsoft.Build.Evaluation;
+using Proiect_TW.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Proiect_TW.BussinesLogic.DBModel.Seed
 {
-    internal class ProductContext: DbContext
+    internal class ProductContext : DbContext
     {
         public ProductContext() : base("name=Proiect_TW")
         {
         }
 
-        public virtual DbSet<Session> Products { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }

@@ -7,16 +7,19 @@ using System.Web.Mvc;
 using Proiect_TW.BusinessLogic.Interfaces;
 using Proiect_TW.BusinessLogic;
 using Proiect_TW.Web.Controllers;
+using Proiect_TW.BussinesLogic.Interfaces;
+using Proiect_TW.Domain.Entities.User;
+using Proiect_TW.Web.Models.Users;
 
 namespace Proiect_TW.Controllers
 {
     public class AdminController : BaseController
     {
-        private readonly ISession _session;
+        private readonly ISessionAdmin _session;
         public AdminController()
         {
             var bl = new BussinessLogic();
-            _session = bl.GetSessionBL();
+            _session = bl.GetSessionAdmin();
         }
         public void GetUser()
         {
@@ -40,7 +43,6 @@ namespace Proiect_TW.Controllers
 
         public ActionResult AddProduct()
         {
-
             GetUser();
             return View();
         }
@@ -57,6 +59,39 @@ namespace Proiect_TW.Controllers
         public ActionResult Products()
         {
             GetUser();
+            return View();
+        }
+
+        // GET : Product
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddProduct(AddProduct product)
+        {
+            if (ModelState.IsValid)
+            {
+                ProductData pData = new ProductData
+                {
+                    Title = product.Title,
+                    Description = product.Description,
+                    Type = product.Type,
+                    Style = product.Style,
+                    Sizes = product.Sizes,
+                    Ip = Request.UserHostAddress,
+                    PublishTime = DateTime.Now
+                };
+
+                ProductResp productResp = _session.AddProduct(pData);
+
+                if (productResp.Status)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", productResp.StatusMsg);
+                    return View();
+                }
+            }
             return View();
         }
     }

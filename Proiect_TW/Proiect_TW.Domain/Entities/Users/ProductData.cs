@@ -12,6 +12,7 @@ namespace Proiect_TW.Domain.Entities.User
         public string Description { get; set; }
         public string Style { get; set; }
         public string Type { get; set; }
+        public List<string> Sizes { get; set; }
         public string Ip { get; set; }
         public DateTime PublishTime { get; set; }
     }

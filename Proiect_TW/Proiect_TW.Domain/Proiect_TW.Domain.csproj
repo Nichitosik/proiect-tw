@@ -153,17 +153,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Entities\User\DBModel\PImagesTable.cs" />
-    <Compile Include="Entities\User\DBModel\User.cs" />
-    <Compile Include="Entities\User\URecoverPasswordResp.cs" />
-    <Compile Include="Entities\User\URecoverPasswordData.cs" />
-    <Compile Include="Entities\User\Session.cs" />
-    <Compile Include="Entities\User\UDbTable.cs" />
-    <Compile Include="Entities\User\ULoginData.cs" />
-    <Compile Include="Entities\User\ULoginResp.cs" />
-    <Compile Include="Entities\User\URegisterData.cs" />
-    <Compile Include="Entities\User\URegisterResp.cs" />
-    <Compile Include="Entities\User\UserMinimal.cs" />
+    <Compile Include="Entities\Users\Product.cs" />
+    <Compile Include="Entities\Users\ProductData.cs" />
+    <Compile Include="Entities\Users\ProductResp.cs" />
+    <Compile Include="Entities\Users\Session.cs" />
+    <Compile Include="Entities\Users\UDbTable.cs" />
+    <Compile Include="Entities\Users\ULoginData.cs" />
+    <Compile Include="Entities\Users\ULoginResp.cs" />
+    <Compile Include="Entities\Users\URecoverPasswordData.cs" />
+    <Compile Include="Entities\Users\URecoverPasswordResp.cs" />
+    <Compile Include="Entities\Users\URegisterData.cs" />
+    <Compile Include="Entities\Users\URegisterResp.cs" />
+    <Compile Include="Entities\Users\UserMinimal.cs" />
     <Compile Include="Enums\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
