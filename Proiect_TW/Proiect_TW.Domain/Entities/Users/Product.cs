@@ -9,6 +9,7 @@ using Proiect_TW.Domain.Enums;
 
 namespace Proiect_TW.Domain.Entities.User
 {
+    [Table("Products")]
     public class Product
     {
         [Key]

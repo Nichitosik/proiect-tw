@@ -1,4 +1,5 @@
 ﻿using Proiect_TW.Domain.Entities.User;
+using Proiect_TW.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Proiect_TW.BussinesLogic.Interfaces
     {
         ProductResp AddProduct(ProductData data);
         UserMinimal GetUserByCookie(string apiCookieValue);
+        UsersResp GetUsers();
     }
 }

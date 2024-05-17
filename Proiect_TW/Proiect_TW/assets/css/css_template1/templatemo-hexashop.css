@@ -389,9 +389,12 @@ header
         border-bottom: 1px solid #eee;
 
     }
-
+.custom-color {
+    color: #e3d5bb;
+    font-size: 22px;
+}
 .header-area .main-nav .nav li.submenu ul li a:hover {
-  background: #;
+  background: #e3d5bb;
   color: #aaa!important;
   padding-left: 25px;
 }
@@ -2489,6 +2492,16 @@ responsive
   }
 }
 
+
+/* 
+---------------------------------------------
+User Icon
+--------------------------------------------- 
+*/
+.user-icon {
+    display: flex;
+    align-items: center;
+}
 
 
 

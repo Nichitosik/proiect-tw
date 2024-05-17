@@ -2,6 +2,7 @@
 using Microsoft.Build.Evaluation;
 using Proiect_TW.BussinesLogic.DBModel.Seed;
 using Proiect_TW.Domain.Entities.User;
+using Proiect_TW.Domain.Entities.Users;
 using Proiect_TW.Helpers;
 using System;
 using System.Collections.Generic;
@@ -158,6 +159,16 @@ namespace Proiect_TW.BussinesLogic.Core
             var userminimal = Mapper.Map<UserMinimal>(curentUser);
 
             return userminimal;
+        }
+        internal UsersResp GetUsersAction()
+        {
+            var users = new List<UDbTable>();
+            using (var db = new UserContext())
+            {
+                users = db.Users.ToList();
+            }
+            return new UsersResp { Users = users, Count = users.Count};
+
         }
     }
 }

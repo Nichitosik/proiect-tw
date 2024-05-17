@@ -12,6 +12,6 @@ namespace Proiect_TW.Web.Models.Users
         public string Type { get; set; }
         public string Style { get; set; }
         public List<string> Sizes { get; set; }
-        //public List<HttpPostedFileBase> Photoes { get; set; }
+        //public List<byte[]> Files { get; set; }
     }
 }

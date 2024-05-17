@@ -84,15 +84,8 @@ namespace Proiect_TW.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                URegisterData uData = new URegisterData
-                {
-                    Username = register.Username,
-                    Password = register.Password,
-                    Email = register.Email,
-                    Age = register.Age
-                };
 
-
+                var uData = Mapper.Map<URegisterData>(register);
 
                 URegisterResp registerResp = _session.UserRegister(uData);
 

@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Proiect_TW.Domain.Entities.User
 {
+    [Table("Sessions")]
     public class Session
     {
         [Key]

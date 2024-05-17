@@ -1,4 +1,4 @@
-@charset "UTF-8";
+fas fa-chevron-right@charset "UTF-8";
 /*
 Template Name: Minton - Responsive Bootstrap 4 Admin Dashboard
 Author: CoderThemes
@@ -24,9 +24,13 @@ File: Icons Css File
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
-
+.icon-margin{
+    margin-right: 6px;
+    margin-left: 6px;
+}
 .mdi-access-point:before {
-  content: "\F002"; }
+    content: "\F002";
+}
 
 .mdi-access-point-network:before {
   content: "\F003"; }

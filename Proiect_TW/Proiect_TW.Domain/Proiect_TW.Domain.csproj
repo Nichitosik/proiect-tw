@@ -165,6 +165,7 @@
     <Compile Include="Entities\Users\URegisterData.cs" />
     <Compile Include="Entities\Users\URegisterResp.cs" />
     <Compile Include="Entities\Users\UserMinimal.cs" />
+    <Compile Include="Entities\Users\UsersResp.cs" />
     <Compile Include="Enums\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

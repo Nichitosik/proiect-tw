@@ -9,6 +9,7 @@ using Proiect_TW.Domain.Enums;
 
 namespace Proiect_TW.Domain.Entities.User
 {
+    [Table("Users")]
     public class UDbTable
     {
         //Aceste 3 randuri sunt la fel pentru fiecare model
@@ -17,7 +18,7 @@ namespace Proiect_TW.Domain.Entities.User
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Email Address")]
+        [Display(Name = "Email")]
         [StringLength(30)]
         public string Email { get; set; }
 

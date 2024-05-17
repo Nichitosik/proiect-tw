@@ -36,17 +36,16 @@
                         </li>
 
                         <li class="submenu">
-                            <a>Products</a>
+                            <a href="@Url.Action("Products", "Products")">Products</a>
                             <ul>
-                                <li><a href="@Url.Action("Products", "Products")">Men's</a></li>
-                                <li><a href="@Url.Action("Products", "Products")">Women's</a></li>
-                                <li><a href="@Url.Action("Products", "Products")">Kid's</a></li>
-                                <li><a href="@Url.Action("Products", "Products")">Accessories</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Men's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Women's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Kid's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Accessories</a></li>
                             </ul>
                         </li>
                         <li><a href="@Url.Action("About", "Home")">About Us</a></li>
                         <li><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
-
                         <li class="scroll-to-section"><a href="@Url.Action("Index", "Home")#explore">Explore</a></li>
                         @{
                             if (user == null)
@@ -55,11 +54,25 @@
                             }
                             else if ((int)user.Level == 1)
                             {
-                                <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
+                                <li class="submenu">
+                                    <a>
+                                        <i class="fas fa-user custom-color"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a href="@Url.Action("Products", "Products")">Profile</a></li>
+                                        <li><a href="@Url.Action("Login", "Login")">Logout</a></li>
+                                        <li><a href="@Url.Action("Register", "Login")">Register</a></li>
+                                        <li><a href="@Url.Action("RecoverPassword", "Login")">ChangePassword</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ShoppingCart", "Product")">
+                                        <i class="fas fa-shopping-cart custom-color"></i>
+                                    </a>
+                                </li>
                             }
                             else if ((int)user.Level == 2)
                             {
-                                <li><a href="@Url.Action("Login", "Login")"> Logout </a></li>
                                 <li class="submenu">
                                     <a>Admin</a>
                                     <ul>
@@ -69,14 +82,29 @@
                                         <li><a href="@Url.Action("Products", "Admin")">Products</a></li>
                                     </ul>
                                 </li>
-
+                                <li class="submenu">
+                                    <a>
+                                        <i class="fas fa-user custom-color"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a href="@Url.Action("Products", "Products")">Profile</a></li>
+                                        <li><a href="@Url.Action("Login", "Login")">Logout</a></li>
+                                        <li><a href="@Url.Action("Register", "Login")">Register</a></li>
+                                        <li><a href="@Url.Action("RecoverPassword", "Login")">ChangePassword</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ShoppingCart", "Product")">
+                                        <i class="fas fa-shopping-cart custom-color"></i>
+                                    </a>
+                                </li>
                             }
                         }
                     </ul>
+
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
-                    <!-- ***** Navigation End ***** -->
                 </nav>
             </div>
         </div>

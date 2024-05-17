@@ -10,6 +10,9 @@ using Proiect_TW.Web.Controllers;
 using Proiect_TW.BussinesLogic.Interfaces;
 using Proiect_TW.Domain.Entities.User;
 using Proiect_TW.Web.Models.Users;
+using AutoMapper;
+using Microsoft.Win32;
+using Proiect_TW.Domain.Entities.Users;
 
 namespace Proiect_TW.Controllers
 {
@@ -53,6 +56,8 @@ namespace Proiect_TW.Controllers
         }
         public ActionResult Users()
         {
+            UsersResp users = _session.GetUsers();
+            ViewBag.AllUsers = users;
             GetUser();
             return View();
         }
@@ -69,16 +74,9 @@ namespace Proiect_TW.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProductData pData = new ProductData
-                {
-                    Title = product.Title,
-                    Description = product.Description,
-                    Type = product.Type,
-                    Style = product.Style,
-                    Sizes = product.Sizes,
-                    Ip = Request.UserHostAddress,
-                    PublishTime = DateTime.Now
-                };
+                var pData = Mapper.Map<ProductData>(product);
+                pData.Ip = Request.UserHostAddress;
+                pData.PublishTime = DateTime.Now;
 
                 ProductResp productResp = _session.AddProduct(pData);
 

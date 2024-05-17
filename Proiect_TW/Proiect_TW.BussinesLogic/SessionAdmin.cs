@@ -9,6 +9,7 @@ using Proiect_TW.Domain.Entities.User;
 using System.Web;
 using Proiect_TW.BussinesLogic.Interfaces;
 using Proiect_TW.BussinesLogic.Core;
+using Proiect_TW.Domain.Entities.Users;
 
 namespace Proiect_TW.BussinesLogic
 {
@@ -21,6 +22,10 @@ namespace Proiect_TW.BussinesLogic
         public UserMinimal GetUserByCookie(string apiCookieValue)
         {
             return UserCookie(apiCookieValue);
+        }
+        public UsersResp GetUsers()
+        {
+            return GetUsersAction();
         }
     }
 }
