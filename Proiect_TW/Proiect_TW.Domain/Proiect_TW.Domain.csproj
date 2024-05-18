@@ -160,6 +160,8 @@
     <Compile Include="Entities\Users\UDbTable.cs" />
     <Compile Include="Entities\Users\ULoginData.cs" />
     <Compile Include="Entities\Users\ULoginResp.cs" />
+    <Compile Include="Entities\Users\UProfileEditData.cs" />
+    <Compile Include="Entities\Users\UProfileEditResp.cs" />
     <Compile Include="Entities\Users\URecoverPasswordData.cs" />
     <Compile Include="Entities\Users\URecoverPasswordResp.cs" />
     <Compile Include="Entities\Users\URegisterData.cs" />

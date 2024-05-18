@@ -13,6 +13,7 @@ using System.Data.Entity;
 using System.Web;
 using AutoMapper;
 using Proiect_TW.Helpers;
+using Proiect_TW.Domain.Entities.Users;
 
 
 namespace Proiect_TW.BusinessLogic.Core
@@ -71,7 +72,8 @@ namespace Proiect_TW.BusinessLogic.Core
                     Username = data.Username,
                     Password = pass,
                     Age = data.Age,
-                    LastIp = "194.1.20",
+                    Gender = data.Gender,
+                    LastIp = "19",
                     LastLogin = DateTime.Now,
                     Level = URole.User
                 };
@@ -131,6 +133,48 @@ namespace Proiect_TW.BusinessLogic.Core
             else
             {
                 return new URecoverPasswordResp { Status = false, StatusMsg = "Email is not valid" };
+            }
+        }
+        internal UProfileEditResp UserProfileEditAction(UProfileEditData data)
+        {
+            UDbTable result;
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.Email))
+            {
+                using (var db = new UserContext())
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            result = db.Users.FirstOrDefault(u => u.Email == data.ExistingEmail);
+
+                            if (result == null)
+                            {
+                                return new UProfileEditResp { Status = false, StatusMsg = "An error occurred while updating the profile data." };
+                            }
+                            result.Email = data.Email;
+                            result.Username = data.Username;
+                            result.Age = data.Age;
+                            result.Gender = data.Gender;
+                            result.LastIp = data.LastIp;
+                            db.SaveChanges();
+                            transaction.Commit();
+
+                            return new UProfileEditResp { Status = true };
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+
+                            return new UProfileEditResp { Status = false, StatusMsg = "An error occurred while updating the password." };
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return new UProfileEditResp { Status = false, StatusMsg = "Please enter a valid email" };
             }
         }
 

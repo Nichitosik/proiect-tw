@@ -13,6 +13,8 @@ using Proiect_TW.BusinessLogic.Entities.User;
 using Proiect_TW.Domain.Entities.User;
 using System.Data.Entity;
 using Proiect_TW.BussinesLogic.DBModel.Seed;
+using NuGet.ProjectModel;
+using Proiect_TW.Domain.Entities.Users;
 
 namespace Proiect_TW
 {
@@ -37,6 +39,7 @@ namespace Proiect_TW
                 cfg.CreateMap<UserLogin, ULoginData>();
                 cfg.CreateMap<UserRegister, URegisterData>();
                 cfg.CreateMap<UserRecoverPassword, URecoverPasswordData>();
+                cfg.CreateMap<UProfileEdit, UProfileEditData>();
                 cfg.CreateMap<AddProduct, ProductData>();
                 cfg.CreateMap<UDbTable, UserMinimal>();
             });

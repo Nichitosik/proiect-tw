@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Proiect_TW.Domain.Entities.User;
 using Proiect_TW.BusinessLogic.Entities.User;
 using System.Web;
+using Proiect_TW.Domain.Entities.Users;
 
 namespace Proiect_TW.BusinessLogic
 {
@@ -24,6 +25,10 @@ namespace Proiect_TW.BusinessLogic
         public URecoverPasswordResp UserRecoverPassword(URecoverPasswordData data)
         {
             return UserRecoverPasswordAction(data);
+        }
+        public UProfileEditResp UserProfileEdit(UProfileEditData data)
+        {
+            return UserProfileEditAction(data);
         }
         public HttpCookie GenCookie(string loginEmail)
         {

@@ -2584,3 +2584,24 @@ User Icon
     opacity: 0;
   }
 }
+.profile-edit-input{
+    margin-bottom: 20px;
+    
+}
+.profile-edit-input select {
+    background-color: #e3d5bb;
+}
+.profile-edit-input select option:checked {
+    background-color: #e3d5bb;
+
+}
+    .profile-edit-input select option:hover,
+    .profile-edit-input select option:focus {
+        background-color: #e3d5bb;
+    }
+    .profile-edit-input input[type="text"]:focus,
+    .profile-edit-input input[type="password"]:focus,
+    .profile-edit-input input[type="email"]:focus,
+    .profile-edit-input select:focus {
+        background-color: #e3d5bb;
+    }

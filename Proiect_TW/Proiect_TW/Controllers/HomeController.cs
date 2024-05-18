@@ -9,6 +9,10 @@ using Proiect_TW.BusinessLogic;
 using Proiect_TW.BusinessLogic.Interfaces;
 using Proiect_TW.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using Proiect_TW.Web.Models.Users;
+using Proiect_TW.Domain.Entities.Users;
+using Microsoft.Ajax.Utilities;
 
 namespace Proiect_TW.Web.Controllers
 {
@@ -61,6 +65,40 @@ namespace Proiect_TW.Web.Controllers
         {
             GetUser();
             return View();
+        }
+        public ActionResult UserProfile()
+        {
+            GetUser();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserProfile(UProfileEdit edit)
+        {
+            GetUser();
+            if (ModelState.IsValid)
+            {
+                var data = Mapper.Map<UProfileEditData>(edit);
+                data.LastIp = Request.UserHostAddress;
+                data.ExistingEmail = ViewBag.User.Email;
+
+                UProfileEditResp editResp = _session.UserProfileEdit(data);
+
+                if (editResp.Status)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", editResp.StatusMsg);
+                    return View();
+                }
+
+            }
+
+                return View();
+
         }
 
     }

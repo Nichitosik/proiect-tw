@@ -36,6 +36,11 @@ namespace Proiect_TW.Domain.Entities.User
         [Display(Name = "Age")]
         public int Age { get; set; }
 
+        [Required]
+        [Display(Name = "Gender")]
+        [StringLength(50)]
+        public string Gender { get; set; }
+
         [DataType(DataType.Date)]
 
         public DateTime LastLogin { get; set; }

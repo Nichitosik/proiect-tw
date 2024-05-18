@@ -408,6 +408,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Extension\HttpContextExtension.cs" />
     <Compile Include="Models\Users\AddProduct.cs" />
+    <Compile Include="Models\Users\UProfileEdit.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -458,6 +459,7 @@
     <Content Include="Views\Shared\_Header_Admin.cshtml" />
     <Content Include="Views\Shared\_Footer_Admin.cshtml" />
     <Content Include="Views\Admin\Products.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
