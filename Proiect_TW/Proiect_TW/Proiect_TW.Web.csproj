@@ -469,6 +469,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\ProductsImages\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

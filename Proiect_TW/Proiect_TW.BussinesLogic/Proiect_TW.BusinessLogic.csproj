@@ -156,6 +156,7 @@
     <Compile Include="Core\AdminAPI.cs" />
     <Compile Include="Core\UserAPI.cs" />
     <Compile Include="DBModel\Seed\ProductContext.cs" />
+    <Compile Include="DBModel\Seed\ProductImagesContext.cs" />
     <Compile Include="DBModel\Seed\SessionContext.cs" />
     <Compile Include="DBModel\Seed\TableContext.cs" />
     <Compile Include="DBModel\Seed\UserContext.cs" />

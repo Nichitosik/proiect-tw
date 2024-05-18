@@ -13,6 +13,10 @@ using Proiect_TW.Web.Models.Users;
 using AutoMapper;
 using Microsoft.Win32;
 using Proiect_TW.Domain.Entities.Users;
+using System.IO;
+using System.Web.UI.WebControls;
+using Microsoft.Web.XmlTransform;
+using System.ServiceModel.PeerResolvers;
 
 namespace Proiect_TW.Controllers
 {
@@ -70,19 +74,57 @@ namespace Proiect_TW.Controllers
         // GET : Product
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProduct(AddProduct product)
+        public ActionResult AddProduct(AddProduct product, HttpPostedFileBase[] ImageFiles)
         {
-            if (ModelState.IsValid)
+            bool fileValidation = true;
+            foreach(HttpPostedFileBase File in ImageFiles)
             {
-                var pData = Mapper.Map<ProductData>(product);
-                pData.Ip = Request.UserHostAddress;
-                pData.PublishTime = DateTime.Now;
+                if (File == null || File.ContentLength <= 0)
+                {
+                    fileValidation = false;
+                }
+            }
+            if (ModelState.IsValid && fileValidation == true)
+            {
+                var productData = Mapper.Map<ProductData>(product);
+                productData.Ip = Request.UserHostAddress;
+                productData.PublishTime = DateTime.Now;
 
-                ProductResp productResp = _session.AddProduct(pData);
+                ProductResp productResp = _session.AddProduct(productData);
 
                 if (productResp.Status)
                 {
+                    string directoryPath = Server.MapPath("~/assets/ProductsImages/" + product.Title);
+
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+                    List<string> filePaths = new List<string>();
+                    List<string> fileNames = new List<string>();
+                    string fileName;
+                    string filePath;
+                    foreach (HttpPostedFileBase File in ImageFiles)
+                    {
+                        fileName = Path.GetFileName(File.FileName);
+                        filePath = (Server.MapPath(@"~/assets/ProductsImages/"+ product.Title + "/" + fileName));
+
+                        fileNames.Add(fileName);
+                        filePaths.Add(filePath);
+
+                        File.SaveAs(Server.MapPath(@"~/assets/ProductsImages/" + product.Title + "/" + fileName));
+                    }
+                    var imagesData = new ProductImagesData()
+                    {
+                        ProductTitle = product.Title,
+                        ImageNames = fileNames,
+                        ImagePaths = filePaths
+                    };
+                    _session.AddProductImages(imagesData);
+
+
                     return RedirectToAction("Index", "Home");
+                    // Salvează fișierul pe server
                 }
                 else
                 {

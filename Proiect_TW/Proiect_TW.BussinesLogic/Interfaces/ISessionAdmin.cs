@@ -11,6 +11,7 @@ namespace Proiect_TW.BussinesLogic.Interfaces
     public interface ISessionAdmin
     {
         ProductResp AddProduct(ProductData data);
+        ProductImagesResp AddProductImages(ProductImagesData data);
         UserMinimal GetUserByCookie(string apiCookieValue);
         UsersResp GetUsers();
     }

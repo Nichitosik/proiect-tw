@@ -19,6 +19,10 @@ namespace Proiect_TW.BussinesLogic
         {
             return AddProductAction(data);
         }
+        public ProductImagesResp AddProductImages(ProductImagesData data) 
+        {
+            return AddProductImagesAction(data);
+        }
         public UserMinimal GetUserByCookie(string apiCookieValue)
         {
             return UserCookie(apiCookieValue);

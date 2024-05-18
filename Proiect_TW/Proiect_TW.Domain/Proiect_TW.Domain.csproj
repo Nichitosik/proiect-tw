@@ -155,6 +155,9 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Entities\Users\Product.cs" />
     <Compile Include="Entities\Users\ProductData.cs" />
+    <Compile Include="Entities\Users\ProductImages.cs" />
+    <Compile Include="Entities\Users\ProductImagesData.cs" />
+    <Compile Include="Entities\Users\ProductImagesResp.cs" />
     <Compile Include="Entities\Users\ProductResp.cs" />
     <Compile Include="Entities\Users\Session.cs" />
     <Compile Include="Entities\Users\UDbTable.cs" />

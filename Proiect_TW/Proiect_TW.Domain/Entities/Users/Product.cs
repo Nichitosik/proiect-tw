@@ -23,7 +23,7 @@ namespace Proiect_TW.Domain.Entities.User
 
         [Required]
         [Display(Name = "Description")]
-        [StringLength(500, ErrorMessage = "Description cannot be shorter than 100 characters.")]
+        [StringLength(500, ErrorMessage = "Description cannot be longer than 500 characters.")]
         public string Description { get; set; }
 
         [Required]
@@ -60,14 +60,10 @@ namespace Proiect_TW.Domain.Entities.User
         [Display(Name = "XXL")]
         public bool XXL { get; set; }
 
-
         [DataType(DataType.Date)]
         public DateTime PublishTime { get; set; }
 
         [StringLength(30)]
         public string Ip { get; set; }
-
-
-
     }
 }

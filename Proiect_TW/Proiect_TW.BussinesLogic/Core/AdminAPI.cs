@@ -87,6 +87,33 @@ namespace Proiect_TW.BussinesLogic.Core
             else
                 return new ProductResp { Status = false, StatusMsg = "Please enter all information" };
         }
+        internal ProductImagesResp AddProductImagesAction(ProductImagesData data)
+        {
+            if (data.ProductTitle != null && data.ImagePaths.Count > 0 && data.ImageNames.Count > 0 && data.ImagePaths.Count == data.ImageNames.Count)
+            {
+                for(int i = 0; i < data.ImagePaths.Count; i++)
+                {
+                    var newProductImage = new ProductImages()
+                    {
+                        ProductTitle = data.ProductTitle,
+                        ImageName = data.ImageNames[i],
+                        ImagePath = data.ImagePaths[i],
+                        PublishTime = DateTime.Now
+                    };
+                    using (var todo = new ProductImagesContext())
+                    {
+                        todo.ProductImages.Add(newProductImage);
+                        todo.SaveChanges();
+                    }
+                }
+                return new ProductImagesResp { Status = true };
+
+            }
+            else
+            {
+                return new ProductImagesResp { Status = false, StatusMsg = "Please enter all information" };
+            }
+        }
         internal HttpCookie Cookie(string loginEmail)
         {
             var apiCookie = new HttpCookie("X-KEY")
