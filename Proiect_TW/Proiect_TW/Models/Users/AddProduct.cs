@@ -12,6 +12,10 @@ namespace Proiect_TW.Web.Models.Users
         public string Type { get; set; }
         public string Style { get; set; }
         public List<string> Sizes { get; set; }
+
+        public string Gender { get; set; }
+        public string AgeCategory { get; set; }
+        public string Price { get; set; }
         //public List<byte[]> Files { get; set; }
     }
 }

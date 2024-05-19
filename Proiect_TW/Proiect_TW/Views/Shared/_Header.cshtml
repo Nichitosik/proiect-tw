@@ -36,12 +36,13 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="@Url.Action("Products", "Products")">Products</a>
+                            <a href="@Url.Action("Products", "Products", new { button = "ForYou" })">Products</a>
                             <ul>
-                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Men's</a></li>
-                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Women's</a></li>
-                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Kid's</a></li>
-                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products")">Accessories</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products" , new { button = "ForYou" })">For You</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products" , new { button = "Men" })">Men's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products" , new { button = "Women" })">Women's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products" , new { button = "Kids" })">Kid's</a></li>
+                                <li class="scroll-to-section"><a href="@Url.Action("Products", "Products" , new { button = "Accessories" })">Accessories</a></li>
                             </ul>
                         </li>
                         <li><a href="@Url.Action("About", "Home")">About Us</a></li>

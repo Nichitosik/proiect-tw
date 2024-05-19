@@ -39,5 +39,18 @@ namespace Proiect_TW.BusinessLogic
         {
             return UserCookie(apiCookieValue);
         }
+        public List<Product> GetProductsForUser(string type)
+        {
+            return GetProductsByType(type);
+        }
+        public List<Product> GetProductsForYou(string gender, int age)
+        {
+            return GetProductsByGender(gender, age);
+        }
+        public List<List<string>> GetProductImages(List<Product> products)
+        {
+            return GetProductImagesPath(products);
+        }
+
     }
 }

@@ -60,6 +60,18 @@ namespace Proiect_TW.Domain.Entities.User
         [Display(Name = "XXL")]
         public bool XXL { get; set; }
 
+        [Required]
+        [Display(Name = "Gender")]
+        public string Gender { get; set; }
+
+        [Required]
+        [Display(Name = "AgeCategory")]
+        public string AgeCategory { get; set; }
+
+        [Required]
+        [Display(Name = "Price")]
+        public string Price { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime PublishTime { get; set; }
 

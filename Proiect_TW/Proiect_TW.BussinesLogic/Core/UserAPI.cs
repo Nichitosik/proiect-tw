@@ -24,7 +24,7 @@ namespace Proiect_TW.BusinessLogic.Core
         {
             UDbTable result;
             var validate = new EmailAddressAttribute();
-            if(validate.IsValid(data.Email))
+            if (validate.IsValid(data.Email))
             {
                 var pass = LoginHelper.HashGen(data.Password);
                 using (var db = new UserContext())
@@ -45,7 +45,7 @@ namespace Proiect_TW.BusinessLogic.Core
 
             }
             else
-                return new ULoginResp { Status = false, StatusMsg = "Incorrect Email or Password"};   
+                return new ULoginResp { Status = false, StatusMsg = "Incorrect Email or Password" };
         }
         internal URegisterResp UserRegisterAction(URegisterData data)
         {
@@ -78,12 +78,12 @@ namespace Proiect_TW.BusinessLogic.Core
                     Level = URole.User
                 };
                 using (var todo = new UserContext())
-                    {
+                {
                     todo.Users.Add(newUser);
                     todo.SaveChanges();
                 }
                 return new URegisterResp { Status = true };
-                
+
             }
             else
             {
@@ -251,6 +251,129 @@ namespace Proiect_TW.BusinessLogic.Core
 
             return userminimal;
         }
+        public List<Product> GetProducts()
+        {
+            List<Product> products = new List<Product>();
+            using (var db = new ProductContext())
+            {
+                products = db.Products.ToList();
+            }
+            return products;
+        }
+        public List<Product> GetProductsByType(string type)
+        {
+            List<Product> allProducts = new List<Product>();
+            List<Product> products = new List<Product>();
+            allProducts = GetProducts();
+
+            foreach(Product product in allProducts)
+            {
+                if (product.Type == type)
+                {
+                    products.Add(product);
+                }
+            }
+
+            return products;
+        }
+        public List<Product> GetProductsByGender(string gender, int age)
+        {
+            List<Product> products = new List<Product>();
+            products = GetProducts();
+            string ageCategory = "";
+            string productGender = "";
+
+            switch (age)
+            {
+                case int n when (n >= 0 && n <= 4):
+                    ageCategory = "0-4";
+                    break;
+                case int n when (n >= 5 && n <= 9):
+                    ageCategory = "5-9";
+                    break;
+                case int n when (n >= 10 && n <= 14):
+                    ageCategory = "10-14";
+                    break;
+                case int n when (n >= 15 && n <= 19):
+                    ageCategory = "15-19";
+                    break;
+                case int n when (n >= 20 && n <= 29):
+                    ageCategory = "20-29";
+                    break;
+                case int n when (n >= 30 && n <= 39):
+                    ageCategory = "30-39";
+                    break;
+                case int n when (n >= 40 && n <= 49):
+                    ageCategory = "40-49";
+                    break;
+                case int n when (n >= 50 && n <= 59):
+                    ageCategory = "50-59";
+                    break;
+                case int n when (n >= 60 && n <= 69):
+                    ageCategory = "60-69";
+                    break;
+                case int n when (n >= 70 && n <= 79):
+                    ageCategory = "70-79";
+                    break;
+                case int n when (n >= 80 && n <= 120):
+                    ageCategory = "80-120";
+                    break;
+            }
+            switch (gender)
+            {
+                case "Male":
+                    productGender = "Male";
+                    break;
+                case "Female":
+                    productGender = "Female";
+                    break;
+            }
+
+            for (int i = 0; i < products.Count; i++)
+            {
+                if (products[i].AgeCategory != ageCategory)
+                {
+                    products.RemoveAt(i);
+                }
+            }
+            for (int i = 0; i < products.Count; i++)
+            {
+                if (products[i].Gender != productGender)
+                {
+                    products.RemoveAt(i);
+                }
+            }
+            return products;
+        }
+        public List<List<string>> GetProductImagesPath(List<Product> products)
+        {
+            List<List<string>> imagesPath = new List<List<string>>();
+            List<ProductImages> images = new List<ProductImages>();
+
+            using (var db = new ProductImagesContext())
+            {
+                images = db.ProductImages.ToList();
+            }
+
+            // Inițializarea listelor pentru fiecare produs
+            foreach (var product in products)
+            {
+                imagesPath.Add(new List<string>());
+            }
+
+            for (int i = 0; i < products.Count; i++)
+            {
+                foreach (ProductImages image in images)
+                {
+                    if (image.ProductTitle == products[i].Title)
+                    {
+                        imagesPath[i].Add(image.ImagePath);
+                    }
+                }
+            }
+            return imagesPath;
+        }
+
 
     }
 }

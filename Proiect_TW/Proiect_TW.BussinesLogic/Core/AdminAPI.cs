@@ -73,6 +73,9 @@ namespace Proiect_TW.BussinesLogic.Core
                     L = sizesList[3],
                     XL = sizesList[4],
                     XXL = sizesList[5],
+                    Gender = data.Gender,
+                    AgeCategory = data.AgeCategory,
+                    Price = data.Price,
                     PublishTime = DateTime.Now,
                     Ip = data.Ip
                 };

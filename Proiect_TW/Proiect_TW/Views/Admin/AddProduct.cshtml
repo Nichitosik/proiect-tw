@@ -42,7 +42,7 @@
                         <div class="col-12">
                             <div class="p-2">
                                 @Html.ValidationSummary(true)
-                                @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new {@id= "AddProductForm", enctype = "multipart/form-data" }))
+                                @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new { @id = "AddProductForm", enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     <div class="form-group row">
@@ -59,12 +59,12 @@
                                     <div class="form-group row">
                                         @Html.LabelFor(m => m.Description, new { @class = "control-label" })
                                         @Html.TextAreaFor(m => m.Description, new
-                                               {
-                                                   placeholder = "Add description...",
-                                                   title = "Please enter a description",
-                                                   @class = "form-control",
-                                                   rows = "6"
-                                               })
+                                   {
+                                       placeholder = "Add description...",
+                                       title = "Please enter a description",
+                                       @class = "form-control",
+                                       rows = "6"
+                                   })
                                     </div>
 
                                     <div class="form-group row">
@@ -83,7 +83,7 @@
                                         @Html.Label("Product Type", new { @class = "col-sm-2 col-form-label" })
                                         <div class="col-sm-10">
                                             @Html.DropDownListFor(m => m.Type, new SelectList(new[]
-                                            {
+                     {
                                                 "Men's",
                                                 "Women's",
                                                 "Kid's",
@@ -95,7 +95,7 @@
                                         @Html.Label("Product Style", new { @class = "col-sm-2 col-form-label" })
                                         <div class="col-sm-10">
                                             @Html.DropDownListFor(m => m.Style, new SelectList(new[]
-                                            {
+                     {
                                                 "Casual Wear",
                                                 "Streetwear",
                                                 "Classic",
@@ -104,10 +104,39 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        @Html.Label("Gender", new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            @Html.DropDownListFor(m => m.Gender, new SelectList(new[]
+                     {
+                                                "Male",
+                                                "Female",
+                                            }), new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.Label("Age Category", new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            @Html.DropDownListFor(m => m.AgeCategory, new SelectList(new[]
+                     {
+                                                "0-4",
+                                                "5-9",
+                                                "10-14",
+                                                "15-19",
+                                                "20-29",
+                                                "30-39",
+                                                "40-49",
+                                                "50-59",
+                                                "60-69",
+                                                "70-79",
+                                                "80-120"
+                                            }), new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         @Html.Label("Product Sizes", new { @class = "col-sm-2 col-form-label" })
                                         <div class="col-sm-10">
                                             @Html.ListBoxFor(m => m.Sizes, new MultiSelectList(new[]
-                                            {
+                     {
                                                 "XS",
                                                 "S",
                                                 "M",
@@ -118,16 +147,27 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Price, new
+                                   {
+                                       placeholder = "$",
+                                       title = "Please enter a Price",
+                                       value = "",
+                                       name = "price",
+                                       @class = "form-control"
+                                   })
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="Files">Select Files</label>
                                         <input type="file" name="ImageFiles" accept="image/png" class="form-control" multiple />
                                     </div>
 
                                     <div class="form-group row">
                                         <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                  }
-
                                     </div>
+                                }
+
+                            </div>
                                 </div>
 
                     </div>

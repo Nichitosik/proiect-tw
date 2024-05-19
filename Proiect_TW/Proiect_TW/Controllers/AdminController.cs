@@ -110,7 +110,7 @@ namespace Proiect_TW.Controllers
                         filePath = (Server.MapPath(@"~/assets/ProductsImages/"+ product.Title + "/" + fileName));
 
                         fileNames.Add(fileName);
-                        filePaths.Add(filePath);
+                        filePaths.Add(product.Title + "/" + fileName);
 
                         File.SaveAs(Server.MapPath(@"~/assets/ProductsImages/" + product.Title + "/" + fileName));
                     }

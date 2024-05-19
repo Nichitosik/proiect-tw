@@ -56,11 +56,6 @@ namespace Proiect_TW.Web.Controllers
             GetUser();
             return View();
         }
-        public ActionResult Products()
-        {
-            GetUser();
-            return View();
-        }
         public ActionResult SingleProduct()
         {
             GetUser();
@@ -94,12 +89,8 @@ namespace Proiect_TW.Web.Controllers
                     ModelState.AddModelError("", editResp.StatusMsg);
                     return View();
                 }
-
             }
-
                 return View();
-
         }
-
     }
 }

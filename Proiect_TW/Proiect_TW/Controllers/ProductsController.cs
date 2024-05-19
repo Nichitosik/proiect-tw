@@ -5,6 +5,8 @@ using System.Linq;
 using Proiect_TW.BusinessLogic.Interfaces;
 using System.Web;
 using System.Web.Mvc;
+using Proiect_TW.Domain.Entities.User;
+using Proiect_TW.Domain.Entities.Users;
 namespace Proiect_TW.Web.Controllers
 {
     public class ProductsController : BaseController
@@ -32,9 +34,32 @@ namespace Proiect_TW.Web.Controllers
             }
         }
         // GET: Products
-        public ActionResult Products()
+        public ActionResult Products(string button)
         {
             GetUser();
+            List<Product> products = new List<Product>();
+            List<List<string>> productImages = new List<List<string>>();
+            switch (button)
+            {
+                case "Women":
+                    products = _session.GetProductsForUser("Women's");
+                    break;
+                case "Men":
+                    products = _session.GetProductsForUser("Men's");
+                    break;
+                case "Kids":
+                    products = _session.GetProductsForUser("Kid's");
+                    break;
+                case "Accessories":
+                    products = _session.GetProductsForUser("Accessories");
+                    break;
+                case "ForYou":
+                    products = _session.GetProductsForYou(ViewBag.User.Gender, ViewBag.User.Age);
+                    break;
+            }
+            productImages = _session.GetProductImages(products);
+            ViewBag.Products = products;
+            ViewBag.ProductImages = productImages;
             return View();
         }
     }
