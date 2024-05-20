@@ -37,7 +37,7 @@ namespace Proiect_TW.Web.Controllers
         public ActionResult Products(string button)
         {
             GetUser();
-            List<Product> products = new List<Product>();
+            List<ProductWithPath> products = new List<ProductWithPath>();
             List<List<string>> productImages = new List<List<string>>();
             switch (button)
             {
@@ -56,10 +56,11 @@ namespace Proiect_TW.Web.Controllers
                 case "ForYou":
                     products = _session.GetProductsForYou(ViewBag.User.Gender, ViewBag.User.Age);
                     break;
+                case "AllProducts":
+                    products = _session.GetAllProducts();
+                        break;
             }
-            productImages = _session.GetProductImages(products);
             ViewBag.Products = products;
-            ViewBag.ProductImages = productImages;
             return View();
         }
     }

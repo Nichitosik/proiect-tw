@@ -14,6 +14,7 @@ using System.Web;
 using AutoMapper;
 using Proiect_TW.Helpers;
 using Proiect_TW.Domain.Entities.Users;
+using System.Net.Http.Headers;
 
 
 namespace Proiect_TW.BusinessLogic.Core
@@ -29,20 +30,34 @@ namespace Proiect_TW.BusinessLogic.Core
                 var pass = LoginHelper.HashGen(data.Password);
                 using (var db = new UserContext())
                 {
-                    result = db.Users.FirstOrDefault(u => u.Email == data.Email && u.Password == pass);
-                }
-                if (result == null)
-                {
-                    return new ULoginResp { Status = false, StatusMsg = "The Uswername or Password is Incorrect" };
-                }
-                using (var todo = new UserContext())
-                {
-                    result.LastIp = data.LoginIp;
-                    result.LastLogin = data.LoginDateTime;
-                    todo.SaveChanges();
-                }
-                return new ULoginResp { Status = true };
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            result = db.Users.FirstOrDefault(u => u.Email == data.Email && u.Password == pass);
 
+                            if (result == null)
+                            {
+                                return new ULoginResp { Status = false, StatusMsg = "The Email or Password is Incorrect" };
+                            }
+
+                            result.Password = pass;
+                            result.LastIp = data.LoginIp;
+                            result.LastLogin = data.LoginDateTime;
+                            result.IsOnline = true;
+                            db.SaveChanges();
+                            transaction.Commit();
+
+                            return new ULoginResp { Status = true };
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+
+                            return new ULoginResp { Status = false, StatusMsg = "An error occurred while updating the password." };
+                        }
+                    }
+                }
             }
             else
                 return new ULoginResp { Status = false, StatusMsg = "Incorrect Email or Password" };
@@ -75,7 +90,8 @@ namespace Proiect_TW.BusinessLogic.Core
                     Gender = data.Gender,
                     LastIp = "19",
                     LastLogin = DateTime.Now,
-                    Level = URole.User
+                    Level = URole.User,
+                    RegisterTime = DateTime.Now
                 };
                 using (var todo = new UserContext())
                 {
@@ -103,7 +119,7 @@ namespace Proiect_TW.BusinessLogic.Core
                     {
                         try
                         {
-                            user = db.Users.FirstOrDefault(u => (u.Email == data.Email) && (u.Username == data.Username));
+                            user = db.Users.FirstOrDefault(u => u.Email == data.Email && u.Username == data.Username);
 
                             if (user == null)
                             {
@@ -251,35 +267,28 @@ namespace Proiect_TW.BusinessLogic.Core
 
             return userminimal;
         }
-        public List<Product> GetProducts()
+        public List<ProductWithPath> GetProductsByType(string type)
         {
             List<Product> products = new List<Product>();
+            List<ProductWithPath> productsWithPath = new List<ProductWithPath>();
+
             using (var db = new ProductContext())
             {
-                products = db.Products.ToList();
+                products = db.Products.Where(p => p.Type == type).ToList();
             }
-            return products;
-        }
-        public List<Product> GetProductsByType(string type)
-        {
-            List<Product> allProducts = new List<Product>();
-            List<Product> products = new List<Product>();
-            allProducts = GetProducts();
-
-            foreach(Product product in allProducts)
+            foreach (Product product in products)
             {
-                if (product.Type == type)
-                {
-                    products.Add(product);
-                }
+                List<string> imagePaths = new List<string>();
+                imagePaths = GetProductImagesPath(product);
+                var productWithPath = Mapper.Map<ProductWithPath>(product);
+                productWithPath.ImagesPath = imagePaths;
+                productsWithPath.Add(productWithPath);
             }
 
-            return products;
+            return productsWithPath;
         }
-        public List<Product> GetProductsByGender(string gender, int age)
+        public List<ProductWithPath> GetProductsByGender(string gender, int age)
         {
-            List<Product> products = new List<Product>();
-            products = GetProducts();
             string ageCategory = "";
             string productGender = "";
 
@@ -329,47 +338,56 @@ namespace Proiect_TW.BusinessLogic.Core
                     break;
             }
 
-            for (int i = 0; i < products.Count; i++)
+            List<Product> products = new List<Product>();
+            List<ProductWithPath> productsWithPath = new List<ProductWithPath>();
+            using (var db = new ProductContext())
             {
-                if (products[i].AgeCategory != ageCategory)
-                {
-                    products.RemoveAt(i);
-                }
+                products = db.Products.Where(p => p.AgeCategory == ageCategory && p.Gender == productGender).ToList();
             }
-            for (int i = 0; i < products.Count; i++)
+
+            foreach (Product product in products)
             {
-                if (products[i].Gender != productGender)
-                {
-                    products.RemoveAt(i);
-                }
+                List<string> imagePaths = new List<string>();
+                imagePaths = GetProductImagesPath(product);
+                var productWithPath = Mapper.Map<ProductWithPath>(product);
+                productWithPath.ImagesPath = imagePaths;
+                productsWithPath.Add(productWithPath);
             }
-            return products;
+
+            return productsWithPath;
         }
-        public List<List<string>> GetProductImagesPath(List<Product> products)
+        public List<ProductWithPath> GetProducts()
         {
-            List<List<string>> imagesPath = new List<List<string>>();
+            List<Product> products = new List<Product>();
+            List<ProductWithPath> productsWithPath = new List<ProductWithPath>();
+            using (var db = new ProductContext())
+            {
+                products = db.Products.ToList();
+            }
+            foreach (Product product in products)
+            {
+                List<string> imagePaths = new List<string>();
+                imagePaths = GetProductImagesPath(product);
+                var productWithPath = Mapper.Map<ProductWithPath>(product);
+                productWithPath.ImagesPath = imagePaths;
+                productsWithPath.Add(productWithPath);
+            }
+
+            return productsWithPath;
+        }
+        public List<string> GetProductImagesPath(Product product)
+        {
+            List<string> imagesPath = new List<string>();
             List<ProductImages> images = new List<ProductImages>();
 
             using (var db = new ProductImagesContext())
             {
-                images = db.ProductImages.ToList();
+                images = db.ProductImages.Where(p => p.ProductTitle == product.Title).ToList();
             }
 
-            // Inițializarea listelor pentru fiecare produs
-            foreach (var product in products)
+            foreach (var image in images)
             {
-                imagesPath.Add(new List<string>());
-            }
-
-            for (int i = 0; i < products.Count; i++)
-            {
-                foreach (ProductImages image in images)
-                {
-                    if (image.ProductTitle == products[i].Title)
-                    {
-                        imagesPath[i].Add(image.ImagePath);
-                    }
-                }
+                imagesPath.Add(image.ImagePath);
             }
             return imagesPath;
         }

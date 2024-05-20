@@ -193,12 +193,64 @@ namespace Proiect_TW.BussinesLogic.Core
         internal UsersResp GetUsersAction()
         {
             var users = new List<UDbTable>();
+            int newUsers = 0;
+            int onlineUsers = 0;
             using (var db = new UserContext())
             {
                 users = db.Users.ToList();
             }
-            return new UsersResp { Users = users, Count = users.Count};
+            foreach(UDbTable user in users)
+            {
+                DateTime dateTime1 = DateTime.Now;
+                TimeSpan difference = dateTime1 - user.RegisterTime;
+                if(difference.TotalHours <= 24)
+                {
+                    newUsers++;
+                }
+                if(user.IsOnline == true)
+                {
+                    onlineUsers++;
+                }
+            }
+            return new UsersResp { Users = users, TotalUsers = users.Count, NewUsers = newUsers, OnlineUsers = onlineUsers };
 
+        }
+        internal List<Product> GetProducts()
+        {
+            List<Product> products = new List<Product>();
+            using (var db = new ProductContext())
+            {
+                products = db.Products.ToList();
+            }
+            return products;
+        }
+        public List<List<string>> GetProductImagesPath(List<Product> products)
+        {
+            List<List<string>> imagesPath = new List<List<string>>();
+            List<ProductImages> images = new List<ProductImages>();
+
+            using (var db = new ProductImagesContext())
+            {
+                images = db.ProductImages.ToList();
+            }
+
+            // Inițializarea listelor pentru fiecare produs
+            foreach (var product in products)
+            {
+                imagesPath.Add(new List<string>());
+            }
+
+            for (int i = 0; i < products.Count; i++)
+            {
+                foreach (ProductImages image in images)
+                {
+                    if (image.ProductTitle == products[i].Title)
+                    {
+                        imagesPath[i].Add(image.ImagePath);
+                    }
+                }
+            }
+            return imagesPath;
         }
     }
 }

@@ -15,5 +15,7 @@ namespace Proiect_TW.Domain.Entities.User
         public string Gender { get; set; }
         public string LastIp { get; set; }
         public DateTime LoginDateTime { get; set; }
+        public DateTime RegisterDateTime { get; set; }
+
     }
 }

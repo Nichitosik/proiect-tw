@@ -1,12 +1,13 @@
-﻿
+﻿@using System.Web.Optimization;
 @{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
     ViewBag.Title = "Products";
+    var products = ViewBag.AllProducts;
 }
+@model Proiect_TW.Web.Models.Users.SearchSort
 
 <div class="wrapper">
     <div class="container-fluid">
-
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -29,28 +30,44 @@
                 <div class="card-box">
                     <div class="row">
                         <div class="col-lg-8">
-                            <form class="form-inline" action="@Url.Action("Admin", "AdminController")" method="get">
+                            @Html.ValidationSummary(true)
+                            @using (Html.BeginForm("Products", "Admin", FormMethod.Post, new { @id = "SearchSortForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            <div class="form-inline">
                                 <div class="form-group">
-                                    <label for="inputPassword2" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" id="inputPassword2" name="searchTerm" placeholder="Search...">
+                                    @Html.LabelFor(m => m.ProductTitle, "Search by title", new { @class = "control-label", style = "margin-right: 10px;" })
+                                    @Html.TextBoxFor(m => m.ProductTitle, new
+                                    {
+                                        placeholder = "Search...",
+                                        title = "Please enter the product Title",
+                                        value = "",
+                                        name = "Title",
+                                        @class = "form-control",
+                                        style = "margin-right: 10px;",
+                                        autocomplete = "off"
+                                    })
                                 </div>
-                                <div class="form-group mx-sm-3">
-                                    <label for="status-select" class="mr-2">Sort By</label>
-                                    <select class="custom-select" id="status-select" name="sortBy">
-                                        <option value="all" selected>All</option>
-                                        <option value="date">Date</option>
-                                        <option value="name">Name</option>
-                                        <option value="revenue">Revenue</option>
-                                        <option value="employees">Employees</option>
-                                    </select>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SortOption, "Sort", new { @class = "control-label", style = "margin-right: 10px; margin-left: 10px;" })
+                                    @Html.DropDownListFor(m => m.SortOption, new SelectList(new[]
+                                    {
+                                        "All",
+                                        "Price",
+                                        "Sold Items",
+                                        "Sales Income",
+                                        "Publish Time"
+                                    }), new { @class = "form-control", style = "margin-right: 10px;" })
                                 </div>
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </form>
+                                <button type="submit" class="btn btn-primary">Search/Sort</button>
+                            </div>
+
+                            }
                         </div>
                         <div class="col-lg-4">
                             <div class="text-lg-right mt-3 mt-lg-0">
-                                <button type="button" class="btn btn-success waves-effect waves-light mr-1"><i class="mdi mdi-settings"></i></button>
-                                <a href="@Url.Action("AddProduct", "Admin")" class="btn btn-danger waves-effect waves-light" data-animation="fadein" data-plugin="custommodal" data-overlayColor="#38414a"><i class="mdi mdi-plus-circle mr-1"></i> Add New</a>
+                                <a href="@Url.Action("AddProduct", "Admin")" class="btn btn-success waves-effect waves-light mr-1"><i class="fa fa-plus"></i> Add New Product</a>
                             </div>
                         </div><!-- end col-->
                     </div> <!-- end row -->
@@ -58,49 +75,54 @@
             </div><!-- end col-->
         </div>
         <!-- end row -->
-        @for (int i = 0; i < 5; i++)
-        {
-            <div class="row">
-                @for (int j = 0; j < 3; j++)
-                {
-                    <div class="col-md-4">
-                        <div class="card-box">
-                            <div class="text-center">
-                                <img src="/assets/images/accessories-02.jpg" alt="logo" class="avatar-xl rounded-circle mb-3">
-                                <h4 class="mb-1">@($"Product name: {i}")</h4>
-                                <p class="text-muted">@($"Type: {i}, Style: {i}")</p>
-                            </div>
-
-                            <p class="font-14 text-center text-muted">
-                                Description...
-                            </p>
-
-                            <div class="text-center">
-                                <a href="@Url.Action("SigleProduct", "Home")" class="btn btn-sm btn-secondary">View more info</a>
-                            </div>
-
-                            <div class="row mt-5 text-center">
-                                <div class="col-6">
-                                    <h5 class="font-weight-normal text-muted">Sales Income</h5>
-                                    <h3 class="m-b-30">260 cr</h3>
-                                </div>
-                                <div class="col-6">
-                                    <h5 class="font-weight-normal text-muted">Number of sold items</h5>
-                                    <h3 class="m-b-30">3.1k</h3>
-                                </div>
-                            </div>
-
-                            <div id="company-1" class="text-center"></div>
-
+        <div class="row">
+            @for (int i = 0; i < products.Count; i++)
+            {
+                <div class="col-md-4">
+                    <div class="card-box">
+                        <div class="text-center">
+                            <img src="/assets/ProductsImages/@products[i].ImagesPath[0]" alt="logo" class="avatar-xl rounded-circle mb-3">
+                            <h4 class="mb-1">@($"{products[i].Title}")</h4>
+                            <p class="text-muted">@($"Type: {products[i].Type}, Style: {products[i].Style}")</p>
                         </div>
-                    </div><!-- end col -->
-                }
-            </div>
-            <!-- end row -->
-        }
 
+                        <p class="font-14 text-center text-muted">
+                            @if (products[i].Description.Length > 30)
+                            {
+                                @($"{products[i].Description.Substring(0, 30)} ...")
+                            }
+                            else
+                            {
+                                @products[i].Description
+                            }
+                        </p>
 
+                        <div class="text-center">
+                            <a href="@Url.Action("SigleProduct", "Home")" class="btn btn-sm btn-secondary">View more info</a>
+                        </div>
 
+                        <div class="row mt-5 text-center">
+                            <div class="col-4">
+                                <h5 class="font-weight-normal text-muted">Sales Income</h5>
+                                <h3 class="m-b-30">260 cr</h3>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="font-weight-normal text-muted">Item Price</h5>
+                                <h3 class="m-b-30">@($"${products[i].Price}")</h3>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="font-weight-normal text-muted">Sold items</h5>
+                                <h3 class="m-b-30">3.1k</h3>
+                            </div>
+                        </div>
+
+                        <div id="company-1" class="text-center"></div>
+
+                    </div>
+                </div><!-- end col -->
+            }
+        </div>
+        <!-- end row -->
         <!-- Modal -->
         <div id="custom-modal" class="modal-demo">
             <button type="button" class="close" onclick="Custombox.modal.close();">

@@ -159,6 +159,7 @@
     <Compile Include="Entities\Users\ProductImagesData.cs" />
     <Compile Include="Entities\Users\ProductImagesResp.cs" />
     <Compile Include="Entities\Users\ProductResp.cs" />
+    <Compile Include="Entities\Users\ProductWithPath.cs" />
     <Compile Include="Entities\Users\Session.cs" />
     <Compile Include="Entities\Users\UDbTable.cs" />
     <Compile Include="Entities\Users\ULoginData.cs" />

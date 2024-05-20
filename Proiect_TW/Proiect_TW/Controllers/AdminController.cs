@@ -17,16 +17,21 @@ using System.IO;
 using System.Web.UI.WebControls;
 using Microsoft.Web.XmlTransform;
 using System.ServiceModel.PeerResolvers;
+using System.Net.Http.Headers;
+using System.Data.SqlTypes;
 
 namespace Proiect_TW.Controllers
 {
     public class AdminController : BaseController
     {
-        private readonly ISessionAdmin _session;
+        private readonly ISessionAdmin _sessionAdmin;
+        private readonly ISession _session;
         public AdminController()
         {
+            var blAdmin = new BussinessLogic();
             var bl = new BussinessLogic();
-            _session = bl.GetSessionAdmin();
+            _sessionAdmin = blAdmin.GetSessionAdmin();
+            _session = bl.GetSessionBL();
         }
         public void GetUser()
         {
@@ -36,7 +41,7 @@ namespace Proiect_TW.Controllers
             string userStatus = (string)System.Web.HttpContext.Current.Session["LoginStatus"];
             if (userStatus != "logout")
             {
-                var profile = _session.GetUserByCookie(apiCookie.Value);
+                var profile = _sessionAdmin.GetUserByCookie(apiCookie.Value);
                 ViewBag.User = profile;
             }
             else if (userStatus == "logout")
@@ -60,14 +65,60 @@ namespace Proiect_TW.Controllers
         }
         public ActionResult Users()
         {
-            UsersResp users = _session.GetUsers();
+            UsersResp users = _sessionAdmin.GetUsers();
             ViewBag.AllUsers = users;
             GetUser();
             return View();
         }
-        public ActionResult Products()
+        public void GetProducts()
         {
             GetUser();
+            List<ProductWithPath> productWithPaths = new List<ProductWithPath>();
+            productWithPaths = _session.GetAllProducts();
+            ViewBag.AllProducts = productWithPaths;
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Products(SearchSort option)
+        {
+            GetProducts();
+            if (option.ProductTitle != null)
+            {
+                List<ProductWithPath> products = new List<ProductWithPath>();
+                foreach(ProductWithPath product in ViewBag.AllProducts)
+                {
+                    if (product.Title.Length >= option.ProductTitle.Length && product.Title.IndexOf(option.ProductTitle, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        products.Add(product);
+                    }
+
+                }
+                ViewBag.AllProducts = products;
+            }
+            if (option.SortOption != "All")
+            {
+                switch (option.SortOption)
+                {
+                    case "Price":
+                        ViewBag.AllProducts = ((List<ProductWithPath>)ViewBag.AllProducts).OrderBy(p => p.Price).ToList();
+                        break;
+                    case "Sold Items":
+                        ViewBag.AllProducts = ((List<ProductWithPath>)ViewBag.AllProducts).OrderBy(p => p.SoldItems).ToList();
+                        break;
+                    case "Sales Income":
+                        ViewBag.AllProducts = ((List<ProductWithPath>)ViewBag.AllProducts).OrderBy(p => p.SalesIncome).ToList();
+                        break;
+                    case "Publish Time":
+                        ViewBag.AllProducts = ((List<ProductWithPath>)ViewBag.AllProducts).OrderBy(p => p.PublishTime).ToList();
+                        break;
+                }
+            }
+
+            return View();
+        }
+        public ActionResult Products()
+        {
+            GetProducts();
             return View();
         }
 
@@ -90,7 +141,7 @@ namespace Proiect_TW.Controllers
                 productData.Ip = Request.UserHostAddress;
                 productData.PublishTime = DateTime.Now;
 
-                ProductResp productResp = _session.AddProduct(productData);
+                ProductResp productResp = _sessionAdmin.AddProduct(productData);
 
                 if (productResp.Status)
                 {
@@ -120,7 +171,7 @@ namespace Proiect_TW.Controllers
                         ImageNames = fileNames,
                         ImagePaths = filePaths
                     };
-                    _session.AddProductImages(imagesData);
+                    _sessionAdmin.AddProductImages(imagesData);
 
 
                     return RedirectToAction("Index", "Home");

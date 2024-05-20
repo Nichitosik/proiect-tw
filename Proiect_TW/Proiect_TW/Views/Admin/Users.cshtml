@@ -34,28 +34,22 @@
 
                     <div class="text-center mb-2">
                         <div class="row">
-                            <div class="col-md-6 col-xl-3">
+                            <div class="col-md-6 col-xl-4">
                                 <div class="card-box border">
-                                    <h3>25563</h3>
+                                    <h3>@users.TotalUsers</h3>
                                     <p class="text-uppercase mb-1 font-13 font-weight-medium">Total users</p>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xl-3">
+                            <div class="col-md-6 col-xl-4">
                                 <div class="card-box border">
-                                    <h3 class="text-warning">6952</h3>
+                                    <h3 class="text-warning">@users.NewUsers</h3>
                                     <p class="text-uppercase mb-1 font-13 font-weight-medium">New users</p>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xl-3">
+                            <div class="col-md-6 col-xl-4">
                                 <div class="card-box border">
-                                    <h3 class="text-success">18361</h3>
+                                    <h3 class="text-success">@users.OnlineUsers</h3>
                                     <p class="text-uppercase mb-1 font-13 font-weight-medium">Online users</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box border">
-                                    <h3 class="text-danger">250</h3>
-                                    <p class="text-uppercase mb-1 font-13 font-weight-medium">Deleted users</p>
                                 </div>
                             </div>
                         </div>
@@ -78,13 +72,13 @@
                         </thead>
 
                         <tbody class="font-14">
-                            @for (int i = 0; i < users.Count; i++)
+                            @for (int i = 0; i < users.TotalUsers; i++)
                             {
                                 <tr>
                                     <td><b>#@users.Users[i].Id</b></td>
                                     <td>
-                                        <a href="javascript: void(0);" class="text-dark">
-                                            <img src="assets/images/users/avatar-2.jpg" alt="contact-img" title="contact-img" class="avatar-sm rounded-circle img-thumbnail" />
+                                        <a class="text-dark">
+                                                <i class="fas fa-user custom-color"></i>
                                             <span class="ml-2">@users.Users[i].Username</span>
                                         </a>
                                     </td>
@@ -99,16 +93,22 @@
 
                                     <td>
                                         @users.Users[i].LastIp
-
                                     </td>
 
                                     <td>
-                                        <span class="badge badge-secondary">Low</span>
-                                        <span class="badge badge-success">Open</span>
+                                        @{ if (users.Users[i].IsOnline == true)
+                                            {
+                                                <span class="badge badge-success">Online</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-secondary">Offline</span>
+                                            }
+                                        }
                                     </td>
 
                                     <td>
-                                        2017/04/28
+                                        @users.Users[i].RegisterTime
                                     </td>
 
                                     <td>

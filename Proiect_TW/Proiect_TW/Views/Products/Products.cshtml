@@ -12,7 +12,7 @@
             <div class="col-lg-12">
                 <div class="inner-content">
                     <h2>Check Our Products</h2>
-                    <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                    <span>Shop our latest fashion styles for every occasion. Quality clothes at great prices!</span>
                 </div>
             </div>
         </div>
@@ -41,11 +41,10 @@
                             <div class="hover-content">
                                 <ul>
                                     <li><a href="@Url.Action("SingleProduct", "Home")"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
                                     <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
-                            <img src="/assets/ProductsImages/@imagePaths[i][0]" alt="">
+                            <img src="/assets/ProductsImages/@products[i].ImagesPath[0]" alt="">
                         </div>
                         <div class="down-content">
                             <h4> @($"{products[i].Title}")</h4>

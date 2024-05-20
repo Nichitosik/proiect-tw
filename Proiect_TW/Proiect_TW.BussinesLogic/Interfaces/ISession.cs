@@ -20,9 +20,9 @@ namespace Proiect_TW.BusinessLogic.Interfaces
         UProfileEditResp UserProfileEdit(UProfileEditData data);
         HttpCookie GenCookie(string loginEmail);
         UserMinimal GetUserByCookie(string apiCookieValue);
-        List<Product> GetProductsForUser(string type);
-        List<Product> GetProductsForYou(string gender, int age);
-        List<List<string>> GetProductImages(List<Product> products);
+        List<ProductWithPath> GetProductsForUser(string type);
+        List<ProductWithPath> GetProductsForYou(string gender, int age);
+        List<ProductWithPath> GetAllProducts();
 
     }
 }

@@ -408,6 +408,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Extension\HttpContextExtension.cs" />
     <Compile Include="Models\Users\AddProduct.cs" />
+    <Compile Include="Models\Users\SearchSort.cs" />
     <Compile Include="Models\Users\UProfileEdit.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Global.asax.cs">

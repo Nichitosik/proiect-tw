@@ -31,5 +31,14 @@ namespace Proiect_TW.BussinesLogic
         {
             return GetUsersAction();
         }
+        public List<Product> GetAllProducts()
+        {
+            return GetProducts();
+        }
+        public List<List<string>> GetProductImages(List<Product> products)
+        {
+            return GetProductImagesPath(products);
+        }
+
     }
 }

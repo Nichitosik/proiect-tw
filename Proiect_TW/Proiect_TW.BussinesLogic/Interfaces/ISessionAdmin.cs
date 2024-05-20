@@ -14,5 +14,8 @@ namespace Proiect_TW.BussinesLogic.Interfaces
         ProductImagesResp AddProductImages(ProductImagesData data);
         UserMinimal GetUserByCookie(string apiCookieValue);
         UsersResp GetUsers();
+        List<Product> GetAllProducts();
+        List<List<string>> GetProductImages(List<Product> products);
+
     }
 }

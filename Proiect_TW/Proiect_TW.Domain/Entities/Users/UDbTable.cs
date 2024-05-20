@@ -45,8 +45,16 @@ namespace Proiect_TW.Domain.Entities.User
 
         public DateTime LastLogin { get; set; }
 
+        [DataType(DataType.Date)]
+
+        public DateTime RegisterTime { get; set; }
+
         [StringLength(30)]
         public string LastIp { get; set; }
+
+        [Required]
+        [Display(Name = "IsOnline")]
+        public bool IsOnline { get; set; }
 
         public URole Level { get; set; }
     }
