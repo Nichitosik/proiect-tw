@@ -77,6 +77,13 @@ namespace Proiect_TW.Controllers
             productWithPaths = _session.GetAllProducts();
             ViewBag.AllProducts = productWithPaths;
         }
+        public void GetUsersFeedback()
+        {
+            GetUser();
+            List<Feedback> usersFeedback = new List<Feedback>();
+            usersFeedback = _sessionAdmin.GetUsersFeedback();
+            ViewBag.AllUsersFeedback = usersFeedback;
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Products(SearchSort option)
@@ -119,6 +126,11 @@ namespace Proiect_TW.Controllers
         public ActionResult Products()
         {
             GetProducts();
+            return View();
+        }
+        public ActionResult UsersFeedback()
+        {
+            GetUsersFeedback();
             return View();
         }
 

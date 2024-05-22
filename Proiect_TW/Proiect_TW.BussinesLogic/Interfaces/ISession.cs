@@ -24,6 +24,6 @@ namespace Proiect_TW.BusinessLogic.Interfaces
         List<ProductWithPath> GetProductsForYou(string gender, int age);
         List<ProductWithPath> GetAllProducts();
         ULoginResp UserLogout(string email);
-
+        UFeedbackResp UserFeedback(UFeedbackData data);
     }
 }

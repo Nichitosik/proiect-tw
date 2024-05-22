@@ -224,33 +224,14 @@ namespace Proiect_TW.BussinesLogic.Core
             }
             return products;
         }
-        public List<List<string>> GetProductImagesPath(List<Product> products)
+        public List<Feedback> GetFeedback()
         {
-            List<List<string>> imagesPath = new List<List<string>>();
-            List<ProductImages> images = new List<ProductImages>();
-
-            using (var db = new ProductImagesContext())
+            List<Feedback> usersFeedback = new List<Feedback>();
+            using (var db = new FeedbackContext())
             {
-                images = db.ProductImages.ToList();
+                usersFeedback = db.Feedback.ToList();
             }
-
-            // Inițializarea listelor pentru fiecare produs
-            foreach (var product in products)
-            {
-                imagesPath.Add(new List<string>());
-            }
-
-            for (int i = 0; i < products.Count; i++)
-            {
-                foreach (ProductImages image in images)
-                {
-                    if (image.ProductTitle == products[i].Title)
-                    {
-                        imagesPath[i].Add(image.ImagePath);
-                    }
-                }
-            }
-            return imagesPath;
+            return usersFeedback;
         }
     }
 }

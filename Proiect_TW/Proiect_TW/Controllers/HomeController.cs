@@ -14,6 +14,9 @@ using Proiect_TW.Web.Models.Users;
 using Proiect_TW.Domain.Entities.Users;
 using Microsoft.Ajax.Utilities;
 using System.Web.UI.WebControls;
+using Microsoft.Win32;
+using Microsoft.Build.Evaluation;
+using System;
 
 namespace Proiect_TW.Web.Controllers
 {
@@ -64,6 +67,42 @@ namespace Proiect_TW.Web.Controllers
                     }
                 }
             } 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(UserFeedback feedback)
+        {
+            GetUser();
+            if(feedback.Description == null)
+            {
+                ModelState.AddModelError("", "Please enter a description");
+                return View();
+            }
+            if (ModelState.IsValid)
+            {
+                if(ViewBag.User != null)
+                {
+                    UFeedbackData feedbackData = new UFeedbackData();
+                    feedbackData.Description = feedback.Description;
+                    feedbackData.Email = ViewBag.User.Email;
+                    feedbackData.Ip = Request.UserHostAddress;
+                    feedbackData.PublishTime = DateTime.Now;
+
+                    UFeedbackResp feedbackResp = _session.UserFeedback(feedbackData);
+
+                    if (feedbackResp.Status)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", feedbackResp.StatusMsg);
+                        return RedirectToAction("Login", "Login");
+                    }
+                }
+                return RedirectToAction("Login", "Login");
+            }
             return View();
         }
         public ActionResult About()

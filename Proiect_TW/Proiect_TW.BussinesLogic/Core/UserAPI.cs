@@ -477,6 +477,32 @@ namespace Proiect_TW.BusinessLogic.Core
             }
             return imagesPath;
         }
+        public UFeedbackResp UserFeedbackAction(UFeedbackData data)
+        {
+
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.Email))
+            {
+                var newFeedbak = new Feedback()
+                {
+                    Email = data.Email,
+                    Description = data.Description,
+                    PublishTime = DateTime.Now,
+                    Ip = data.Ip
+                };
+                using (var todo = new FeedbackContext())
+                {
+                    todo.Feedback.Add(newFeedbak);
+                    todo.SaveChanges();
+                }
+                return new UFeedbackResp { Status = true };
+
+            }
+            else
+            {
+                return new UFeedbackResp { Status = false, StatusMsg = "Email is not valid" };
+            }
+        }
 
 
     }

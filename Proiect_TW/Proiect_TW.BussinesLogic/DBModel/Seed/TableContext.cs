@@ -19,6 +19,7 @@ namespace Proiect_TW.BussinesLogic.DBModel.Seed
         public virtual DbSet<UDbTable> Users { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<ProductImages> ProductImages { get; set; }
+        public virtual DbSet<Feedback> Feedback { get; set; }
 
     }
 }

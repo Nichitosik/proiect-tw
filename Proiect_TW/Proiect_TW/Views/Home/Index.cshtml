@@ -1,6 +1,9 @@
-﻿@{
+﻿@using System.Web.Optimization;
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model Proiect_TW.Web.Models.Users.UserFeedback
+
 
 <!-- ***** Main Banner Area Start ***** -->
 <div class="main-banner" id="top">
@@ -712,49 +715,39 @@
 <div class="subscribe">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="section-heading">
-                    <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
-                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                    <h2>We Value Your Feedback!</h2>
+                    <span>Thank you for shopping with us! Your opinion matters and helps us improve. Whether you loved your new outfit or have suggestions on how we can do better, we want to hear from you.</span>
                 </div>
-                <form id="subscribe" action="" method="get">
+                @Html.ValidationSummary(true)
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @id = "AddFeedbackForm" }))
+                {
+                    @Html.AntiForgeryToken()
                     <div class="row">
-                        <div class="col-lg-5">
-                            <fieldset>
-                                <input name="name" type="text" id="name" placeholder="Your Name" required="">
-                            </fieldset>
+                        <div class="col-lg-10">
+                            <div class="form-group user-feedback-description">
+                                @Html.TextAreaFor(m => m.Description, new
+                           {
+                               placeholder = "Add your Feedback",
+                               title = "Please enter a feedback",
+                               @class = "form-control",
+                               rows = "6",
+                               style = "background-color: #e3d5bb;" // Inline style for testing
+
+                           })
+                            </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-2 align-items-end">
                             <fieldset>
-                                <input name="email" type="text" id="email" placeholder="Your Email Address" required="">
-                            </fieldset>
-                        </div>
-                        <div class="col-lg-2">
-                            <fieldset>
-                                <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+                                <button type="submit" href="@Url.Action("Index", "Home")" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
                             </fieldset>
                         </div>
                     </div>
-                </form>
+
+                }
             </div>
-            <div class="col-lg-4">
-                <div class="row">
-                    <div class="col-6">
-                        <ul>
-                            <li>Store Location:<br><span>Sunny Isles Beach, FL 33160, United States</span></li>
-                            <li>Phone:<br><span>010-020-0340</span></li>
-                            <li>Office Location:<br><span>North Miami Beach</span></li>
-                        </ul>
-                    </div>
-                    <div class="col-6">
-                        <ul>
-                            <li>Work Hours:<br><span>07:30 AM - 9:30 PM Daily</span></li>
-                            <li>Email:<br><span>info@company.com</span></li>
-                            <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>

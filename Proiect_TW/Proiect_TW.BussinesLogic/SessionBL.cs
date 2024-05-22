@@ -55,6 +55,10 @@ namespace Proiect_TW.BusinessLogic
         {
             return UserLogoutAction(email);
         }
+        public UFeedbackResp UserFeedback(UFeedbackData data)
+        {
+            return UserFeedbackAction(data);
+        }
 
     }
 }

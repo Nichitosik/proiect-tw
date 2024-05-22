@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\Users\Feedback.cs" />
     <Compile Include="Entities\Users\Product.cs" />
     <Compile Include="Entities\Users\ProductData.cs" />
     <Compile Include="Entities\Users\ProductImages.cs" />
@@ -162,6 +163,8 @@
     <Compile Include="Entities\Users\ProductWithPath.cs" />
     <Compile Include="Entities\Users\Session.cs" />
     <Compile Include="Entities\Users\UDbTable.cs" />
+    <Compile Include="Entities\Users\UFeedbackData.cs" />
+    <Compile Include="Entities\Users\UFeedbackResp.cs" />
     <Compile Include="Entities\Users\ULoginData.cs" />
     <Compile Include="Entities\Users\ULoginResp.cs" />
     <Compile Include="Entities\Users\UProfileEditData.cs" />

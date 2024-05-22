@@ -2584,9 +2584,8 @@ User Icon
     opacity: 0;
   }
 }
-.profile-edit-input{
+.profile-edit-input {
     margin-bottom: 20px;
-    
 }
 .profile-edit-input select {
     background-color: #e3d5bb;
@@ -2605,3 +2604,8 @@ User Icon
     .profile-edit-input select:focus {
         background-color: #e3d5bb;
     }
+.align-items-end {
+    align-items: flex-end;
+    display: flex;
+    margin-bottom: 15px;
+}

@@ -35,9 +35,9 @@ namespace Proiect_TW.BussinesLogic
         {
             return GetProducts();
         }
-        public List<List<string>> GetProductImages(List<Product> products)
+        public List<Feedback> GetUsersFeedback()
         {
-            return GetProductImagesPath(products);
+            return GetFeedback();
         }
 
     }
