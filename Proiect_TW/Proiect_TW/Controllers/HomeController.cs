@@ -13,6 +13,7 @@ using AutoMapper;
 using Proiect_TW.Web.Models.Users;
 using Proiect_TW.Domain.Entities.Users;
 using Microsoft.Ajax.Utilities;
+using System.Web.UI.WebControls;
 
 namespace Proiect_TW.Web.Controllers
 {
@@ -41,9 +42,28 @@ namespace Proiect_TW.Web.Controllers
             }
         }
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string button)
         {
             GetUser();
+            if(ViewBag.User != null && button != null)
+            {
+                ULoginResp loginResp = _session.UserLogout(ViewBag.User.Email);
+                if (loginResp.Status)
+                {
+                    if (button == "Logout")
+                    {
+                        return RedirectToAction("Login", "Login");
+                    }
+                    else if (button == "Register")
+                    {
+                        return RedirectToAction("Register", "Login");
+                    }
+                    else if (button == "RecoverPassword")
+                    {
+                        return RedirectToAction("RecoverPassword", "Login");
+                    }
+                }
+            } 
             return View();
         }
         public ActionResult About()

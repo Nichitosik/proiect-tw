@@ -39,6 +39,7 @@ namespace Proiect_TW.Web.Controllers
                         if (cookie != null)
                         {
                             cookie.Expires = DateTime.Now.AddDays(-1);
+
                             ControllerContext.HttpContext.Response.Cookies.Add(cookie);
                         }
                     }

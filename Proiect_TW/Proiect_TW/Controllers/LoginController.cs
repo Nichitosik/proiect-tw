@@ -16,6 +16,8 @@ using Proiect_TW.Web.Controllers;
 using Proiect_TW.Domain.Enums;
 using Proiect_TW.BussinesLogic.DBModel.Seed;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Core.Common.CommandTrees;
+using AutoMapper.Configuration.Conventions;
 
 
 namespace Proiect_TW.Web.Controllers
@@ -30,7 +32,7 @@ namespace Proiect_TW.Web.Controllers
             var bl = new BussinessLogic();
             _session = bl.GetSessionBL();
         }
-        public ActionResult Login()
+        public ActionResult Login(string button)
         {
             return View();
         }

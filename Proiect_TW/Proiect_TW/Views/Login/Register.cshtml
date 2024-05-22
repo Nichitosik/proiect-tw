@@ -52,17 +52,6 @@
                        })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                            @Html.TextBoxFor(m => m.Password, new
-                       {
-                           placeholder = "Password",
-                           title = "Please enter your password",
-                           value = "",
-                           name = "password",
-                           @class = "form-control"
-                       })
-                        </div>
-                        <div class="form-group">
                             @Html.LabelFor(m => m.Age, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Age, new
                        {
@@ -80,6 +69,28 @@
                             "Male",
                             "Female",
                        }), new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Password, new
+                       {
+                           placeholder = "Password",
+                           title = "Please enter your password",
+                           value = "",
+                           name = "password",
+                           @class = "form-control"
+                       })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.RepeatPassword, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.RepeatPassword, new
+                       {
+                           placeholder = "Repeat your password",
+                           title = "Please repeatrepeat your password",
+                           value = "",
+                           name = "password",
+                           @class = "form-control"
+                       })
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">

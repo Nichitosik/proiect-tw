@@ -51,6 +51,10 @@ namespace Proiect_TW.BusinessLogic
         {
             return GetProducts();
         }
+        public ULoginResp UserLogout(string email)
+        {
+            return UserLogoutAction(email);
+        }
 
     }
 }

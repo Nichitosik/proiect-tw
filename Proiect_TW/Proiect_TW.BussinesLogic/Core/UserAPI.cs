@@ -62,6 +62,59 @@ namespace Proiect_TW.BusinessLogic.Core
             else
                 return new ULoginResp { Status = false, StatusMsg = "Incorrect Email or Password" };
         }
+        internal ULoginResp UserLogoutAction(string email)
+        {
+            var validate = new EmailAddressAttribute();
+            if (!validate.IsValid(email))
+            {
+                return new ULoginResp { Status = false, StatusMsg = "The provided email is not valid." };
+            }
+
+            using (var db = new SessionContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var sessionToRemove = db.Sessions.FirstOrDefault(e => e.Username == email);
+                        if (sessionToRemove != null)
+                        {
+                            db.Sessions.Remove(sessionToRemove);
+                            db.SaveChanges();
+                            transaction.Commit();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        return new ULoginResp { Status = false, StatusMsg = "An error occurred while the logout process." };
+                    }
+                }
+            }
+
+            using (var db = new UserContext())
+            {
+                try
+                {
+                    var userToUpdate = db.Users.FirstOrDefault(u => u.Email == email);
+                    if (userToUpdate != null)
+                    {
+                        userToUpdate.IsOnline = false;
+                        db.SaveChanges();
+                        return new ULoginResp { Status = true, StatusMsg = "Logout successful" };
+                    }
+                    else
+                    {
+                        return new ULoginResp { Status = false, StatusMsg = "The provided email does not exist." };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "An error occurred while the logout process." };
+                }
+            }
+        }
+
         internal URegisterResp UserRegisterAction(URegisterData data)
         {
             UDbTable user;
@@ -71,6 +124,10 @@ namespace Proiect_TW.BusinessLogic.Core
                 if (data.Age < 0 || data.Age > 120)
                 {
                     return new URegisterResp { Status = false, StatusMsg = "The age is not valid" };
+                }
+                if(data.Password != data.RepeatPassword)
+                {
+                    return new URegisterResp { Status = false, StatusMsg = "The repeat password is not correct" };
                 }
                 var pass = LoginHelper.HashGen(data.Password);
                 using (var db = new UserContext())
@@ -233,6 +290,35 @@ namespace Proiect_TW.BusinessLogic.Core
                         ExpireTime = DateTime.Now.AddMinutes(60)
                     });
                     db.SaveChanges();
+                    List<Session> sessiolist = new List<Session>();
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                            sessiolist = db.Sessions.ToList();
+                            if (sessiolist != null)
+                            {
+                                foreach (Session session in sessiolist)
+                                {
+                                    DateTime currentTime = DateTime.Now;
+                                    if (session.ExpireTime < currentTime) // Check if the session has expired
+                                    {
+                                        db.Sessions.Remove(session);
+                                        using (var userdb = new UserContext())
+                                        {
+                                            var user = userdb.Users.Where(u => u.Email == session.Username).FirstOrDefault();
+                                        if (user != null)
+                                            {
+                                                user.IsOnline = false;
+                                                db.SaveChanges();
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+
+                                db.SaveChanges();
+                                transaction.Commit();
+                            }
+                    }
                 }
             }
 

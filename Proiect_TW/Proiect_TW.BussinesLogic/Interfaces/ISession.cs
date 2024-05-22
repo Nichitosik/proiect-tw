@@ -23,6 +23,7 @@ namespace Proiect_TW.BusinessLogic.Interfaces
         List<ProductWithPath> GetProductsForUser(string type);
         List<ProductWithPath> GetProductsForYou(string gender, int age);
         List<ProductWithPath> GetAllProducts();
+        ULoginResp UserLogout(string email);
 
     }
 }
