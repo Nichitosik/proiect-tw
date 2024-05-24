@@ -126,3 +126,5 @@ C:\Users\Cristian\Desktop\proiect-tw\Proiect_TW\Proiect_TW.BussinesLogic\bin\Deb
 C:\Users\Cristian\Desktop\proiect-tw\Proiect_TW\Proiect_TW.BussinesLogic\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Cristian\Desktop\proiect-tw\Proiect_TW\Proiect_TW.BussinesLogic\bin\Debug\System.ValueTuple.xml
 C:\Users\Cristian\Desktop\proiect-tw\Proiect_TW\Proiect_TW.BussinesLogic\obj\Debug\Proiect_TW.BusinessLogic.csproj.CopyComplete
+C:\Users\Cristian\Desktop\proiect-tw\Proiect_TW\Proiect_TW.BussinesLogic\obj\Debug\Proiect_TW.BussinesLogic.DataContextMigrations.Initial.resources
+C:\Users\Cristian\Desktop\proiect-tw\Proiect_TW\Proiect_TW.BussinesLogic\obj\Debug\Proiect_TW.BusinessLogic.csproj.GenerateResource.cache

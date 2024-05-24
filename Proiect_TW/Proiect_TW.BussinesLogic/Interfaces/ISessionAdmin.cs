@@ -12,10 +12,11 @@ namespace Proiect_TW.BussinesLogic.Interfaces
     {
         ProductResp AddProduct(ProductData data);
         ProductImagesResp AddProductImages(ProductImagesData data);
-        UserMinimal GetUserByCookie(string apiCookieValue);
         UsersResp GetUsers();
         List<Product> GetAllProducts();
         List<Feedback> GetUsersFeedback();
+        ULoginResp DeleteUser(string UserEmail);
+        ULoginResp DeleteProduct(string Title);
 
 
     }

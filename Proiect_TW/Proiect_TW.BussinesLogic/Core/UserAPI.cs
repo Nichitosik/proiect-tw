@@ -367,7 +367,7 @@ namespace Proiect_TW.BusinessLogic.Core
             foreach (Product product in products)
             {
                 List<string> imagePaths = new List<string>();
-                imagePaths = GetProductImagesPath(product);
+                imagePaths = this.GetProductImagesPath(product);
                 var productWithPath = Mapper.Map<ProductWithPath>(product);
                 productWithPath.ImagesPath = imagePaths;
                 productsWithPath.Add(productWithPath);
@@ -436,7 +436,7 @@ namespace Proiect_TW.BusinessLogic.Core
             foreach (Product product in products)
             {
                 List<string> imagePaths = new List<string>();
-                imagePaths = GetProductImagesPath(product);
+                imagePaths = this.GetProductImagesPath(product);
                 var productWithPath = Mapper.Map<ProductWithPath>(product);
                 productWithPath.ImagesPath = imagePaths;
                 productsWithPath.Add(productWithPath);
@@ -455,7 +455,7 @@ namespace Proiect_TW.BusinessLogic.Core
             for (int i = 0; i <products.Count; i++)
             {
                 List<string> imagePaths = new List<string>();
-                imagePaths = GetProductImagesPath(products[i]);
+                imagePaths = this.GetProductImagesPath(products[i]);
                 var productWithPath = Mapper.Map<ProductWithPath>(products[i]);
                 productWithPath.ImagesPath = imagePaths;
                 if (products[i].XS == true)
@@ -494,7 +494,7 @@ namespace Proiect_TW.BusinessLogic.Core
         public List<string> GetProductImagesPath(Product product)
         {
             List<string> imagesPath = new List<string>();
-            List<ProductImages> images = new List<ProductImages>();
+            List<ProductImages> images;
 
             using (var db = new ProductImagesContext())
             {
@@ -541,7 +541,7 @@ namespace Proiect_TW.BusinessLogic.Core
                 ShoppingCart product;
                 using (var db = new ShoppingCartContext())
                 {
-                    product = db.ShoppingCart.FirstOrDefault(p => p.ProductTitle == data.ProductTitle);
+                    product = db.ShoppingCart.FirstOrDefault(p => p.ProductTitle == data.ProductTitle && p.UserEmail == data.UserEmail);
                 }
                 if (product == null)
                 {
@@ -582,8 +582,7 @@ namespace Proiect_TW.BusinessLogic.Core
                 {
                     prod = db.Products.FirstOrDefault(p => p.Title == product.ProductTitle);
                 }
-                var imagesPath = GetProductImagesPath(prod);
-
+                var imagesPath = this.GetProductImagesPath(prod);
 
                 var resultProd = new ShoppingCartProduct()
                 {
@@ -596,7 +595,6 @@ namespace Proiect_TW.BusinessLogic.Core
                 Size = product.Size,
                 ImagesPath = imagesPath
                 };
-
 
                 result.Add(resultProd);
             }

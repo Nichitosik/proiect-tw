@@ -120,7 +120,7 @@
                                             <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-edit"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="#"><i class="fas fa-edit"></i> Edit User</a>
-                                                <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> Delete</a>
+                                                <a class="dropdown-item" href="@Url.Action("Users", "Admin" , new { button = users.Users[i].Email })"><i class="fas fa-trash"></i> Delete</a>
                                             </div>
                                         </div>
                                     </td>

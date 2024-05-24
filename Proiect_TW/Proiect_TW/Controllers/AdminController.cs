@@ -19,6 +19,7 @@ using Microsoft.Web.XmlTransform;
 using System.ServiceModel.PeerResolvers;
 using System.Net.Http.Headers;
 using System.Data.SqlTypes;
+using Proiect_TW.BussinesLogic;
 
 namespace Proiect_TW.Controllers
 {
@@ -41,7 +42,7 @@ namespace Proiect_TW.Controllers
             string userStatus = (string)System.Web.HttpContext.Current.Session["LoginStatus"];
             if (userStatus != "logout")
             {
-                var profile = _sessionAdmin.GetUserByCookie(apiCookie.Value);
+                var profile = _session.GetUserByCookie(apiCookie.Value);
                 ViewBag.User = profile;
             }
             else if (userStatus == "logout")
@@ -63,11 +64,20 @@ namespace Proiect_TW.Controllers
             GetUser();
             return View();
         }
-        public ActionResult Users()
+        public ActionResult Users(string button)
         {
-            UsersResp users = _sessionAdmin.GetUsers();
-            ViewBag.AllUsers = users;
             GetUser();
+            ULoginResp responce = new ULoginResp();
+            if(button != null)
+            {
+                responce = _sessionAdmin.DeleteUser(button);
+            }
+            if(responce != null)
+            {
+                UsersResp users = _sessionAdmin.GetUsers();
+                ViewBag.AllUsers = users;
+                return View();
+            }
             return View();
         }
         public void GetProducts()
@@ -123,9 +133,19 @@ namespace Proiect_TW.Controllers
 
             return View();
         }
-        public ActionResult Products()
+        public ActionResult Products(string button)
         {
-            GetProducts();
+            GetUser();
+            ULoginResp responce = new ULoginResp();
+            if (button != null)
+            {
+                responce = _sessionAdmin.DeleteProduct(button);
+            }
+            if (responce != null)
+            {
+                GetProducts();
+                return View();
+            }
             return View();
         }
         public ActionResult UsersFeedback()

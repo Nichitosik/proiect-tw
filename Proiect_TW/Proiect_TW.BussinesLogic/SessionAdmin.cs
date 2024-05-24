@@ -23,10 +23,6 @@ namespace Proiect_TW.BussinesLogic
         {
             return AddProductImagesAction(data);
         }
-        public UserMinimal GetUserByCookie(string apiCookieValue)
-        {
-            return UserCookie(apiCookieValue);
-        }
         public UsersResp GetUsers()
         {
             return GetUsersAction();
@@ -38,6 +34,14 @@ namespace Proiect_TW.BussinesLogic
         public List<Feedback> GetUsersFeedback()
         {
             return GetFeedback();
+        }
+        public ULoginResp DeleteUser(string UserEmail)
+        {
+            return DelUser(UserEmail);
+        }
+        public ULoginResp DeleteProduct(string Title)
+        {
+            return DelProduct(Title);
         }
 
     }

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -117,79 +118,6 @@ namespace Proiect_TW.BussinesLogic.Core
                 return new ProductImagesResp { Status = false, StatusMsg = "Please enter all information" };
             }
         }
-        internal HttpCookie Cookie(string loginEmail)
-        {
-            var apiCookie = new HttpCookie("X-KEY")
-            {
-                Value = CookieGenerator.Create(loginEmail)
-            };
-
-            using (var db = new SessionContext())
-            {
-                Session curent;
-                var validate = new EmailAddressAttribute();
-                if (validate.IsValid(loginEmail))
-                {
-                    curent = (from e in db.Sessions where e.Username == loginEmail select e).FirstOrDefault();
-                }
-                else
-                {
-                    curent = (from e in db.Sessions where e.Username == loginEmail select e).FirstOrDefault();
-                }
-
-                if (curent != null)
-                {
-                    curent.CookieString = apiCookie.Value;
-                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
-                    using (var todo = new SessionContext())
-                    {
-                        todo.Entry(curent).State = EntityState.Modified;
-                        todo.SaveChanges();
-                    }
-                }
-                else
-                {
-                    db.Sessions.Add(new Session
-                    {
-                        Username = loginEmail,
-                        CookieString = apiCookie.Value,
-                        ExpireTime = DateTime.Now.AddMinutes(60)
-                    });
-                    db.SaveChanges();
-                }
-            }
-
-            return apiCookie;
-        }
-        public UserMinimal UserCookie(string cookie)
-        {
-            Session session;
-            UDbTable curentUser;
-
-            using (var db = new SessionContext())
-            {
-                session = db.Sessions.FirstOrDefault(s => s.CookieString == cookie && s.ExpireTime > DateTime.Now);
-            }
-
-            if (session == null) return null;
-            using (var db = new UserContext())
-            {
-                var validate = new EmailAddressAttribute();
-                if (validate.IsValid(session.Username))
-                {
-                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.Username);
-                }
-                else
-                {
-                    curentUser = db.Users.FirstOrDefault(u => u.Username == session.Username);
-                }
-            }
-
-            if (curentUser == null) return null;
-            var userminimal = Mapper.Map<UserMinimal>(curentUser);
-
-            return userminimal;
-        }
         internal UsersResp GetUsersAction()
         {
             var users = new List<UDbTable>();
@@ -232,6 +160,66 @@ namespace Proiect_TW.BussinesLogic.Core
                 usersFeedback = db.Feedback.ToList();
             }
             return usersFeedback;
+        }
+        public ULoginResp DelUser(string UserEmail)
+        {
+            using (var db = new UserContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    var user = db.Users.FirstOrDefault(e => e.Email == UserEmail);
+                    if (user != null)
+                    {
+                        db.Users.Remove(user);
+                        db.SaveChanges();
+                        transaction.Commit();
+                        return new ULoginResp { Status = true, StatusMsg = "User deleted succesfull" };
+                    }
+                }
+            }
+            return new ULoginResp { Status = false, StatusMsg = "Sometrhing get wrong" };
+        }
+        public ULoginResp DelProduct(string ProductTitle)
+        {
+            if(ProductTitle != null)
+            {
+                using (var db = new ProductContext())
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        var product = db.Products.FirstOrDefault(e => e.Title == ProductTitle);
+                        if (product != null)
+                        {
+                            string directoryPath = HttpContext.Current.Server.MapPath("~/assets/ProductsImages/" + ProductTitle);
+                            if (Directory.Exists(directoryPath))
+                            {
+                                Directory.Delete(directoryPath, true); // true to delete subdirectories and files
+                            }
+                            db.Products.Remove(product);
+                            db.SaveChanges();
+                            transaction.Commit();
+                        }
+                    }
+                }
+                using (var db = new ProductImagesContext())
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        var images = db.ProductImages.Where(e => e.ProductTitle == ProductTitle).ToList();
+                        if (images != null)
+                        {
+                            foreach(var image in images) {
+                                db.ProductImages.Remove(image);
+                            }
+                            db.SaveChanges();
+                            transaction.Commit();
+                            return new ULoginResp { Status = true, StatusMsg = "Product succesfull deleted" };
+                        }
+                    }
+                }
+            }
+            
+            return new ULoginResp { Status = false, StatusMsg = "Sometrhing get wrong" };
         }
     }
 }
