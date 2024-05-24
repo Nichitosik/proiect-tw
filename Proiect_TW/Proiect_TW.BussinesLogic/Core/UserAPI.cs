@@ -15,6 +15,8 @@ using AutoMapper;
 using Proiect_TW.Helpers;
 using Proiect_TW.Domain.Entities.Users;
 using System.Net.Http.Headers;
+using NuGet.Protocol.Plugins;
+using Microsoft.Build.Evaluation;
 
 
 namespace Proiect_TW.BusinessLogic.Core
@@ -450,12 +452,40 @@ namespace Proiect_TW.BusinessLogic.Core
             {
                 products = db.Products.ToList();
             }
-            foreach (Product product in products)
+            for (int i = 0; i <products.Count; i++)
             {
                 List<string> imagePaths = new List<string>();
-                imagePaths = GetProductImagesPath(product);
-                var productWithPath = Mapper.Map<ProductWithPath>(product);
+                imagePaths = GetProductImagesPath(products[i]);
+                var productWithPath = Mapper.Map<ProductWithPath>(products[i]);
                 productWithPath.ImagesPath = imagePaths;
+                if (products[i].XS == true)
+                {
+                    productWithPath.Sizes.Add("XS");
+                } 
+                if (products[i].S == true)
+                {
+                    productWithPath.Sizes.Add("S");
+                }  
+                if (products[i].M == true)
+                {
+                    productWithPath.Sizes.Add("M");
+                }                
+                if (products[i].L == true)
+                {
+                    productWithPath.Sizes.Add("L");
+                }    
+                if (products[i].XL == true)
+                {
+                    productWithPath.Sizes.Add("XL");
+                }    
+                if (products[i].XXL == true)
+                {
+                    productWithPath.Sizes.Add("XXL");
+                }    
+                if (products[i].XXL == true)
+                {
+                    productWithPath.Sizes.Add("XS");
+                }
                 productsWithPath.Add(productWithPath);
             }
 
@@ -503,7 +533,75 @@ namespace Proiect_TW.BusinessLogic.Core
                 return new UFeedbackResp { Status = false, StatusMsg = "Email is not valid" };
             }
         }
+        public ULoginResp AddProductToSC(ShopCProductData data)
+        {
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.UserEmail))
+            {
+                ShoppingCart product;
+                using (var db = new ShoppingCartContext())
+                {
+                    product = db.ShoppingCart.FirstOrDefault(p => p.ProductTitle == data.ProductTitle);
+                }
+                if (product == null)
+                {
+                    var shoppingCart = new ShoppingCart()
+                    {
+                        UserEmail = data.UserEmail,
+                        ProductTitle = data.ProductTitle,
+                        Size = data.Size,
+                        Count = data.Count,
+                        PublishTime = DateTime.Now,
+                        Ip = data.Ip
+                    };
+                    using (var todo = new ShoppingCartContext())
+                    {
+                        todo.ShoppingCart.Add(shoppingCart);
+                        todo.SaveChanges();
+                    }
+                }
+                return new ULoginResp { Status = true };
+
+            }
+            return new ULoginResp { Status = false, StatusMsg = "An error ocured during adding the product in Shopping Cart" };
+        }
+        public List<ShoppingCartProduct> GetShoppingCartProducts(string UserEmail)
+        {
+            List<ShoppingCart> shoppingCartProduct = new List<ShoppingCart>();
+            List<ShoppingCartProduct> result = new List<ShoppingCartProduct>();
+
+            using (var db = new ShoppingCartContext())
+            {
+                shoppingCartProduct = db.ShoppingCart.Where(p => p.UserEmail == UserEmail).ToList();
+            }
+
+            foreach (var product in shoppingCartProduct)
+            {
+                Product prod = null;
+                using (var db = new ProductContext())
+                {
+                    prod = db.Products.FirstOrDefault(p => p.Title == product.ProductTitle);
+                }
+                var imagesPath = GetProductImagesPath(prod);
 
 
+                var resultProd = new ShoppingCartProduct()
+                {
+                Title = prod.Title,
+                Description = prod.Description,
+                Type = prod.Type,
+                Style = prod.Style,
+                Count = product.Count,
+                Price = prod.Price,
+                Size = product.Size,
+                ImagesPath = imagesPath
+                };
+
+
+                result.Add(resultProd);
+            }
+
+            return result;
+        }
     }
 }

@@ -408,6 +408,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Extension\HttpContextExtension.cs" />
     <Compile Include="Models\Users\AddProduct.cs" />
+    <Compile Include="Models\Users\AddProductToShoppingCart.cs" />
     <Compile Include="Models\Users\SearchSort.cs" />
     <Compile Include="Models\Users\UProfileEdit.cs" />
     <Compile Include="Models\Users\UserFeedback.cs" />
@@ -449,7 +450,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Products\Products.cshtml" />
-    <Content Include="Views\Home\SingleProduct.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_Layout_Blank.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
@@ -463,6 +463,8 @@
     <Content Include="Views\Admin\Products.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Admin\UsersFeedback.cshtml" />
+    <Content Include="Views\Products\SingleProduct.cshtml" />
+    <Content Include="Views\Products\ShoppingCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -473,7 +475,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\ProductsImages\" />
-    <Folder Include="Models\Enums\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

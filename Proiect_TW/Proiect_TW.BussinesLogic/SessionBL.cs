@@ -59,6 +59,14 @@ namespace Proiect_TW.BusinessLogic
         {
             return UserFeedbackAction(data);
         }
+        public ULoginResp UserAddProductShopC(ShopCProductData data)
+        {
+            return AddProductToSC(data);
+        }
+        public List<ShoppingCartProduct> GetAllShoppingCartProducts(string UserEmail)
+        {
+            return GetShoppingCartProducts(UserEmail);
+        }
 
     }
 }

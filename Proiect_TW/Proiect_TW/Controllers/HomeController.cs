@@ -115,11 +115,6 @@ namespace Proiect_TW.Web.Controllers
             GetUser();
             return View();
         }
-        public ActionResult SingleProduct()
-        {
-            GetUser();
-            return View();
-        }
         public ActionResult UserProfile()
         {
             GetUser();

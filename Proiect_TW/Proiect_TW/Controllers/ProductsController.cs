@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using Proiect_TW.Domain.Entities.User;
 using Proiect_TW.Domain.Entities.Users;
+using Proiect_TW.BusinessLogic.Entities.User;
+using System.Web.UI.WebControls;
+using Proiect_TW.Web.Models.Users;
 namespace Proiect_TW.Web.Controllers
 {
     public class ProductsController : BaseController
@@ -58,10 +61,73 @@ namespace Proiect_TW.Web.Controllers
                     break;
                 case "AllProducts":
                     products = _session.GetAllProducts();
-                        break;
+                    break;
             }
             ViewBag.Products = products;
             return View();
         }
+        public ActionResult SingleProduct(string button)
+        {
+            var products = _session.GetAllProducts(); 
+            foreach (ProductWithPath product in products)
+            {
+                if(product.Title == button)
+                {
+                    ViewBag.SingleProduct = product;
+                }
+            }
+            GetUser();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SingleProduct(AddProductToShoppingCart data)
+        {
+            GetUser();
+            var products = _session.GetAllProducts();
+            foreach (ProductWithPath product in products)
+            {
+                if (product.Title == data.Title)
+                {
+                    ViewBag.SingleProduct = product;
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                ShopCProductData productData = new ShopCProductData
+                {
+                    UserEmail = ViewBag.User.Email,
+                    Count = Convert.ToInt32(data.Count),
+                    Size = data.Size,
+                    ProductTitle = data.Title,
+                    Ip = Request.UserHostAddress,
+                    DateTime = DateTime.Now
+                };
+
+
+                ULoginResp loginResp = _session.UserAddProductShopC(productData);
+
+                if (loginResp.Status)
+                {
+
+                    return RedirectToAction("ShoppingCart", "Products");
+                }
+                else
+                {
+                    ModelState.AddModelError("", loginResp.StatusMsg);
+                    return View();
+                }
+            }
+            return View();
+        }
+        public ActionResult ShoppingCart()
+        {
+            GetUser();
+            var shoppingCartProducts = _session.GetAllShoppingCartProducts(ViewBag.User.Email);
+            ViewBag.ShoppingCartProducts = shoppingCartProducts;
+
+            return View();
+        }
     }
+
 }

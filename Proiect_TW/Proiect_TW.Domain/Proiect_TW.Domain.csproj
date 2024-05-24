@@ -162,6 +162,9 @@
     <Compile Include="Entities\Users\ProductResp.cs" />
     <Compile Include="Entities\Users\ProductWithPath.cs" />
     <Compile Include="Entities\Users\Session.cs" />
+    <Compile Include="Entities\Users\ShopCProductData.cs" />
+    <Compile Include="Entities\Users\ShoppingCart.cs" />
+    <Compile Include="Entities\Users\ShoppingCartProduct.cs" />
     <Compile Include="Entities\Users\UDbTable.cs" />
     <Compile Include="Entities\Users\UFeedbackData.cs" />
     <Compile Include="Entities\Users\UFeedbackResp.cs" />

@@ -769,19 +769,19 @@ banner
   padding: 0px 20px;
   margin-bottom: 20px;
 }
-
-
-
+.right-content-single-product {
+    color: #e3d5bb;
+    background-color: #2a2a2a;
+}
 /*
 ---------------------------------------------
 Men
 ---------------------------------------------
 */
-
 #men {
-  padding-top: 90px;
-  padding-bottom: 90px;
-  border-bottom: 3px dotted #eee;
+    padding-top: 90px;
+    padding-bottom: 90px;
+    border-bottom: 3px dotted #eee;
 }
 
 #men .section-heading {
@@ -2608,4 +2608,25 @@ User Icon
     align-items: flex-end;
     display: flex;
     margin-bottom: 15px;
+}
+.single-product-down-images{
+    height: 200px;
+    width: auto;
+}
+.single-product-down-images {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+.margin-single-product{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.button-add-p-to-cart {
+    display: flex;
+    justify-content: flex-end;
 }
