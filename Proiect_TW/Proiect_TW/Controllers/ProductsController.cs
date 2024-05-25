@@ -124,7 +124,27 @@ namespace Proiect_TW.Web.Controllers
         {
             GetUser();
             var shoppingCartProducts = _session.GetAllShoppingCartProducts(ViewBag.User.Email);
+            int totalPrice = 0;
+            foreach(ShoppingCartProduct product in shoppingCartProducts)
+            {
+                totalPrice += int.Parse(product.Price);
+            }
             ViewBag.ShoppingCartProducts = shoppingCartProducts;
+            ViewBag.TotalPrice = totalPrice;
+
+            return View();
+        }
+        public ActionResult Order(string button)
+        {
+            GetUser();
+            var shoppingCartProducts = _session.GetAllShoppingCartProducts(ViewBag.User.Email);
+            int totalPrice = 0;
+            foreach (ShoppingCartProduct product in shoppingCartProducts)
+            {
+                totalPrice += int.Parse(product.Price);
+            }
+            ViewBag.OrderProducts = shoppingCartProducts;
+            ViewBag.TotalPrice = totalPrice;
 
             return View();
         }

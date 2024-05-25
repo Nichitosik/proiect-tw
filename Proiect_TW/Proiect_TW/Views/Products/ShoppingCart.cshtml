@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var products = ViewBag.ShoppingCartProducts;
+    var TotalPrice = ViewBag.TotalPrice;
 }
 
 <!-- ***** Main Banner Area Start ***** -->
@@ -21,38 +22,55 @@
 <!-- ***** Products Area Starts ***** -->
 <section class="section" id="products">
     <div class="container">
-        <div class="row">
-            @if (products != null)
-            {
-                foreach (ShoppingCartProduct product in products)
+
+        @if (products != null)
+        {
+            <div class="row">
+                @foreach (ShoppingCartProduct product in products)
                 {
-                    <div class="col-lg-4">
-                        <div class="item">
-                            <div class="thumb">
-                                <div class="hover-content">
-                                    <ul>
-                                        <li><a href="@Url.Action("SingleProduct", "Products" , new { button = product.Title })"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <img src="/assets/ProductsImages/@product.ImagesPath[0]" alt="">
-                            </div>
-                            <div class="down-content">
-                                <h4> @($"{product.Title}")</h4>
-                                <span>@($"${product.Price}")</span>
-                                <ul class="stars">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                <div class="col-lg-4">
+                    <div class="item">
+                        <div class="thumb">
+                            <div class="hover-content">
+                                <ul>
+                                    <li><a href="@Url.Action("SingleProduct", "Products", new { button = product.Title })"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="single-product.html"><i class="fas fa-trash"></i></a></li>
+                                    <li><a href="single-product.html"><i class="fas fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
+                            <img src="/assets/ProductsImages/@product.ImagesPath[0]" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4> @($"{product.Title}")</h4>
+                            <span>@($"Size: {product.Size}     Items: {product.Count}")</span>
+                            <span>@($"${product.Price}")</span>
+                            <ul class="stars">
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
                         </div>
                     </div>
+                </div>
                 }
-            }
-        </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                </div>
+                    <div class="col-lg-2">
+                        <label class="btn btn-primary">
+                            Total Price: $ @TotalPrice
+                        </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("Order", "Products")" class="btn btn-success">Purchase Selected Products</a>
+                    </div>
+                </div>
+         }
     </div>
 </section>
 <!-- ***** Products Area Ends ***** -->

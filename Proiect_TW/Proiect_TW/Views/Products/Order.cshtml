@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+}
+
+
+@using System.Web.Optimization;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var products = ViewBag.OrderProducts;
+    var TotalPrice = ViewBag.TotalPrice;
+}
+@model Proiect_TW.Web.Models.Users.Order
+
+
+<!-- ***** Main Banner Area Start ***** -->
+<div class="page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <h2>Order</h2>
+                    <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+<!-- ***** Product Area Starts ***** -->
+<section class="section" id="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="right-content-single-product">
+                    <h4 class="margin-single-product">Products</h4>
+                    <row>
+                        @for (int i = 0; i < products.Count; i++)
+                        {
+                            <div class="col-lg-2">
+                                <row>
+                                    <img src="/assets/ProductsImages/@products[i].ImagesPath[0]" class="single-product-down-images" alt="">
+                                </row>
+                                <row>
+                                    <span class="margin-single-product">#1. @(products[i].Title) $ @(products[i].Price)</span>
+                                </row>
+
+                            </div>
+                        }
+                    </row>
+
+                    @Html.ValidationSummary(true)
+                    @using (Html.BeginForm("Order", "Products", FormMethod.Post, new { @id = "Order" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="quantity-content">
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Name and Surname: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.TextBoxFor(m => m.NameSurname, new
+                               {
+                                   @class = "form-control",
+                                   type = "namesurname",
+                                   title = "Please enter your name",
+                                   placeholder = "Name and Surname",
+                                   value = "",
+                                   name = "namesurname",
+                                   id = "namesurname"
+                               })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">City: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.DropDownListFor(m => m.City, new SelectList(new[]
+                                    {
+                                        "Chisinau",
+                                        "Balti",
+                                        "Tiraspol",
+                                    }), new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Street: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.TextBoxFor(m => m.Street, new
+                               {
+                                   @class = "form-control",
+                                   type = "street",
+                                   title = "Please enter your Street",
+                                   placeholder = "Street",
+                                   value = "",
+                                   name = "street",
+                                   id = "street"
+                               })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Building: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.TextBoxFor(m => m.Building, new
+                               {
+                                   @class = "form-control",
+                                   type = "building",
+                                   title = "Please enter the building",
+                                   placeholder = "Building",
+                                   value = "",
+                                   name = "building",
+                                   id = "building"
+                               })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Appartment: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.TextBoxFor(m => m.Appartment, new
+                               {
+                                   @class = "form-control",
+                                   type = "appartment",
+                                   title = "Please enter the appartment",
+                                   placeholder = "Appartment",
+                                   value = "",
+                                   name = "appartment",
+                                   id = "appartment"
+                               })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Postal Code: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.TextBoxFor(m => m.PostalCode, new
+                               {
+                                   @class = "form-control",
+                                   type = "postalcode",
+                                   title = "Please enter the postalcode",
+                                   placeholder = "Postal Code",
+                                   value = "",
+                                   name = "postalcode",
+                                   id = "postalcode"
+                               })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Payment Method: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.DropDownListFor(m => m.PaymentMethod, new SelectList(new[]
+                                    {
+                                        "Cash on delivery",
+                                        "Card on delivery",
+                                    }), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="total row align-items-center">
+                            <div class="col-6">
+                                <h4 class="margin-single-product">Total Price: $@TotalPrice</h4>
+                            </div>
+                            <div class="col-6 text-right">
+                                <button class="right-content main-border-button margin-single-product" type="submit">Add To Cart</button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Product Area Ends ***** -->
