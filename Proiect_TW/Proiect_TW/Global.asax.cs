@@ -44,6 +44,8 @@ namespace Proiect_TW
                 cfg.CreateMap<UDbTable, UserMinimal>();
                 cfg.CreateMap<Product, ProductWithPath>();
                 cfg.CreateMap<Feedback, UFeedbackData>();
+                cfg.CreateMap<AddOrder, OrderData>();
+
             });
         }
     }

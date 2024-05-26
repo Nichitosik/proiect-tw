@@ -21,6 +21,8 @@ namespace Proiect_TW.BussinesLogic.DBModel.Seed
         public virtual DbSet<ProductImages> ProductImages { get; set; }
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<ShoppingCart> Shoppingcart { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderProducts> OrderProducts { get; set; }
 
     }
 }

@@ -67,6 +67,10 @@ namespace Proiect_TW.BusinessLogic
         {
             return GetShoppingCartProducts(UserEmail);
         }
+        public ULoginResp UserOrder(OrderData data)
+        {
+            return UserOrderAction(data);
+        }
 
     }
 }

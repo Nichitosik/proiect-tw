@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Proiect_TW.Web.Models.Users
+namespace Proiect_TW.Domain.Entities.Users
 {
-    public class Order
+    public class OrderData
     {
         public string NameSurname { get; set; }
         public string PhoneNumber { get; set; }
@@ -15,5 +16,7 @@ namespace Proiect_TW.Web.Models.Users
         public string Appartment { get; set; }
         public string PostalCode { get; set; }
         public string PaymentMethod { get; set; }
+        public string Email { get; set; }
+        public string Ip { get; set; }
     }
 }

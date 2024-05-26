@@ -154,6 +154,9 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Entities\Users\Feedback.cs" />
+    <Compile Include="Entities\Users\Order.cs" />
+    <Compile Include="Entities\Users\OrderData.cs" />
+    <Compile Include="Entities\Users\OrderProducts.cs" />
     <Compile Include="Entities\Users\Product.cs" />
     <Compile Include="Entities\Users\ProductData.cs" />
     <Compile Include="Entities\Users\ProductImages.cs" />

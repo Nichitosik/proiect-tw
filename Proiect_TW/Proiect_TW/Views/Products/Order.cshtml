@@ -10,7 +10,7 @@
     var products = ViewBag.OrderProducts;
     var TotalPrice = ViewBag.TotalPrice;
 }
-@model Proiect_TW.Web.Models.Users.Order
+@model Proiect_TW.Web.Models.Users.AddOrder
 
 
 <!-- ***** Main Banner Area Start ***** -->
@@ -68,6 +68,23 @@
                                    value = "",
                                    name = "namesurname",
                                    id = "namesurname"
+                               })
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center d-flex">
+                                <div class="col-6">
+                                    <h6 class="margin-single-product">Name and Surname: </h6>
+                                </div>
+                                <div class="col-5">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new
+                               {
+                                   @class = "form-control",
+                                   type = "phonenumber",
+                                   title = "Please enter your name",
+                                   placeholder = "Phone Number",
+                                   value = "",
+                                   name = "phonenumber",
+                                   id = "phonenumber"
                                })
                                 </div>
                             </div>
@@ -170,7 +187,7 @@
                                 <h4 class="margin-single-product">Total Price: $@TotalPrice</h4>
                             </div>
                             <div class="col-6 text-right">
-                                <button class="right-content main-border-button margin-single-product" type="submit">Add To Cart</button>
+                                <button class="right-content main-border-button margin-single-product" type="submit">Purchase</button>
                             </div>
                         </div>
                     }
@@ -180,4 +197,3 @@
         </div>
     </div>
 </section>
-<!-- ***** Product Area Ends ***** -->

@@ -601,5 +601,58 @@ namespace Proiect_TW.BusinessLogic.Core
 
             return result;
         }
+        public ULoginResp UserOrderAction(OrderData data)
+        {
+            UDbTable user;
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.Email))
+            {
+                var Products = this.GetShoppingCartProducts(data.Email);
+                int totalPrice = 0;
+                foreach(var product in Products)
+                {
+                    var newOrderProduct = new OrderProducts()
+                    {
+                        Email = data.Email,
+                        Title = product.Title,
+                        ItemPrice = int.Parse(product.Price),
+                        MainImagePath = product.ImagesPath[0]
+                    };
+                    using (var todo = new OrderProductsContext())
+                    {
+                        todo.OrderProducts.Add(newOrderProduct);
+                        todo.SaveChanges();
+                    }
+                    totalPrice += int.Parse(product.Price);
+                }
+                var newOrder = new Order()
+                {
+                    Email = data.Email,
+                    NameSurname = data.NameSurname,
+                    PhoneNumber = data.PhoneNumber,
+                    City = data.City,
+                    Street = data.Street,
+                    Building = data.Building,
+                    Appartment = int.Parse(data.Appartment),
+                    PostalCode = data.PostalCode,
+                    PaymentMethod = data.PaymentMethod,
+                    PublishTime = DateTime.Now,
+                    Ip = data.Ip,
+                    TotalPrice = totalPrice
+                };
+                using (var todo = new OrderContext())
+                {
+                    todo.Orders.Add(newOrder);
+                    todo.SaveChanges();
+                }
+                return new ULoginResp { Status = true , StatusMsg = "Purchase was made succesfully"};
+
+            }
+            else
+            {
+                return new ULoginResp() { Status = false, StatusMsg = "Something went wrong" };
+            }
+        }
     }
+
 }

@@ -118,7 +118,7 @@ namespace Proiect_TW.Web.Controllers
                     Username = data.Username,
                     Password = data.Password,
                     RepeatPassword = data.RepeatPassword,
-                    RecoverPasswordIp = "192.23.4",
+                    RecoverPasswordIp = Request.UserHostAddress,
                     RecoverDateTime = DateTime.Now
                 };
                 URecoverPasswordResp recoverPasswordResp = _session.UserRecoverPassword(uData);

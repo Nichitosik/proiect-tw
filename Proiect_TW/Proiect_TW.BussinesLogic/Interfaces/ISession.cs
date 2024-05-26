@@ -27,5 +27,6 @@ namespace Proiect_TW.BusinessLogic.Interfaces
         UFeedbackResp UserFeedback(UFeedbackData data);
         ULoginResp UserAddProductShopC(ShopCProductData data);
         List<ShoppingCartProduct> GetAllShoppingCartProducts(string UserEmail);
+        ULoginResp UserOrder(OrderData data);
     }
 }

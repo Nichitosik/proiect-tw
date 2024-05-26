@@ -10,6 +10,8 @@ using Proiect_TW.Domain.Entities.Users;
 using Proiect_TW.BusinessLogic.Entities.User;
 using System.Web.UI.WebControls;
 using Proiect_TW.Web.Models.Users;
+using AutoMapper;
+using Microsoft.Win32;
 namespace Proiect_TW.Web.Controllers
 {
     public class ProductsController : BaseController
@@ -134,7 +136,7 @@ namespace Proiect_TW.Web.Controllers
 
             return View();
         }
-        public ActionResult Order(string button)
+        public ActionResult Order()
         {
             GetUser();
             var shoppingCartProducts = _session.GetAllShoppingCartProducts(ViewBag.User.Email);
@@ -146,6 +148,32 @@ namespace Proiect_TW.Web.Controllers
             ViewBag.OrderProducts = shoppingCartProducts;
             ViewBag.TotalPrice = totalPrice;
 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Order(AddOrder data)
+        {
+            GetUser();
+            if (ModelState.IsValid)
+            {
+                var orderData = Mapper.Map<OrderData>(data);
+                orderData.Email = ViewBag.User.Email;
+                orderData.Ip = Request.UserHostAddress;
+
+
+                ULoginResp orderResp = _session.UserOrder(orderData);
+
+                if (orderResp.Status)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", orderResp.StatusMsg);
+                    return View();
+                }
+            }
             return View();
         }
     }
