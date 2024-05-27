@@ -71,6 +71,10 @@ namespace Proiect_TW.BusinessLogic
         {
             return UserOrderAction(data);
         }
+        public List<OrderWithProducts> GetOrdersByEmail(string Email)
+        {
+            return GetOrders(Email);
+        }
 
     }
 }

@@ -34,20 +34,18 @@
             <div class="col-lg-12">
                 <div class="right-content-single-product">
                     <h4 class="margin-single-product">Products</h4>
-                    <row>
+                    <div class="row">
+                        @{int col_size = 12 / products.Count; }
                         @for (int i = 0; i < products.Count; i++)
                         {
-                            <div class="col-lg-2">
-                                <row>
-                                    <img src="/assets/ProductsImages/@products[i].ImagesPath[0]" class="single-product-down-images" alt="">
-                                </row>
-                                <row>
-                                    <span class="margin-single-product">#1. @(products[i].Title) $ @(products[i].Price)</span>
-                                </row>
-
+                            <div class="col-lg-@(col_size)">
+                                <ul>
+                                    <li><img src="/assets/ProductsImages/@products[i].ImagesPath[0]" class="single-product-down-images" alt=""></li>
+                                    <li><span class="margin-single-product">#1. @(products[i].Title) $ @(products[i].Price)</span></li>
+                                </ul>
                             </div>
                         }
-                    </row>
+                    </div>
 
                     @Html.ValidationSummary(true)
                     @using (Html.BeginForm("Order", "Products", FormMethod.Post, new { @id = "Order" }))

@@ -213,6 +213,22 @@ namespace Proiect_TW.BussinesLogic.Core
                             }
                             db.SaveChanges();
                             transaction.Commit();
+                        }
+                    }
+                }
+                using (var db = new ShoppingCartContext())
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        var images = db.ShoppingCart.Where(e => e.ProductTitle == ProductTitle).ToList();
+                        if (images != null)
+                        {
+                            foreach (var image in images)
+                            {
+                                db.ShoppingCart.Remove(image);
+                            }
+                            db.SaveChanges();
+                            transaction.Commit();
                             return new ULoginResp { Status = true, StatusMsg = "Product succesfull deleted" };
                         }
                     }

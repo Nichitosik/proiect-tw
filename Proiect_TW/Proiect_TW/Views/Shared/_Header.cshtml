@@ -55,6 +55,7 @@
                             }
                             else if ((int)user.Level == 1)
                             {
+                                <li><a href="@Url.Action("MyOrders", "Products")">My Orders</a></li>
                                 <li class="submenu">
                                     <a>
                                         <i class="fas fa-user custom-color"></i>
@@ -82,9 +83,11 @@
                                         <li><a href="@Url.Action("Users", "Admin")">Users</a></li>
                                         <li><a href="@Url.Action("Products", "Admin")">Products</a></li>
                                         <li><a href="@Url.Action("UsersFeedback", "Admin")">Users Feedback</a></li>
+                                        <li><a href="@Url.Action("Orders", "Admin")">Orders</a></li>
 
                                     </ul>
                                 </li>
+                                <li><a href="@Url.Action("MyOrders", "Products")">My Orders</a></li>
                                 <li class="submenu">
                                     <a>
                                         <i class="fas fa-user custom-color"></i>

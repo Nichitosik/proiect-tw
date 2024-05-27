@@ -153,6 +153,26 @@ namespace Proiect_TW.Controllers
             GetUsersFeedback();
             return View();
         }
+        public ActionResult Orders()
+        {
+            var orders = _session.GetOrdersByEmail(null);
+            ViewBag.Orders = orders;
+            int NewOrders = 0;
+            foreach(var order in orders)
+            {
+                DateTime currentTime = DateTime.Now;
+                TimeSpan timeDifference = currentTime - order.PublishTime;
+
+                if (timeDifference.TotalHours < 24)
+                {
+                    NewOrders++;
+                }
+            }
+            ViewBag.NewOrders = NewOrders;
+          
+
+            return View();
+        }
 
         // GET : Product
         [HttpPost]

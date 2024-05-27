@@ -129,7 +129,7 @@ namespace Proiect_TW.Web.Controllers
             int totalPrice = 0;
             foreach(ShoppingCartProduct product in shoppingCartProducts)
             {
-                totalPrice += int.Parse(product.Price);
+                totalPrice += product.Count * int.Parse(product.Price);
             }
             ViewBag.ShoppingCartProducts = shoppingCartProducts;
             ViewBag.TotalPrice = totalPrice;
@@ -143,7 +143,7 @@ namespace Proiect_TW.Web.Controllers
             int totalPrice = 0;
             foreach (ShoppingCartProduct product in shoppingCartProducts)
             {
-                totalPrice += int.Parse(product.Price);
+                totalPrice += product.Count * int.Parse(product.Price);
             }
             ViewBag.OrderProducts = shoppingCartProducts;
             ViewBag.TotalPrice = totalPrice;
@@ -174,6 +174,14 @@ namespace Proiect_TW.Web.Controllers
                     return View();
                 }
             }
+            return View();
+        }
+        public ActionResult MyOrders()
+        {
+            GetUser();
+            var orders = _session.GetOrdersByEmail(ViewBag.User.Email);
+            ViewBag.Orders = orders;
+
             return View();
         }
     }

@@ -611,19 +611,7 @@ namespace Proiect_TW.BusinessLogic.Core
                 int totalPrice = 0;
                 foreach(var product in Products)
                 {
-                    var newOrderProduct = new OrderProducts()
-                    {
-                        Email = data.Email,
-                        Title = product.Title,
-                        ItemPrice = int.Parse(product.Price),
-                        MainImagePath = product.ImagesPath[0]
-                    };
-                    using (var todo = new OrderProductsContext())
-                    {
-                        todo.OrderProducts.Add(newOrderProduct);
-                        todo.SaveChanges();
-                    }
-                    totalPrice += int.Parse(product.Price);
+                    totalPrice += product.Count * int.Parse(product.Price);
                 }
                 var newOrder = new Order()
                 {
@@ -644,14 +632,104 @@ namespace Proiect_TW.BusinessLogic.Core
                 {
                     todo.Orders.Add(newOrder);
                     todo.SaveChanges();
-                }
-                return new ULoginResp { Status = true , StatusMsg = "Purchase was made succesfully"};
+                    // Get the OrderId of the newly saved Order
+                    int orderId = newOrder.Id;
 
+                    foreach (var product in Products)
+                    {
+                        var newOrderProduct = new OrderProducts()
+                        {
+                            OrderId = orderId,
+                            Email = data.Email,
+                            Title = product.Title,
+                            ItemPrice = int.Parse(product.Price),
+                            Count = product.Count,
+                            MainImagePath = product.ImagesPath[0]
+                        };
+                        using (var todoOP = new OrderProductsContext())
+                        {
+                            todoOP.OrderProducts.Add(newOrderProduct);
+                            todoOP.SaveChanges();
+
+                        }
+                    }
+                    todo.SaveChanges();
+                    return new ULoginResp { Status = true, StatusMsg = "Purchase was made succesfully" };
+                }
             }
             else
             {
                 return new ULoginResp() { Status = false, StatusMsg = "Something went wrong" };
             }
+        }
+        public List<OrderWithProducts> GetOrders(string email)
+        {
+            List<OrderWithProducts> ordersList = new List<OrderWithProducts>();
+            using (var db = new OrderContext())
+            {
+                List<Order> orders;
+                if (email != null)
+                {
+                    orders = db.Orders.Where(p => p.Email == email).ToList();
+                }
+                else{
+                    orders = db.Orders.ToList();
+                }
+                if (orders != null)
+                {
+                    for(int i=0; i<orders.Count; i++)
+                    {
+                        OrderWithProducts order = new OrderWithProducts()
+                        {
+                            Id = orders[i].Id,
+                            NameSurname = orders[i].NameSurname,
+                            PhoneNumber = orders[i].PhoneNumber,
+                            City = orders[i].City,
+                            Street = orders[i].Street,
+                            Building = orders[i].Building,
+                            Appartment = orders[i].Appartment,
+                            PostalCode = orders[i].PostalCode,
+                            PaymentMethod = orders[i].PaymentMethod,
+                            Email = orders[i].Email,
+                            TotalPrice = orders[i].TotalPrice,
+                            PublishTime = orders[i].PublishTime,
+                            Products = new List<ProductWithPath>() // Ensure Products is initialized
+                        };
+
+                        using (var dbOProducts = new OrderProductsContext())
+                        {
+                            var currentOrderId = orders[i].Id;
+                            var productsTitle = dbOProducts.OrderProducts
+                                                           .Where(p => p.OrderId == currentOrderId)
+                                                           .Select(p => p.Title)
+                                                           .ToList();
+
+                            foreach (var title in productsTitle)
+                            {
+                                using (var dbProducts = new ProductContext())
+                                {
+                                    var product = dbProducts.Products
+                                                            .Where(p => p.Title == title)
+                                                            .FirstOrDefault();
+                                    if (product != null)
+                                    {
+                                        List<string> imagePaths = this.GetProductImagesPath(product);
+                                        ProductWithPath productWithPath = Mapper.Map<ProductWithPath>(product);
+                                        productWithPath.ImagesPath = imagePaths;
+
+                                        order.Products.Add(productWithPath);
+                                    }
+                                }
+                            }
+                        }
+                        ordersList.Add(order);
+                    }
+                }
+                
+                
+            }
+
+            return ordersList;
         }
     }
 

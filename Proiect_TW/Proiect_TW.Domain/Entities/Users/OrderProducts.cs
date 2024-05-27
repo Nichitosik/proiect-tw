@@ -17,6 +17,10 @@ namespace Proiect_TW.Domain.Entities.Users
 
         [Required]//Aceasta inseamna ca campul Title nu poate fi Empty
         [Display(Name = "Email")]
+        public int OrderId { get; set; }
+
+        [Required]//Aceasta inseamna ca campul Title nu poate fi Empty
+        [Display(Name = "Email")]
         [StringLength(150, ErrorMessage = "Email cannot be longer than 150 characters.")]
         public string Email { get; set; }
 
@@ -28,6 +32,11 @@ namespace Proiect_TW.Domain.Entities.Users
         [Required]
         [Display(Name = "ItemPrice")]
         public int ItemPrice { get; set; }
+        
+        [Required]
+        [Display(Name = "Count")]
+        public int Count { get; set; }
+
 
         [Required]
         [Display(Name = "MainImagePath")]
