@@ -1,9 +1,11 @@
-﻿@{
+﻿@using System.Web.Optimization;
+@{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
     ViewBag.Title = "Users";
     var users = ViewBag.AllUsers;
-
 }
+@model Proiect_TW.Web.Models.Users.SearchSort
+
 <!-- ============================================================== -->
 <!-- Start Page Content here -->
 <!-- ============================================================== -->
@@ -27,6 +29,50 @@
             </div>
         </div>
         <!-- end page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            @Html.ValidationSummary(true)
+                            @using (Html.BeginForm("Users", "Admin", FormMethod.Post, new { @id = "SearchSortForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Email, "Search by email", new { @class = "control-label", style = "margin-right: 10px;" })
+                                        @Html.TextBoxFor(m => m.Email, new
+                                        {
+                                            placeholder = "Search...",
+                                            title = "Please enter the user email",
+                                            value = "",
+                                            name = "Email",
+                                            @class = "form-control",
+                                            style = "margin-right: 10px;",
+                                            autocomplete = "off"
+                                        })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SortOption, "Sort", new { @class = "control-label", style = "margin-right: 10px; margin-left: 10px;" })
+                                        @Html.DropDownListFor(m => m.SortOption, new SelectList(new[]
+                                        {
+                                            "All",
+                                            "Username",
+                                            "New",
+                                            "Age",
+                                            "Gender",
+                                        }), new { @class = "form-control", style = "margin-right: 10px;" })
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Search/Sort</button>
+                                </div>
+
+                            }
+                        </div>
+                    </div> <!-- end row -->
+                </div> <!-- end card-box -->
+            </div><!-- end col-->
+        </div>
 
         <div class="row">
             <div class="col-12">
@@ -62,6 +108,8 @@
                                 <th class="font-weight-medium">ID</th>
                                 <th class="font-weight-medium">Username</th>
                                 <th class="font-weight-medium">Email</th>
+                                <th class="font-weight-medium">Age</th>
+                                <th class="font-weight-medium">Gender</th>
                                 <th class="font-weight-medium">Orders Count</th>
                                 <th class="font-weight-medium">LastIp</th>
                                 <th class="font-weight-medium">LastLogin</th>
@@ -78,7 +126,7 @@
                                     <td><b>#@users.Users[i].Id</b></td>
                                     <td>
                                         <a class="text-dark">
-                                                <i class="fas fa-user custom-color"></i>
+                                            <i class="fas fa-user custom-color"></i>
                                             <span class="ml-2">@users.Users[i].Username</span>
                                         </a>
                                     </td>
@@ -86,9 +134,17 @@
                                     <td>
                                         @users.Users[i].Email
                                     </td>
+                                    
+                                    <td>
+                                        @users.Users[i].Age
+                                    </td>
+                                    
+                                    <td>
+                                        @users.Users[i].Gender
+                                    </td>
 
                                     <td>
-                                       123
+                                        123
                                     </td>
 
                                     <td>
@@ -120,7 +176,7 @@
                                             <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-edit"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="#"><i class="fas fa-edit"></i> Edit User</a>
-                                                <a class="dropdown-item" href="@Url.Action("Users", "Admin" , new { button = users.Users[i].Email })"><i class="fas fa-trash"></i> Delete</a>
+                                                <a class="dropdown-item" href="@Url.Action("Users", "Admin" , new { email = users.Users[i].Email })"><i class="fas fa-trash"></i> Delete</a>
                                             </div>
                                         </div>
                                     </td>

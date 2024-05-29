@@ -1,10 +1,13 @@
-﻿@{
+﻿@using System.Web.Optimization;
+@{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
     ViewBag.Title = "Orders";
-    var orders = ViewBag.Orders;
+    var orders = ViewBag.AllOrders;
     var NewOrders = ViewBag.NewOrders;
+    var TotalOrders = ViewBag.TotalOrders;
 
 }
+@model Proiect_TW.Web.Models.Users.SearchSort
 <!-- ============================================================== -->
 <!-- Start Page Content here -->
 <!-- ============================================================== -->
@@ -32,12 +35,59 @@
         <div class="row">
             <div class="col-12">
                 <div class="card-box">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            @Html.ValidationSummary(true)
+                            @using (Html.BeginForm("Orders", "Admin", FormMethod.Post, new { @id = "SearchSortForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Email, "Search by user Email", new { @class = "control-label", style = "margin-right: 10px;" })
+                                        @Html.TextBoxFor(m => m.Email, new
+                                        {
+                                            placeholder = "Search...",
+                                            title = "Please enter the User Email",
+                                            value = "",
+                                            name = "Title",
+                                            @class = "form-control",
+                                            style = "margin-right: 10px;",
+                                            autocomplete = "off"
+                                        })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SortOption, "Sort", new { @class = "control-label", style = "margin-right: 10px; margin-left: 10px;" })
+                                        @Html.DropDownListFor(m => m.SortOption, new SelectList(new[]
+                                        {
+                                            "All",
+                                            "Id",
+                                            "Name and Surname",
+                                            "Total Price",
+                                            "Username",
+                                            "New"
+                                        }), new { @class = "form-control", style = "margin-right: 10px;" })
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Search/Sort</button>
+                                </div>
+
+                            }
+                        </div>
+                    </div> <!-- end row -->
+                </div> <!-- end card-box -->
+            </div><!-- end col-->
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card-box">
 
                     <div class="text-center mb-2">
                         <div class="row">
                             <div class="col-md-6 col-xl-4">
                                 <div class="card-box border">
-                                    <h3>@orders.Count</h3>
+                                    <h3>@TotalOrders</h3>
                                     <p class="text-uppercase mb-1 font-13 font-weight-medium">Total Orders</p>
                                 </div>
                             </div>
@@ -73,7 +123,7 @@
                         </thead>
 
                         <tbody class="font-14">
-                            @foreach(var order in orders)
+                            @foreach (var order in orders)
                             {
                                 <tr>
                                     <td><b>#@order.Id</b></td>

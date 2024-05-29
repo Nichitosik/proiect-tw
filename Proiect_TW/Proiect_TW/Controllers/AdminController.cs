@@ -20,6 +20,7 @@ using System.ServiceModel.PeerResolvers;
 using System.Net.Http.Headers;
 using System.Data.SqlTypes;
 using Proiect_TW.BussinesLogic;
+using System.Web.DynamicData;
 
 namespace Proiect_TW.Controllers
 {
@@ -64,21 +65,98 @@ namespace Proiect_TW.Controllers
             GetUser();
             return View();
         }
-        public ActionResult Users(string button)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Users(SearchSort option)
         {
             GetUser();
-            ULoginResp responce = new ULoginResp();
-            if(button != null)
+            UsersResp allusers = _sessionAdmin.GetUsers();
+            UsersResp users = new UsersResp
             {
-                responce = _sessionAdmin.DeleteUser(button);
+                Users = new List<UDbTable>(),
+                TotalUsers = 0
+            }; 
+            if (option.Email != null)
+            {
+                foreach (UDbTable user in allusers.Users)
+                {
+                    if (user.Email.Length >= option.Email.Length && user.Email.IndexOf(option.Email, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        users.Users.Add(user);
+                        users.TotalUsers++;
+                        if(user.IsOnline == true)
+                        {
+                            users.OnlineUsers++;
+                        }
+                        DateTime currentTime = DateTime.Now;
+                        TimeSpan timeDifference = currentTime - user.RegisterTime;
+                        if (timeDifference.TotalHours < 24)
+                        {
+                            users.NewUsers++;
+                        }
+                    }
+                }
+                ViewBag.AllUsers = users;
             }
-            if(responce != null)
+            else
+            {
+                users = allusers;
+                users.TotalUsers = allusers.TotalUsers;
+                users.OnlineUsers = allusers.OnlineUsers;
+                users.NewUsers = allusers.NewUsers;
+            }
+            if (option.SortOption != "All")
+            {
+                switch (option.SortOption)
+                {
+                    case "New":
+                        {
+                            users.Users = ((UsersResp)users).Users.OrderByDescending(p => p.RegisterTime).ToList();
+                            break;
+                        }
+                    case "Age":
+                        {
+                            users.Users = ((UsersResp)users).Users.OrderBy(p => p.Age).ToList();
+                            break;
+                        }
+                    case "Gender":
+                        {
+                            users.Users = ((UsersResp)users).Users.OrderBy(p => p.Gender).ToList();
+                            break;
+                        }
+                    case "Username":
+                        {
+                            users.Users = ((UsersResp)users).Users.OrderBy(p => p.Username).ToList();
+                            break;
+                        }
+                }
+            }
+            ViewBag.AllUsers = users;
+
+            return View();
+        }
+        public ActionResult Users(string email)
+        {
+
+            GetUser();
+            ULoginResp responce = new ULoginResp();
+            if (email != null)
+            {
+                responce = _sessionAdmin.DeleteUser(email);
+                if (responce.Status == true)
+                {
+                    UsersResp users = _sessionAdmin.GetUsers();
+                    ViewBag.AllUsers = users;
+                    return View();
+                }
+            }
+            else
             {
                 UsersResp users = _sessionAdmin.GetUsers();
                 ViewBag.AllUsers = users;
-                return View();
             }
-            return View();
+                        return View();
+
         }
         public void GetProducts()
         {
@@ -92,12 +170,27 @@ namespace Proiect_TW.Controllers
             GetUser();
             List<Feedback> usersFeedback = new List<Feedback>();
             usersFeedback = _sessionAdmin.GetUsersFeedback();
-            ViewBag.AllUsersFeedback = usersFeedback;
+
+            int NewFeddbacks = 0;
+            foreach(var feedback in usersFeedback)
+            {
+                DateTime currentTime = DateTime.Now;
+                TimeSpan timeDifference = currentTime - feedback.PublishTime;
+                if (timeDifference.TotalHours < 24)
+                {
+                    NewFeddbacks++;
+                }
+            }
+            
+            ViewBag.AllFeedbacks = usersFeedback;
+            ViewBag.NewFeedbacks = NewFeddbacks;
+            ViewBag.TotalFeedbacks = usersFeedback.Count();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Products(SearchSort option)
         {
+            GetUser();
             GetProducts();
             if (option.ProductTitle != null)
             {
@@ -153,10 +246,80 @@ namespace Proiect_TW.Controllers
             GetUsersFeedback();
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UsersFeedback(SearchSort option)
+        {
+            GetUser();
+            var usersFeedback = _sessionAdmin.GetUsersFeedback();
+            int NewFeddbacks = 0;
+            List<Feedback> selectedFeedbacks = new List<Feedback>();
+
+            if (option.Email != null)
+            {
+                foreach (Feedback feedback in usersFeedback)
+                {
+                    if (feedback.Email.Length >= option.Email.Length && feedback.Email.IndexOf(option.Email, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        selectedFeedbacks.Add(feedback);
+                        DateTime currentTime = DateTime.Now;
+                        TimeSpan timeDifference = currentTime - feedback.PublishTime;
+                        if (timeDifference.TotalHours < 24)
+                        {
+                            NewFeddbacks++;
+                        }
+                    }
+                }
+                ViewBag.AllFeedbacks = selectedFeedbacks;
+                ViewBag.NewFeedbacks = NewFeddbacks;
+                ViewBag.TotalFeedbacks = selectedFeedbacks.Count();
+            }
+            else
+            {
+                foreach (var feedback in usersFeedback)
+                {
+                    DateTime currentTime = DateTime.Now;
+                    TimeSpan timeDifference = currentTime - feedback.PublishTime;
+                    if (timeDifference.TotalHours < 24)
+                    {
+                        NewFeddbacks++;
+                    }
+                }
+                selectedFeedbacks = usersFeedback;
+                ViewBag.AllFeedbacks = selectedFeedbacks;
+                ViewBag.NewFeedbacks = NewFeddbacks;
+                ViewBag.TotalFeedbacks = usersFeedback.Count();
+            }
+            if (option.SortOption != "All")
+            {
+                switch (option.SortOption)
+                {
+                    case "Id":
+                        {
+                            selectedFeedbacks = ((List<Feedback>)selectedFeedbacks).OrderBy(p => p.Id).ToList();
+                            break;
+                        }
+                    case "Email":
+                        {
+                            selectedFeedbacks = ((List<Feedback>)selectedFeedbacks).OrderBy(p => p.Email).ToList();
+                            break;
+                        }
+                    case "New":
+                        {
+                            selectedFeedbacks = ((List<Feedback>)selectedFeedbacks).OrderByDescending(p => p.PublishTime).ToList();
+                            break;
+                        }
+                }
+                ViewBag.AllFeedbacks = selectedFeedbacks;
+            }
+
+            return View();
+        }
         public ActionResult Orders()
         {
+            GetUser();
             var orders = _session.GetOrdersByEmail(null);
-            ViewBag.Orders = orders;
             int NewOrders = 0;
             foreach(var order in orders)
             {
@@ -168,8 +331,87 @@ namespace Proiect_TW.Controllers
                     NewOrders++;
                 }
             }
+            ViewBag.AllOrders = orders;
             ViewBag.NewOrders = NewOrders;
+            ViewBag.TotalOrders = orders.Count;
           
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Orders(SearchSort option)
+        {
+            GetUser();
+            var orders = _session.GetOrdersByEmail(null);
+            int NewOrders = 0;
+            List<OrderWithProducts> selectedOrders = new List<OrderWithProducts>();
+
+            if (option.Email != null)
+            {
+                foreach (OrderWithProducts order in orders)
+                {
+                    if (order.Email.Length >= option.Email.Length && order.Email.IndexOf(option.Email, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        selectedOrders.Add(order);
+                        DateTime currentTime = DateTime.Now;
+                        TimeSpan timeDifference = currentTime - order.PublishTime;
+                        if (timeDifference.TotalHours < 24)
+                        {
+                            NewOrders++;
+                        }
+                    }
+                }
+                ViewBag.AllOrders = selectedOrders;
+                ViewBag.NewOrders = NewOrders;
+                ViewBag.TotalOrders = selectedOrders.Count();
+            }
+            else
+            {
+                foreach (var order in orders)
+                {
+                    DateTime currentTime = DateTime.Now;
+                    TimeSpan timeDifference = currentTime - order.PublishTime;
+                    if (timeDifference.TotalHours < 24)
+                    {
+                        NewOrders++;
+                    }
+                }
+                ViewBag.NewOrders = NewOrders;
+                ViewBag.TotalOrders = orders.Count();
+            }
+            if (option.SortOption != "All")
+            {
+                switch (option.SortOption)
+                {
+                    case "Total Price":
+                        {
+                            selectedOrders = ((List<OrderWithProducts>)selectedOrders).OrderBy(p => p.TotalPrice).ToList();
+                            break;
+                        }
+                    case "Id":
+                        {
+                            selectedOrders = ((List<OrderWithProducts>)selectedOrders).OrderBy(p => p.Id).ToList();
+                            break;
+                        }
+                    case "Name and Surname":
+                        {
+                            selectedOrders = ((List<OrderWithProducts>)selectedOrders).OrderBy(p => p.NameSurname).ToList();
+                            break;
+                        }
+                    case "Username":
+                        {
+                            selectedOrders = ((List<OrderWithProducts>)selectedOrders).OrderBy(p => p.TotalPrice).ToList();
+                            break;
+                        }
+                    case "New":
+                        {
+                            selectedOrders = ((List<OrderWithProducts>)selectedOrders).OrderByDescending(p => p.PublishTime).ToList();
+                            break;
+                        }
+                }
+                ViewBag.AllOrders = selectedOrders;
+            }
 
             return View();
         }
