@@ -43,6 +43,10 @@ namespace Proiect_TW.BussinesLogic
         {
             return DelProduct(Title);
         }
+        public Statistics GetStatistics()
+        {
+            return GetAllStaistics();
+        }
 
 
     }

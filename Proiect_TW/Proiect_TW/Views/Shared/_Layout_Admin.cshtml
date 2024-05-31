@@ -18,8 +18,39 @@
     @Html.Partial("_Footer_Admin")
 
 </head>
-<body >
+<body>
     @Scripts.Render("~/assets/js/template2")
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'area'
+                },
+                series: [{
+                    name: 'Direct',
+                    data: [100, 600, 700, 800, 500, 400, 700, 1000, 1200, 900, 800, 1100, 1300, 1500, 1400, 1200, 1000] // Înlocuiește cu datele tale
+                }, {
+                    name: 'Affiliate',
+                    data: [100, 300, 350, 400, 250, 200, 350, 500, 600, 450, 400, 550, 650, 750, 700, 600, 500] // Înlocuiește cu datele tale
+                }],
+                xaxis: {
+                    categories: ['12 Feb', '13 Feb', '14 Feb', '15 Feb', '16 Feb', '17 Feb', '18 Feb', '19 Feb', '20 Feb', '21 Feb', '22 Feb', '23 Feb', '24 Feb', '25 Feb', '26 Feb', '27 Feb', '28 Feb'] // Înlocuiește cu datele tale
+                },
+                colors: ['#00E396', '#0090FF']
+            }
+
+            var chart = new ApexCharts(document.querySelector("#apex-area"), options);
+
+            chart.render();
+        });
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 </body>
 </html>

@@ -61,14 +61,15 @@ namespace Proiect_TW
             bundles.Add(new StyleBundle("~/assets/js/template2")
                 .Include("~/assets/js/js_template2/jquery-jvectormap-world-mill-en.js",
                          "~/assets/js/js_template2/jquery-jvectormap-1.2.2.min.js",
-                         "~/assets/js/js_template2/apexcharts.min.js",
+                         //"~/assets/js/js_template2/apexcharts.min.js",
                          "~/assets/js/js_template2/jquery.sparkline.min.js",
                          "~/assets/js/js_template2/jquery.peity.min.js",
                          "~/assets/js/js_template2/dashboard-2.init.js",
                          "~/assets/js/js_template2/app.min.js",
                          "~/assets/js/js_template2/vendor.min.js",
                          "~/assets/js/js_template2/dropzone.min.js",
-                         "~/assets/js/js_template2/form-fileuploads.init.js"
+                         "~/assets/js/js_template2/form-fileuploads.init.js",
+                         "~/assets/js/js_template2/script.js"
                          ));
 
 

@@ -62,6 +62,8 @@ namespace Proiect_TW.Controllers
         }
         public ActionResult Statistics()
         {
+            var statistics = _sessionAdmin.GetStatistics();
+            ViewBag.Statistics = statistics;
             GetUser();
             return View();
         }

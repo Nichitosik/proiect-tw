@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -236,6 +237,169 @@ namespace Proiect_TW.BussinesLogic.Core
             }
             
             return new ULoginResp { Status = false, StatusMsg = "Sometrhing get wrong" };
+        }
+        public Statistics GetAllStaistics()
+        {
+            Statistics statistics = new Statistics();
+
+            var users = new List<UDbTable>();
+            int usersToday = 0;
+
+            using (var db = new UserContext())
+            {
+                users = db.Users.ToList();
+            }
+            foreach(var user in users)
+            {
+                DateTime dateTime1 = DateTime.Now;
+                TimeSpan difference = dateTime1 - user.RegisterTime;
+                if (difference.TotalDays <= 1)
+                {
+                    usersToday++;
+                }
+            }
+            using (var db = new OrderContext())
+            {
+                var orders = db.Orders.ToList();
+
+                double TotalIncome = 0;
+                int TotalSoldItems = 0;
+                double AveragePrice = 0;
+
+                double IncomeToday = 0;
+                int SoldItemsToday = 0;
+                double AveragePriceToday = 0;
+
+                List<double> IncomeDaily = Enumerable.Repeat(0.0, 30).ToList();
+
+                double MensIncome = 0;
+                double WomensIncome = 0;
+                double KidsIncome = 0;
+
+                double MensSoldPercentage = 0;
+                double WomensSoldPercentage = 0;
+                double KidsSoldPercentage = 0;
+
+                int MensSoldItems = 0;
+                int WomensSoldItems = 0;
+                int KidsSoldItems = 0;
+
+
+                List<ProductStatistics> TopSoldItems = new List<ProductStatistics>();
+
+                foreach (var order in orders)
+                {
+                    DateTime dateTime1 = DateTime.Now;
+                    TimeSpan difference = dateTime1 - order.PublishTime;
+                    if (difference.TotalDays <= 1)
+                    {
+                        IncomeToday += order.TotalPrice;
+                    }
+                    for(int i = 1; i <=30; i++)
+                    {
+                        if (difference.TotalDays <= i)
+                        {
+                            IncomeDaily[i - 1] += order.TotalPrice;
+                            break;
+                        }
+                    }
+                    
+                    
+                    TotalIncome += order.TotalPrice;
+
+                    using (var db_OrderProducts = new OrderProductsContext())
+                    {
+                        var orderProducts = db_OrderProducts.OrderProducts.Where(p => p.OrderId == order.Id).ToList();
+                        var top10MostSoldItems = db_OrderProducts.OrderProducts
+                                    .OrderByDescending(p => p.Count)
+                                    .Take(10)
+                                    .ToList();
+                        foreach(var product in top10MostSoldItems)
+                        {
+                            ProductStatistics topProduct = new ProductStatistics()
+                            {
+                                ProductId = product.Id,
+                                ProductName = product.Title,
+                                Price = product.ItemPrice,
+                                Quantity = product.Count,
+                                Amount = product.ItemPrice * product.Count
+                            };
+
+                            TopSoldItems.Add(topProduct);
+                        }
+                        foreach (var product in orderProducts)
+                        {
+                            using (var db_Products = new ProductContext())
+                            {
+                                var productType = db_Products.Products
+                                                             .Where(p => p.Title == product.Title)
+                                                             .Select(p => p.Type)
+                                                             .FirstOrDefault();
+                                switch (productType)
+                                {
+                                    case "Men's":
+                                        {
+                                            MensIncome += product.ItemPrice * product.Count;
+                                            MensSoldItems++;
+                                            break;
+                                        }
+                                    case "Women's":
+                                        {
+                                            WomensIncome += product.ItemPrice * product.Count;
+                                            WomensSoldItems++;
+                                            break;
+                                        }
+                                    case "Kid's":
+                                        {
+                                            KidsIncome += product.ItemPrice * product.Count;
+                                            KidsSoldItems++;
+                                            break;
+                                        }
+                                }
+
+                            }
+
+                            if (difference.TotalHours <= 24)
+                            {
+                                SoldItemsToday += product.Count;
+                            }
+                            TotalSoldItems += product.Count;
+                        }
+                    }
+                }
+                AveragePrice = (double)TotalIncome / TotalSoldItems;
+                AveragePriceToday = (double)IncomeToday / SoldItemsToday;
+                int totalSoldItems = MensSoldItems + WomensSoldItems + KidsSoldItems;
+
+                if (totalSoldItems != 0)
+                {
+                    MensSoldPercentage = (double)MensSoldItems / totalSoldItems * 100;
+                    WomensSoldPercentage = (double)WomensSoldItems / totalSoldItems * 100;
+                    KidsSoldPercentage = (double)KidsSoldItems / totalSoldItems * 100;
+                }
+
+
+                statistics.AveragePrice = AveragePrice;
+                statistics.AveragePriceToday = AveragePriceToday;
+                statistics.IncomeToday = IncomeToday;
+                statistics.SoldItemsToday = SoldItemsToday;
+                statistics.NewUsersToday = usersToday;
+                statistics.TotalIncome = TotalIncome;
+                statistics.TotalSoldItems = TotalSoldItems;
+                statistics.TotalUsers = users.Count;
+                statistics.IncomeDaily = IncomeDaily;
+                statistics.MensIncome = MensIncome;
+                statistics.WomensIncome = WomensIncome;
+                statistics.KidsIncome = KidsIncome;
+                statistics.MensSoldPercentage = MensSoldPercentage;
+                statistics.WomensSoldPercentage = WomensSoldPercentage;
+                statistics.KidsSoldPercentage = KidsSoldPercentage;
+                statistics.TopSalesProducts = TopSoldItems;
+
+
+            }
+
+            return statistics;
         }
     }
 }

@@ -296,6 +296,7 @@
     <Content Include="assets\js\js_template2\jquery-jvectormap-world-mill-en.js" />
     <Content Include="assets\js\js_template2\jquery.peity.min.js" />
     <Content Include="assets\js\js_template2\jquery.sparkline.min.js" />
+    <Content Include="assets\js\js_template2\script.js" />
     <Content Include="assets\js\js_template2\vendor.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

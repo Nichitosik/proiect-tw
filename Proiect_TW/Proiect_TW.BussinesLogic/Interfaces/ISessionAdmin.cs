@@ -17,6 +17,7 @@ namespace Proiect_TW.BussinesLogic.Interfaces
         List<Feedback> GetUsersFeedback();
         ULoginResp DeleteUser(string UserEmail);
         ULoginResp DeleteProduct(string Title);
+        Statistics GetStatistics();
 
 
     }
